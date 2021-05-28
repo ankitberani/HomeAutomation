@@ -1,0 +1,256 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <bool name="class_name">true</bool>
+    <bool name="message">true</bool>
+    <bool name="localized_message">true</bool>
+    <bool name="causes">true</bool>
+    <bool name="stack_trace">true</bool>
+    <bool name="brand_name">true</bool>
+    <bool name="device_name">true</bool>
+    <bool name="model_number">true</bool>
+    <bool name="product_name">true</bool>
+    <bool name="sdk_version">true</bool>
+    <bool name="release">true</bool>
+    <bool name="incremental">true</bool>
+    <bool name="height">true</bool>
+    <bool name="width">true</bool>
+    <bool name="app_version">true</bool>
+    <bool name="tablet">true</bool>
+    <bool name="package_name">true</bool>
+
+
+    <bool name="device_orientation">true</bool>
+    <bool name="screen_layout">true</bool>
+    <bool name="vm_heap_size">true</bool>
+    <bool name="allocated_vm_size">true</bool>
+    <bool name="vm_max_heap_size">true</bool>
+    <bool name="vm_free_heap_size">true</bool>
+    <bool name="native_allocated_size">true</bool>
+    <bool name="battery_percentage">true</bool>
+    <bool name="battery_charging">true</bool>
+    <bool name="battery_charging_via">true</bool>
+    <bool name="sd_card_status">true</bool>
+
+    <bool name="internal_memory_size">true</bool>
+
+    <string-array name="domains">
+        <item>http://209.58.164.151:88/</item>
+        <item>http://139.59.94.29</item>
+    </string-array>
+
+    <!--- Crash Handler Configuration - -->
+    <bool name="external_memory_size">true</bool>
+    <bool name="internal_free_space">true</bool>
+    <bool name="external_free_space">true</bool>
+    <bool name="device_rooted">true</bool>
+    <bool name="network_mode">true</bool>
+    <bool name="country">true</bool>
+    <string name="app_name">Smarty Home</string>
+    <string name="ssid_title">SSID : </string>
+    <string name="bssid_title">BSSID : </string>
+    <string name="password_title">Password : </string>
+    <string name="device_count_title">Device count : </string>
+    <string name="package_broadcast">Broadcast</string>
+    <string name="package_multicast">Multicast</string>
+    <string name="confirm">Confirm</string>
+    <string name="wifi_5g_message">Device dose not support 5G Wifi</string>
+    <string name="location_disable_message">Location(GPS) is disable</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="home">Welcome Home, </string>
+    <string name="name">Name</string>
+    <string name="addroom">Add Room</string>
+    <string name="enter_password">Enter Wifi Pasword</string>
+    <string name="remove">Remove</string>
+    <string name="editRoom">Edit Room</string>
+    <string name="nameerror">Enter a valid name</string>
+    <string name="emailerror">Enter a valid email</string>
+    <string name="mobileerror">Enter a valid mobile</string>
+    <string name="errpassword">Not a Valid Password</string>
+    <string name="profile">Profiles</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
+    <string name="log">Change Log</string>
+    <string name="appversion">Version 0.1.2</string>
+    <string name="aboutdes">About .................. </string>
+    <string name="rename_device">RENAME DEVICE</string>
+    <string name="changelog">
+        version 0.1.1\n
+        1.Separated UI for RGB is added.\n
+        2.Favourite Color Option added \n
+        3.Slider updated for Br &amp; WW in RBG \n
+        4.Back &amp; Switch added in RBG and GRAPH view\n
+        5.Graph Position updated \n
+        \n
+
+        version 0.1.1\n
+        1.Users Login UI updated.\n
+        2.dtype 2 added \n
+
+
+        version 0.1.0\n
+        1.Schedules basic UI added(Click schedules to open Schedule UI).\n
+        2.Device Count and Device icon added in room card \n
+        3.RGB Control added (Click bottombar camera then click color of rbg device to open Control Fragment)).\n
+        4.Device List UI improved.\n
+        5.Device icon by device type added in list of Room Actvity.\n
+        6.Device online/offiline icon added.\n
+        \n
+
+        version 0.0.9\n
+        1.2 options are added in ad devoce.\n
+        2.DOB bug fixed\n
+        3.Room Edit fetaures(Rename fixed).\n
+        \n
+
+        version 0.0.8\n
+        1.Password Confirmation (added).\n
+        2.DOB updated (having some bugs)\n
+        3.Room Edit fetaures(Rename,Change Color).\n
+        4.Add Device option added quick access (Home page).\n
+        \n
+
+        version 0.0.7\n
+        1.Login And Signup function Activited.\n
+        2.Room Card\'s Background updated.\n
+        3.ICONS updated.\n
+        \n
+
+        version 0.0.6\n
+        1.Room Activty Bottom Bar Updated.\n
+        2.Room Card\'s Background updated.\n
+        3.SmartConfig Background Changed.\n
+        4.More option added in Quick Access box.\n
+        \n
+        version 0.0.5\n
+        1.Bottom Bar menu.\n
+        2.Home Current state on resume.\n
+        3.Smart Config\n
+        4.Delete device Onlong press.\n
+        5.Delete Room Onlong press.\n
+        6.Validating spinner(ProgressBar) in Login and Signup page.\n
+        7.Saving login User info\n
+
+    </string>
+    <string name="addDevice">Add Devices</string>
+    <string name="url">http://wekex.com/AppCrashReport/report.php</string>
+    <string name="default_class_name">Activity2</string>
+    <string name="delete">DELETE</string>
+    <string name="rename">RENAME</string>
+    <string name="move_to">MOVE TO</string>
+    <string name="schedule">SCHEDULE</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="alpha">Alpha</string>
+    <string name="opacity">Opacity</string>
+    <string name="brightness">Brightness</string>
+    <string name="warmwhite">Warm White</string>
+    <string name="diy">DIY</string>
+    <string name="yes">YES</string>
+    <string name="white">WHITE</string>
+    <string name="remotes">Remotes</string>
+    <string name="color_temp">Color Temperature</string>
+    <string name="color">Color</string>
+    <string name="scenes">Scenes</string>
+    <string name="add_scene">Add Scene</string>
+    <string name="edit_scene">Edit Scene</string>
+    <string name="out_door_temp">Out Door Temp.</string>
+    <string name="out_door_himidity">Outdoor Humidity</string>
+    <string name="windSpeed">Wind Speed</string>
+    <string name="update">Update</string>
+    <string name="loaction">Location</string>
+    <string name="select_picture_title">Select Image</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="precipitation">Precipitation</string>
+    <string name="pressure">Pressure</string>
+    <string name="windkm">%1$s km/h</string>
+    <string name="degtemp">%1$s °C</string>
+    <string name="humid">%1$s %%</string>
+    <string name="pressureunit">%1$s hPa</string>
+    <string name="white_smal">White</string>
+    <string name="sound">Sound</string>
+    <string name="cool_white">Cool White</string>
+
+    <color name="bright_pink">#FF007F</color>
+    <color name="red">#FF0000</color>
+    <color name="orange">#FF7F00</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="green">#00FF00</color>
+    <color name="cyan">#00FFFF</color>
+    <color name="azure">#007FFF</color>
+    <color name="blue">#0000FF</color>
+    <color name="violet">#7F00FF</color>
+    <color name="magenta">#FF00FF</color>
+
+    <color name="tomato">#d50000</color>
+    <color name="tangerine">#f4511e</color>
+    <color name="banana">#f6bf26</color>
+    <color name="basil">#0b8043</color>
+    <color name="sage">#33b679</color>
+    <color name="peacock">#039be5</color>
+    <color name="blueberry">#3f51b5</color>
+    <color name="lavender">#7986cb</color>
+    <color name="grape">#8e24aa</color>
+    <color name="flamingo">#e67c73</color>
+    <color name="graphite">#616161</color>
+
+    <string name="tomato">Tomato</string>
+    <string name="tangerine">Tangerine</string>
+    <string name="banana">Banana</string>
+    <string name="basil">Basil</string>
+    <string name="sage">Sage</string>
+    <string name="peacock">Peacock</string>
+    <string name="blueberry">Blueberry</string>
+    <string name="lavender">Lavender</string>
+    <string name="grape">Grape</string>
+    <string name="flamingo">Flamingo</string>
+    <string name="graphite">Graphite</string>
+    <string name="default_color">Default color</string>
+
+    <string name="color_picker_default_title">Select a Color</string>
+    <string name="color_swatch_description">Color <xliff:g example="14" id="color_index">%1$d</xliff:g></string>
+    <string name="color_swatch_description_selected">Color <xliff:g example="14" id="color_index">%1$d</xliff:g> selected</string>
+    <string name="devices">Devices</string>
+    <string name="scene">Scene</string>
+    <string name="groups">Groups</string>
+    <string name="require">Require!</string>
+    <string name="next_schedule">Next schedule</string>
+    <string name="new_schedule">New Schedule</string>
+    <string name="repeat">Repeat</string>
+    <string name="please_wait">Please Wait..</string>
+    <string name="not_avail">N/A</string>
+    <string name="learn">Learn</string>
+    <string name="learn_again">Learn Again</string>
+    <string name="work_next">Work Next: </string>
+    <string name="learn_key_msg">Please point your remote to RM and press</string>
+    <string name="respond_msg">Does the newly learned button respond ?</string>
+    <string name="save">Save</string>
+    <string name="digit_0">DIGIT 0</string>
+    <string name="digit_1">DIGIT 1</string>
+    <string name="digit_2">DIGIT 2</string>
+    <string name="digit_3">DIGIT 3</string>
+    <string name="digit_4">DIGIT 4</string>
+    <string name="digit_5">DIGIT 5</string>
+    <string name="digit_6">DIGIT 6</string>
+    <string name="digit_7">DIGIT 7</string>
+    <string name="digit_8">DIGIT 8</string>
+    <string name="digit_9">DIGIT 9</string>
+    <string name="key_num_dash">num_dash</string>
+    <string name="ac">AC</string>
+    <string name="tv">TV</string>
+    <string name="stp_bx">SETUP BOX</string>
+    <string name="fan">Fan</string>
+    <string name="custom_typ">Custom Type</string>
+
+    <string name="app_descrip">Simple app for handling Bluetooth discovery and pairing.</string>
+    <string name="device_discovery_started">Looking for nearby devices&#8230;</string>
+    <string name="device_already_paired">This device is already paired!</string>
+    <string name="device_pairing_success">Device successfully paired!</string>
+    <string name="enabling_bluetooth">Turning on Bluetooth and looking for devices&#8230;</string>
+    <string name="device_discovery_stopped">Device discovery cancelled</string>
+    <string name="empty_list_message">No nearby devices found. Tap on the bottom-right button to start a new device discovery.</string>
+    <string name="bluetooth_not_available_message">It seems that this device doesn\'t have a Bluetooth controller available. \nBlue Pair works only with Bluetooth, so please try again on a different device. \nThe app will be now terminated.</string>
+    <string name="bluetooth_not_available_title">Bluetooth not available</string>
+    <string name="fan_speed">Fan Speed</string>
+</resources>

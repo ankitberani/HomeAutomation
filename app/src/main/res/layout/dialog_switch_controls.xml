@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Turn this device ON/OFF"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:layout_margin="@dimen/margin_10" />
+
+    <Switch
+        android:id="@+id/toggle_on_off_switch_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:visibility="visible"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingStart="@dimen/margin_10"
+        android:paddingEnd="@dimen/margin_10"
+        android:paddingBottom="@dimen/dp_20"
+        android:textColor="@color/black"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:thumb="@drawable/toggle_btn_shape"
+        android:track="@drawable/toggle_track"
+        android:textOn="ON"
+        android:textOff="OFF"
+        android:showText="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/btn_done_switch_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_10"
+        android:text="DONE"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/white" />
+
+</LinearLayout>

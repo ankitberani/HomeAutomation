@@ -1,0 +1,154 @@
+
+http://209.58.164.151:88/doc.txt
+//////////////////////// Color Picker ////////////////////////////
+
+ColorPickerView picker = (ColorPickerView)findViewById(R.id.colorPicker);
+picker.setColor(0xffff0000);
+final int color = picker.getColor();
+
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.rarepebble.colorpicker.ColorPickerView
+        android:id="@+id/colorPicker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:colorpicker_showAlpha="true"
+        app:colorpicker_showHex="true"
+        app:colorpicker_showPreview="true"
+        />
+
+</FrameLayout>
+
+//////////////////////// On OF ////////////////////////////
+https://github.com/Angads25/android-toggle/wiki/LabeledSwitch
+implementation 'com.github.angads25:toggle:1.1.0'
+    <com.github.angads25.toggle.widget.LabeledSwitch
+        android:id="@+id/switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="14sp"
+        app:on="false"
+        app:colorBorder="@color/colorAccent"/>
+            LabeledSwitch labeledSwitch = findViewById(R.id.switch);
+            labeledSwitch.setOnToggledListener(new OnToggledListener() {
+                @Override
+                public void onSwitched(LabeledSwitch labeledSwitch, boolean isOn) {
+                    // Implement your switching logic here
+                }
+            });
+
+
+
+ {
+    "method":"linkDevice",
+    "data"  :{
+           "dno":"365479",
+ 		   "room":"ce9dea9e-9f0b-4d4e-a67f-831ea554bca0"
+       }
+ }
+
+ { "data_method" : "getDevice",
+  "data" : [
+    { "dno" : "365479", "key" : "365479",
+       "dtype" : "1", "name" : "Plug 2",
+        "enable" : true, "isOnline" : true,
+        "d1" : { "state" : false,
+        "name" : "Plug 2" },
+        "schedule" : [], "rule" : [] },
+        { "dno" : "996688", "key" : "996688", "dtype" : "1",
+         "name" : "Plug", "enable" : true, "isOnline" : true, "d1" : {
+         "state" : false, "name" : "Plug 1" },
+         "schedule" : [], "rule" : [] },
+
+         { "dno" : "5CCF7FA4A53A",
+         "key" : "1458400", "dtype" : "1",
+          "name" : "Device", "enable" : true, "isOnline" : false,
+            "d1" : { "state" : false, "name" : "Plug" } }],
+            "rooms" : [{ "ID" : "ce9dea9e-9f0b-4d4e-a67f-831ea554bca0", "name" : "Guest" }],
+            "groups" : []
+
+           }
+           Can you make some thing like this
+            { "method":"getRooms"  },
+             { "method":"groups"}
+
+{ "method": "getDevice" }
+______________________
+
+2. Link User-Device
+{
+   "method":"linkDevice",
+   "data"  :{
+         "dno":"{_dno_}",
+		 "room":{_roomID_}
+      }
+}
+________________________
+
+3. Un-Link User-Device
+{
+   "method":"ulinkDevice",
+   "data"  :{
+         "dno":"{_dno_}"
+      }
+}
+________________________
+
+4. Add Room
+{
+   "method":"addRoom",
+   "data"  :{
+         "name":"{_room name_}"
+      }
+}
+
+5.Delete Room
+{
+   "method":"deleteRoom",
+   "data"  :{
+         "room":"{_roomID_}"
+      }
+}
+________________________
+
+6.Change Device Room
+{
+   "method":"cgdRoom",
+   "data"  :{
+         "dno":"{_dno_}",
+		 "room":"{_roomID_}"
+      }
+}
+________________________
+
+Name Change:-
+
+{
+  "dno": "996688",
+  "key": "996688",
+  "dtype": "1",
+  "name": "Plug",
+}
+
+{"dno":18FE34F8730D,"power":0.00}
+
+Send to Device Sub Topic
+
+   app:color_center_halo_radius="40dp"
+            app:color_center_radius="30dp"
+            app:color_pointer_halo_radius="22dp"
+            app:color_pointer_radius="16dp"
+            app:color_wheel_radius="70dp"
+            app:color_wheel_thickness="24dp"
+
+             app:bar_length="140dp"
+                        app:bar_pointer_halo_radius="14dp"
+                        app:bar_pointer_radius="10dp"
+                        app:bar_thickness="8dp"
+

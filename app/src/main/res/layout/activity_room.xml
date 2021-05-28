@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/window"
+    android:orientation="vertical"
+    tools:context=".RoomActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/room_top"
+            android:padding="@dimen/dp_05">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_10"
+                android:onClick="finish"
+                android:src="@drawable/ic_arrow_back_black_24dp" />
+
+            <TextView
+                android:id="@+id/roomName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_05"
+                android:layout_toRightOf="@+id/iv_back"
+                android:text="Guest Room"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:capitalize="words" />
+
+            <TextView
+                android:id="@+id/tv_group"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_margin="@dimen/dp_05"
+                android:layout_toLeftOf="@+id/headmenu"
+                android:background="@drawable/profiles_border"
+                android:minWidth="70dp"
+                android:onClick="showGroups"
+                android:padding="5dp"
+                android:text="GROUPS"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+
+            <ImageView
+                android:id="@+id/headmenu"
+                android:layout_width="24dp"
+                android:layout_height="29dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/dp_05"
+                android:onClick="headMenu"
+                android:src="@drawable/three_dots"
+                app:tint="@color/white" />
+
+            <ImageView
+                android:id="@+id/iv_refresh"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/headmenu"
+                android:onClick="Refresh"
+                android:src="@drawable/refresh"
+                app:tint="@color/white" />
+
+            <TextView
+                android:id="@+id/no_of_device"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/roomName"
+                android:text="No. of Devices"
+                android:textColor="@android:color/white"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_scene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/no_of_device"
+                android:layout_margin="@dimen/dp_05"
+                android:text="@string/devices"
+                android:textColor="@color/white"
+                android:visibility="gone" />
+
+            <HorizontalScrollView
+                android:id="@+id/deviceTypeHolderScroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_scene"
+                android:layout_marginTop="1dp"
+                android:background="@color/room_top"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/deviceTypeHolder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone" />
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_head"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_head"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_device_type"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="@color/white"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal" />
+
+
+            <TextView
+                android:id="@+id/tv_no_scene"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/margin_10"
+                android:gravity="center"
+                android:text="No Scene Found!"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <ScrollView
+                android:id="@+id/scroll_scene_holder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true"
+                android:scrollbars="vertical">
+
+                <LinearLayout
+                    android:id="@+id/sceneHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusableInTouchMode="true"
+                    android:orientation="vertical"
+                    android:visibility="gone" />
+
+            </ScrollView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_group"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:visibility="gone" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_device_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/btn_add_new_rule"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:text="ADD NEW RULE"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:background="@color/colorAccent"
+            android:textColor="@color/white" />
+
+        <com.ashokvarma.bottomnavigation.BottomNavigationBar
+            android:id="@+id/bottom_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:background="@color/colorSecomdaryText"
+            android:backgroundTint="@color/white"
+            app:bnbBackgroundColor="@color/white"
+            app:bnbInactiveColor="@color/gray600" />
+
+        <RelativeLayout
+            android:id="@+id/bottomBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@color/colorPrimaryDark"
+            android:padding="5dp"
+            android:visibility="gone">
+
+            <com.github.angads25.toggle.widget.LabeledSwitch
+                android:id="@+id/home_switch"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/green"
+                android:outlineSpotShadowColor="@color/white"
+                android:textSize="14sp"
+                app:colorOff="@color/white"
+                app:colorOn="@color/green"
+                app:on="true"
+                app:textOff="Safe Mode Off"
+                app:textOn="Safe Mode On" />
+
+
+            <ImageView
+                android:id="@+id/noti"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@+id/home"
+                android:src="@drawable/ic_notifications" />
+
+            <ImageView
+                android:id="@+id/home"
+                android:layout_width="35dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="6dp"
+                android:layout_toLeftOf="@+id/menu"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:onClick="home"
+                android:src="@drawable/ic_home_black_24dp"
+                android:layout_toStartOf="@+id/menu"
+                android:layout_marginEnd="6dp" />
+
+            <ImageView
+                android:id="@+id/menu"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="menu"
+                android:scaleType="fitXY"
+                android:src="@drawable/remote_more_vert"
+                android:layout_alignParentEnd="true" />
+
+            <LinearLayout
+                android:id="@+id/device_menu_list"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/delete"
+                    style="@style/home_menu"
+                    android:onClick="delete"
+                    android:text="@string/delete" />
+
+                <TextView
+                    android:id="@+id/rename"
+                    style="@style/home_menu"
+                    android:onClick="rename"
+                    android:text="@string/rename" />
+
+                <TextView
+                    android:id="@+id/changeroom"
+                    style="@style/home_menu"
+                    android:onClick="changeroom"
+                    android:text="@string/move_to" />
+
+                <TextView
+                    android:id="@+id/schedules"
+                    style="@style/home_menu"
+                    android:onClick="schedules"
+                    android:text="@string/schedule" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

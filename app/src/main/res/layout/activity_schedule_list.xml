@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.ScheduleList">
+
+    <include layout="@layout/tool_bar"></include>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_schedule_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/dp_05"
+        android:layout_weight="1"
+        android:padding="@dimen/dp_05"></androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btn_add_new_schedule"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:text="@string/new_schedule"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"></Button>
+</LinearLayout>

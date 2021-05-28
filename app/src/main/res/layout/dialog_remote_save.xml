@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/darkback"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:padding="5dp">
+    <ImageView
+        android:id="@+id/close"
+        android:tint="@color/white"
+        android:layout_gravity="end"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/r_type"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:hint="Remote Type e.g AC/TV"
+        android:textColorHint="#45ffffff"
+        android:background="@drawable/edittext"
+        android:layout_width="280dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/brandName"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:hint="Enter Brand Name"
+        android:textColorHint="#45ffffff"
+        android:background="@drawable/edittext"
+        android:layout_width="280dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/dia_model"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:hint="Enter Model"
+        android:textColorHint="#45ffffff"
+        android:background="@drawable/edittext"
+        android:layout_width="280dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/dia_name"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:hint="Enter Remote Name"
+        android:textColorHint="#45ffffff"
+        android:background="@drawable/edittext"
+        android:layout_width="280dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content" />
+
+
+
+    <Button
+
+        android:id="@+id/dia_add"
+        android:textColor="@color/white"
+        android:background="@drawable/edittext"
+        android:text="ADD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/dia_update"
+        android:textColor="@color/white"
+        android:background="@drawable/edittext"
+        android:text="UPdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

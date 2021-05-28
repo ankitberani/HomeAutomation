@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt">
+    <item android:id="@+id/profile" android:title="@string/profile"/>
+    <item android:id="@+id/about" android:title="@string/about"/>
+    <item android:id="@+id/logout" android:title="@string/logout"/>
+    <item android:id="@+id/change_log" android:title="@string/log"/>
+    <item android:id="@+id/logs" android:title="Logs"/>
+</menu>

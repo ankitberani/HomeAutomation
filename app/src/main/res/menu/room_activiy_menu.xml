@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/AddDevice"
+        android:title="Add Devices" />
+
+    <item
+        android:id="@+id/AddProfiles"
+        android:title="@string/add_scene" />
+
+    <item
+        android:id="@+id/editscene"
+        android:title="@string/edit_scene" />
+
+    <!-- <item
+         android:id="@+id/SetColor"
+         android:title="Set Color"/>-->
+
+    <item
+        android:id="@+id/addGroup"
+        android:title="Add Groups" />
+
+</menu>

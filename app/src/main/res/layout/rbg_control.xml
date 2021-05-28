@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_gravity="center"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:visibility="invisible"
+        android:id="@+id/rbg_on_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="420dp">
+        <RelativeLayout
+            android:id="@+id/picker1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <com.larswerkman.holocolorpicker.ColorPicker
+                android:layout_centerInParent="true"
+                android:id="@+id/picker"
+                android:layout_width="250dp"
+                app:color_wheel_thickness="22dp"
+                app:color_center_radius="90dp"
+                android:layout_height="300dp"/>
+
+            <ImageView
+                android:id="@+id/rbg_on_bulb"
+                android:tag="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="60dp"
+                android:layout_height="90dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/bulb_rbg_on" />
+
+            <TextView
+                android:id="@+id/onoff_colorpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="ON"
+                android:paddingBottom="25dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/picker1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+
+                android:text="@string/brightness"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
+            <SeekBar
+                android:id="@+id/brightness"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:min="0"
+                android:max="255"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="@string/warmwhite"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp" />
+            <SeekBar
+                android:id="@+id/warmwhite"
+                android:layout_gravity="center"
+                android:layout_width="300dp"
+                android:min="0"
+                android:max="255"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2" >
+
+                <Button
+                    android:visibility="gone"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/smart_config_form_bg"
+                    android:id="@+id/button1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Set"
+                    android:layout_weight="1" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/rbg_off_layout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="345dp">
+        <RelativeLayout
+            android:id="@+id/picker2"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            >
+
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:layout_width="250dp"
+                android:layout_height="250dp">
+                <TextView
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/circle_bulb"
+                    android:layout_width="190dp"
+                    android:layout_height="190dp" />
+
+                <ImageView
+                    android:id="@+id/rbg_off_bulb"
+                    android:tag="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_width="60dp"
+                    android:layout_height="90dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/bulb_rbg_on" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="OFF"
+                    android:paddingBottom="25dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/picker1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_alignParentBottom="true"
+                android:textColor="@color/black"
+                android:textAlignment="center"
+                android:text="Press to turn on"
+                android:layout_below="@+id/pp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

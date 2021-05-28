@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_color"
+        android:icon="@drawable/color_icon"
+        android:title="@string/color"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_white"
+        android:icon="@drawable/ww_icon_bottom"
+        android:title="White"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_c_pallet"
+        android:icon="@drawable/color_pallete"
+        android:title="Color Pallete"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_scene"
+        android:icon="@drawable/sceneicon"
+        android:title="Scene"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_sound"
+        android:icon="@drawable/sound_icon"
+        android:title="Sound"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_schedule"
+        android:icon="@drawable/schedule"
+        android:title="Schedule"
+        app:showAsAction="ifRoom" />
+</menu>

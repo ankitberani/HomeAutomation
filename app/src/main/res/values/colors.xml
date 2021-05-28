@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#3E567A</color>
+    <color name="colorPrimaryDark">#3b5376</color>
+    <color name="colorAccent">#0091f5</color>
+    <color name="white">#ffffff</color>
+    <color name="green_">#00ff00</color>
+
+    <color name="red_">#ff0000</color>
+    <color name="click">#55A0A0A0</color>
+
+    <color name="grey">#f0f0f0</color>
+    <color name="blue_">#0000ff</color>
+    <color name="black">#000000</color>
+    <color name="signup_login">#ff2323</color>
+    <color name="gray600">#a0a0a0</color>
+    <color name="yellow_">#ffff00</color>
+    <color name="offwhite">#55a0a0a0</color>
+    <color name="warmwhite">#fbc02d</color>
+    <color name="window">#E6E6E6</color>
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecomdaryText">#a0a0a0</color>
+    <color name="room_top">#0B0C54</color>
+<!--    <color name="green">#f8dc88</color>-->
+
+    <color name="progress_gray">#FFD8D8D8</color>
+    <color name="progress_gray_dark">#FF383838</color>
+    <color name="default_blue_light">#FF33b5e5</color>
+
+    <color name="progress_gray_trans">#80D8D8D8</color>
+    <color name="progress_gray_dark_teans">#80383838</color>
+    <color name="default_blue_light_teans">#8033b5e5</color>
+</resources>

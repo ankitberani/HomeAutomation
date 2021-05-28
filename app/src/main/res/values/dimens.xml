@@ -1,0 +1,36 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="switch_track_width">40dp</dimen>
+    <dimen name="switch_track_height">30dp</dimen>
+    <dimen name="switch_radius">50dp</dimen>
+    <dimen name="switch_selector_padding">2dp</dimen>
+    <dimen name="switch_stroke_height">1dp</dimen>
+    <dimen name="switch_thumb_radius">15dp</dimen>
+    <dimen name="ten">10dp</dimen>
+    <dimen name="tweleve">12dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+
+    <dimen name="color_swatch_large">64dip</dimen>
+    <dimen name="color_swatch_small">48dip</dimen>
+    <dimen name="color_swatch_margins_large">8dip</dimen>
+    <dimen name="color_swatch_margins_small">4dip</dimen>
+    <dimen name="dp_05">05dp</dimen>
+    <dimen name="dp_150">150dp</dimen>
+    <dimen name="dp_130">130dp</dimen>
+    <dimen name="icon_size">50dp</dimen>
+    <dimen name="dp_30">30dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+    <dimen name="dp_20">20dp</dimen>
+    <dimen name="dp_35">35dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_200">200dp</dimen>
+    <dimen name="dp_100">100dp</dimen>
+    <dimen name="dp_80">80dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="text_margin_nested">26dp</dimen>
+</resources>

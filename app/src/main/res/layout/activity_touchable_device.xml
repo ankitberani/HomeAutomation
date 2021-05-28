@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#26463A"
+    android:fadeScrollbars="false"
+    android:orientation="vertical"
+    tools:context=".Activity.Touchable_device">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/view_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_10">
+
+                <FrameLayout
+                    android:id="@+id/v1"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view" />
+
+                    <View
+                        android:id="@+id/v1_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v1"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <FrameLayout
+                    android:id="@+id/v2"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_margin="@dimen/margin_10">
+
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v2_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v2"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/view_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <FrameLayout
+                    android:id="@+id/v3"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginTop="50dp">
+
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v3_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_on" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v3"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10">
+
+                <FrameLayout
+                    android:id="@+id/v4"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    >
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v4_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_on" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v4"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dp_05"
+            android:background="@color/black"></View>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/view_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_05">
+
+                <FrameLayout
+                    android:id="@+id/v5"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginLeft="@dimen/margin_10">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v5_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v5"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_05">
+
+                <FrameLayout
+                    android:id="@+id/v6"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginRight="@dimen/margin_10">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v6_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v6"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_5"
+                android:layout_centerHorizontal="true">
+
+                <FrameLayout
+                    android:id="@+id/v7"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v7_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v7"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_7">
+
+                <FrameLayout
+                    android:id="@+id/v8"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginLeft="@dimen/margin_10">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v8_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v8"
+                    android:layout_centerHorizontal="true"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/view_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view_7"
+                android:layout_alignParentRight="true">
+
+
+                <FrameLayout
+                    android:id="@+id/v9"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10">
+
+                    <View
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_80"
+                        android:background="@drawable/circullar_view"></View>
+
+                    <View
+                        android:id="@+id/v9_on_ff"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center"
+                        android:background="@drawable/circullar_view_off" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_view9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/v9"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"></TextView>
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

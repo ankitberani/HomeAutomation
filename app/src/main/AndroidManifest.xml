@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wekex.apps.homeautomation">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <application
+        android:name=".utils.ApplicationClass"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:icon">
+        <activity
+            android:name=".Activity.DeviceTyp15"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="c990f3564eec7eb9092f651aad1e454261e8bd97" />
+
+        <service android:name="org.eclipse.paho.android.service.MqttService" />
+        <service
+            android:name=".helperclass.MqttMessageService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity android:name=".bluetooth.BluetoothActivity" />
+        <activity
+            android:name=".Activity.LearnRemoteKeyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CategoryRemoteList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.UserRemoteCatList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.RemoteKeyActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.RemoteBrandActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.RemoteCatList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.RemoteTypeListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ViewLogs"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.Touchable_device"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.EditScene"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CreateScheduleType_Other"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.ScheduleList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CreateSchedule"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activity.CreateScene"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".utils.ActivityProfile" />
+        <activity
+            android:name=".utils.ScenesEditor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.SceneMenu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.GroupMenu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.GroupEditor"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".RF_selectRemote" />
+        <activity
+            android:name=".schedules_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".rf_remote"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".selectRemote" />
+        <activity android:name=".RemoteMenu" />
+        <activity
+            android:name=".RemoteActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".secondaryActivity.rgb_controls"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.group_rgb_controls"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Graphview"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".Activity.SelectDeviceForScene"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SmartConfig" />
+        <activity android:name=".DeviceList" />
+        <activity
+            android:name=".utils.SelectableDeviceList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LoginReg"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".widget"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".RoomActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AboutAndChange" />
+        <activity
+            android:name=".schedules"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".utils.GlobalLogging"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+    </application>
+
+</manifest>

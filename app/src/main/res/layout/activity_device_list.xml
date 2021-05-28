@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".DeviceList">
+
+    <include layout="@layout/tool_bar" />
+
+    <LinearLayout
+        android:id="@+id/deviceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_search_scene"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/search_rounded"
+            android:drawableStart="@drawable/search_icon"
+            android:drawablePadding="5dp"
+            android:hint="Search here..."
+            android:inputType="text"
+            android:padding="8dp" />
+
+        <ListView
+            android:id="@+id/scene_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="5.0sp"
+            android:scrollbars="none" />
+
+        <Button
+            android:id="@+id/scene_btn_proceed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/default_blue_light"
+            android:textColor="@color/white"
+            android:text="DONE" />
+
+
+    </LinearLayout>
+
+<!--    <HorizontalScrollView-->
+<!--        android:id="@+id/hori"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_gravity="center_vertical"-->
+<!--        android:background="@color/colorPrimary">-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/deviceTypeHolder"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="horizontal" />-->
+<!--        -->
+<!--    </HorizontalScrollView>-->
+
+</LinearLayout>
+
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="vertical"-->
+<!--tools:context=".DeviceList">-->
+
+<!--<include layout="@layout/tool_bar" />-->
+
+<!--<ScrollView-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="0dp"-->
+<!--    android:layout_weight="1"-->
+<!--    android:background="@color/white">-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/deviceHolder"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/dp_30"-->
+<!--        android:orientation="vertical" />-->
+
+<!--</ScrollView>-->
+
+<!--<HorizontalScrollView-->
+<!--    android:id="@+id/hori"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="50dp"-->
+<!--    android:layout_gravity="center_vertical"-->
+<!--    android:background="@color/grape">-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/deviceTypeHolder"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:orientation="horizontal" />-->
+
+<!--</HorizontalScrollView>-->
+
+<!--</LinearLayout>-->

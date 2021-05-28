@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar"></include>
+
+    <ImageView
+        android:id="@+id/iv_fan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/toolbar"
+        android:layout_margin="@dimen/dp_15"
+        android:src="@drawable/animated_fan"></ImageView>
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/dp_15"
+        android:showText="true"
+        android:textColor="@color/black"
+        android:textOff="OFF"
+        android:textOn="ON"
+        android:thumb="@drawable/toggle_btn_shape"
+        android:track="@drawable/toggle_track"
+        android:visibility="visible" />
+
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_croller"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/margin_10"
+        android:text="2"
+        android:textColor="@color/gray600"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/rl_croller"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/rl_croller"
+        android:padding="@dimen/margin_10"
+        android:text="3"
+        android:textColor="@color/gray600"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/rl_croller"
+        android:padding="@dimen/margin_10"
+        android:text="1"
+        android:textColor="@color/gray600"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_croller"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/margin_10"
+        android:text="4"
+        android:textColor="@color/gray600"
+        android:textSize="16sp"
+        android:textStyle="bold"></TextView>
+
+    <RelativeLayout
+        android:id="@+id/rl_croller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <com.sdsmdg.harjot.crollerTest.Croller
+            android:id="@+id/croller"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:back_circle_color="#FEDAB1"
+            app:indicator_color="#0B3C49"
+            app:indicator_width="10"
+            app:is_continuous="true"
+            app:label=""
+            app:label_color="#000000"
+            app:main_circle_color="#fff"
+            app:max="4"
+            app:min="1"
+            app:progress="1"
+            app:progress_primary_color="#0B3C49"
+            app:progress_secondary_color="#EEEEEE"
+            app:start_offset="0" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="0"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
+        android:textStyle="bold"></TextView>
+</RelativeLayout>

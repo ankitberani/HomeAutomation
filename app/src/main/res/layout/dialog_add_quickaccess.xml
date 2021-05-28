@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/darkback"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:padding="5dp">
+
+    <include layout="@layout/quick_access"/>
+    <EditText
+        android:id="@+id/diaEditName"
+        android:padding="5dp"
+        android:textColor="@color/white"
+        android:hint="Enter Name"
+        android:textColorHint="#45ffffff"
+        android:background="@drawable/edittext"
+        android:layout_width="280dp"
+        android:layout_margin="5dp"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        style="@style/quick_access"
+        android:text="Select Icon"
+        android:fontFamily="@font/aclonica"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <HorizontalScrollView
+        android:layout_margin="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_margin="3dp"
+            android:orientation="horizontal"
+            android:id="@+id/dia_qa_icon"
+            android:layout_width="match_parent"
+            android:layout_height="35dp">
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/dia_add"
+        android:textColor="@color/white"
+        android:background="@drawable/edittext"
+        android:text="ADD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

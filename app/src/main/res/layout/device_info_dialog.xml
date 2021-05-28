@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="450dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="@dimen/margin_10"
+        android:text="Device Info"
+        android:textColor="@color/white"
+        android:textSize="16sp"></TextView>
+
+
+    <TextView
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingTop="@dimen/margin_10"
+        android:text="Ip Address"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="10sp"></TextView>
+
+
+    <TextView
+        android:id="@+id/tv_ip_address"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_10"
+        android:text="192.168.1.15"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingTop="@dimen/margin_10"
+        android:text="version"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="10sp"></TextView>
+
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="450dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin_10"
+        android:text="154862"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"></TextView>
+
+    <TextView
+        android:id="@+id/tv_ok"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:background="@drawable/rounded_corner_white"
+        android:gravity="center"
+        android:padding="@dimen/margin_10"
+        android:text="OK"></TextView>
+
+</LinearLayout>

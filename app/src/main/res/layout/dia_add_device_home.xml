@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/darkback">
+    <TextView
+        android:text="Select Room to Continue :"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:padding="10dp"
+        android:id="@+id/na"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ScrollView
+        android:padding="10dp"
+        android:layout_below="@+id/na"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/Dia_roomholder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/add_device_home_dialog_room_holder"/>
+            </LinearLayout>
+            <!-- <include layout="@layout/card_rooms" />
+
+             <include layout="@layout/card_rooms" />-->
+
+
+    </ScrollView>
+</RelativeLayout>
