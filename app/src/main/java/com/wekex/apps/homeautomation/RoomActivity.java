@@ -896,6 +896,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     Log.d("Error.Response", "error" + error.getMessage());
                     Toast.makeText(this, "Unable to Delete", Toast.LENGTH_SHORT).show();
                 }
+
         );
 // add it to the RequestQueue
         queue.add(getRequest);
