@@ -97,6 +97,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -364,11 +365,13 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
             }
 
             @Override
-            public void onTabUnselected(int position) { }
+            public void onTabUnselected(int position) {
+            }
 
             @Override
-            public void onTabReselected(int position) { }
-            
+            public void onTabReselected(int position) {
+            }
+
         });
         setupSceneList();
         getSceneFromServer();
@@ -557,9 +560,8 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
 //        String isOnline1 = Constants.jsonObjectreader(jsonstring,isOnline);
 //        String room1 = Constants.jsonObjectreader(jsonstring,isOnline);
 
-        String d1pname1;
-        if (Constants.jsonObjectreader(jsonstring, "d1").contains(d1pname))
-            d1pname1 = Constants.jsonObjectreader(Constants.jsonObjectreader(jsonstring, "d1"), d1pname);
+//        if (Constants.jsonObjectreader(jsonstring, "d1").contains(d1pname))
+//            d1pname1 = Constants.jsonObjectreader(Constants.jsonObjectreader(jsonstring, "d1"), d1pname);
         state = Constants.jsonObjectreader(Constants.jsonObjectreader(jsonstring, "d1"), "state");
         String red = Constants.jsonObjectreader(Constants.jsonObjectreader(jsonstring, "d1"), "r");
         String green = Constants.jsonObjectreader(Constants.jsonObjectreader(jsonstring, "d1"), "g");
@@ -1499,7 +1501,8 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
         Observable<scene_model> observable = apiInterface.getAllScene(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<scene_model>() {
             @Override
-            public void onSubscribe(Disposable d) { }
+            public void onSubscribe(Disposable d) {
+            }
 
             @Override
             public void onNext(scene_model scene_models) {
@@ -1538,7 +1541,8 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
             }
 
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+            }
         });
     }
 
@@ -1561,7 +1565,8 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
         try {
             observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<SuccessResponse>() {
                 @Override
-                public void onSubscribe(Disposable d) { }
+                public void onSubscribe(Disposable d) {
+                }
 
                 @Override
                 public void onNext(SuccessResponse successResponse) {
@@ -1574,7 +1579,8 @@ public class rgb_controls extends AppCompatActivity implements View.OnLongClickL
                 }
 
                 @Override
-                public void onComplete() { }
+                public void onComplete() {
+                }
             });
         } catch (Exception e) {
             Log.e("TAGGG", "Exception at e " + e.getMessage(), e);

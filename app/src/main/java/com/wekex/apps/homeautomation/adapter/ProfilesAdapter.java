@@ -27,10 +27,6 @@ import static com.wekex.apps.homeautomation.utils.Utils.SCENEID;
 import static com.wekex.apps.homeautomation.utils.Utils.SUBHEADING;
 
 
-/**
- * Created by Nirmal on 22/04/2018.
- */
-
 public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHolder> {
 
     private ArrayList<JSONObject> jsonList;
@@ -46,7 +42,6 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
                 e.printStackTrace();
             }
         }
-
     }
 
     @Override
@@ -55,50 +50,43 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         JSONObject jsonObject = jsonList.get(position);
         Log.d("letsee", "onBindViewHolder: " + jsonObject.toString());
         try {
-            final String heading = jsonObject.getString(HEADING);
-            final String subHeading = jsonObject.getString(SUBHEADING);
-            final String icon = jsonObject.getString(ICON);
-            final String sceneId = jsonObject.getString(SCENEID);
+            final String sceneId = jsonObject.getString("ID");
+            final String heading = jsonObject.getString("Name");
 
             holder.parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((HomeActivity) context).triggerscene(sceneId);
+                    if (heading.equalsIgnoreCase("add"))
+                        ((HomeActivity) context).triggerscene(heading);
+                    else
+                        ((HomeActivity) context).triggerscene(sceneId);
                 }
             });
             holder.parent.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    if (!sceneId.equals("add"))
+                    if (!heading.equals("add"))
                         ((HomeActivity) context).scene_edit_menu(jsonObject, position);
                     return false;
                 }
             });
-
-            ((HomeActivity) context).setIMagetoView(icon, holder.prof_img);
             holder.prof_heading.setText(heading);
-            holder.prof_subheading.setText(subHeading);
 
-            if (sceneId.equals("add")) {
-                holder.prof_heading.setVisibility(View.GONE);
+            if (heading.equals("add")) {
+                holder.prof_heading.setVisibility(View.VISIBLE);
                 holder.prof_subheading.setVisibility(View.GONE);
-                holder.prof_img.setImageResource(R.drawable.remote_add);
+                holder.prof_heading.setText("Scene Shortcut");
+                holder.prof_img.setImageResource(R.drawable.remote_add_active);
             }
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
         //handling item click event
-
     }
 
     @Override
@@ -119,38 +107,4 @@ public class ProfilesAdapter extends RecyclerView.Adapter<ProfilesAdapter.ViewHo
             parent = itemView.findViewById(R.id.parent);
         }
     }
-/*
-    private ArrayList<String> noOfplayer(String sweet){
-
-        for(int i=0;i<players.size();i++)
-        {
-            if(players.get(i).startsWith(sweet.toUpperCase()))
-            {
-                MySortStrings.add(players.get(i));
-             //   Log.d("lets check",players.get(i));
-            }
-        }
-        return MySortStrings;
-    }
-    private void dailog(String label){
-        MySortStrings = new ArrayList<String>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,R.layout.dialogtextview
-                , noOfplayer(label));
-        Dialog adb = new Dialog(context);
-        adb.setContentView(R.layout.view);
-        ListView lv = adb.findViewById(R.id.mList);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(context, MySortStrings.get(i), Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context,profile.class);
-                intent.putExtra("byalpha",MySortStrings.get(i));
-                context.startActivity(intent);
-
-            }
-        });
-        adb.show();
-    }
-    */
 }

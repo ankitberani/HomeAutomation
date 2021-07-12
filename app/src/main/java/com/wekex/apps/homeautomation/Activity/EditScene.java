@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -75,7 +76,8 @@ public class EditScene extends AppCompatActivity implements rgb_color_interface 
         Observable<scene_model> observable = apiInterface.getAllScene(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<scene_model>() {
             @Override
-            public void onSubscribe(Disposable d) { }
+            public void onSubscribe(Disposable d) {
+            }
 
             @Override
             public void onNext(scene_model scene_models) {
@@ -117,13 +119,16 @@ public class EditScene extends AppCompatActivity implements rgb_color_interface 
     }
 
     @Override
-    public void selectedColor(int color) { }
+    public void selectedColor(int color) {
+    }
 
     @Override
-    public void selectedScene(int position) { }
+    public void selectedScene(int position) {
+    }
 
     @Override
-    public void triggerScene(String id) { }
+    public void triggerScene(String id) {
+    }
 
     @Override
     public void delScene(String id, int pos) {
@@ -164,7 +169,6 @@ public class EditScene extends AppCompatActivity implements rgb_color_interface 
 
     @Override
     public void editScene(String id, int pos) {
-
         try {
             JSONObject _object = new JSONObject(_mainList.get(pos).getDevices().get(0));
             Intent _intent = new Intent(EditScene.this, CreateScene.class);
@@ -188,16 +192,20 @@ public class EditScene extends AppCompatActivity implements rgb_color_interface 
     }
 
     @Override
-    public void getSchedules(String scheduleData) { }
+    public void getSchedules(String scheduleData) {
+    }
 
     @Override
-    public void deleteSchedule(int pos) { }
+    public void deleteSchedule(int pos) {
+    }
 
     @Override
-    public void editSchedule(int pos) { }
+    public void editSchedule(int pos) {
+    }
 
     @Override
-    public void updateSchedule(int pos) { }
+    public void updateSchedule(int pos) {
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

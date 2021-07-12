@@ -17,11 +17,9 @@ public class d1 {
     @SerializedName("motion")
     public String motion = "false";
 
-
     @Expose
     @SerializedName("r")
     public int r = 0;
-
 
     @Expose
     @SerializedName("g")
@@ -68,7 +66,6 @@ public class d1 {
     @Expose
     @SerializedName("v")
     public String value_v;
-
 
     public String getValue_t() {
         return value_t;
@@ -129,6 +126,7 @@ public class d1 {
     public int getB() {
         return b;
     }
+
 
     public void setB(int b) {
         this.b = b;

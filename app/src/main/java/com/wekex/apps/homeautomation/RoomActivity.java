@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -30,9 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -44,9 +44,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.wekex.apps.homeautomation.Activity.CreateScene;
 import com.wekex.apps.homeautomation.Activity.DeviceTyp15;
 import com.wekex.apps.homeautomation.Activity.EditScene;
+import com.wekex.apps.homeautomation.Activity.NewSceneTempletActivity;
 import com.wekex.apps.homeautomation.Activity.ScheduleList;
 import com.wekex.apps.homeautomation.Activity.UserRemoteCatList;
 import com.wekex.apps.homeautomation.Activity.ViewLogs;
@@ -60,7 +60,6 @@ import com.wekex.apps.homeautomation.helperclass.MqttMessageService;
 import com.wekex.apps.homeautomation.helperclass.PahoMqttClient;
 import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.DeviceType;
-import com.wekex.apps.homeautomation.model.GetAppHomeModel;
 import com.wekex.apps.homeautomation.model.SuccessResponse;
 import com.wekex.apps.homeautomation.model.data;
 import com.wekex.apps.homeautomation.model.scene_model;
@@ -69,7 +68,6 @@ import com.wekex.apps.homeautomation.utils.Constants;
 import com.wekex.apps.homeautomation.utils.DtypeViews;
 import com.wekex.apps.homeautomation.utils.GroupEditor;
 import com.wekex.apps.homeautomation.utils.ScenesEditor;
-import com.wekex.apps.homeautomation.utils.SelectableDeviceList;
 import com.wekex.apps.homeautomation.utils.group_rgb_controls;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -110,7 +108,6 @@ import static com.wekex.apps.homeautomation.utils.Constants.jsonobjectSTringJSON
 import static com.wekex.apps.homeautomation.utils.Constants.savetoShared;
 import static com.wekex.apps.homeautomation.utils.Constants.stringToJsonObject;
 import static com.wekex.apps.homeautomation.utils.DtypeViews.isOnline;
-import static com.wekex.apps.homeautomation.utils.DtypeViews.room;
 
 public class RoomActivity extends BaseActivity implements RoomOperation {
 
@@ -150,6 +147,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
     String room_Id = "";
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -158,6 +156,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         Room_Name = getIntent().getStringExtra("room_name");
         deviceTypeHolder = findViewById(R.id.deviceTypeHolder);
         Constants.showDeviceRype = 0;
+
+        Log.e("TAG", "");
 
         _utility = new Utility(RoomActivity.this);
         _grp_interface = this;
@@ -177,6 +177,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         tv_scene.setText(getResources().getString(R.string.devices));
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
         btnAddRule = findViewById(R.id.btn_add_new_rule);
+
+//20
 
 
 /*.addItem(new BottomNavigationItem(R.drawable.home_icon, "Home").setActiveColorResource(R.color.colorPrimaryDark).setInActiveColor(R.color.gray600))
@@ -329,7 +331,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 getScene();
             } else
                 getGroupsFromServer();
-
         });
 
         String _data = _utility.getString(room_Id);
@@ -757,37 +758,13 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     break;
 
                 case R.id.AddProfiles:
-
-                    if (_mainList_scene != null && _mainList_scene.getLst_scene() != null && _mainList_scene.getLst_scene().size() >= 10) {
-                        androidx.appcompat.app.AlertDialog.Builder dialog = new androidx.appcompat.app.AlertDialog.Builder(RoomActivity.this);
-                        dialog.setTitle("Scene limit exceeded");
-                        dialog.setMessage("You can add only 10 scene, please delete existing scene to add more.");
-                        dialog.setPositiveButton("Okay", (dialogInterface, i) -> dialogInterface.dismiss());
-                        dialog.show();
-                        return false;
-                    }
-
-//                    Intent intent = new Intent(RoomActivity.this, SelectDeviceForScene.class);
-//                    intent.putExtra("Devices", "new");
-//                    intent.putExtra("room_Id", room_Id);
-//                    if (_mainList_scene != null && _mainList_scene.getLst_scene() != null) {
-//                        String list_all = gson.toJson(_mainList_scene.getLst_scene());
-//                        intent.putExtra("list", list_all);
-//                    }
-//                    startActivityForResult(intent, 500);
-
-                    Intent intent = new Intent(RoomActivity.this, ScenesEditor.class);
-                    intent.putExtra("Devices", "new");
-                    intent.putExtra("roomID", room_Id);
-                    startActivityForResult(intent, 500);
-
+                    addNewScene();
                     break;
 
                 case R.id.editscene:
 //                        startActivityForResult(new Intent(RoomActivity.this, SceneMenu.class), ADDSCENE);
                     startActivityForResult(new Intent(RoomActivity.this, EditScene.class), 500);
                     break;
-
 
                 //case R.id.SetColor : setColor();break;
                 case R.id.addGroup:
@@ -797,6 +774,22 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             return true;
         });
         popup.show(); //showing popup menu
+    }
+
+    private void addNewScene() {
+
+        if (_mainList_scene != null && _mainList_scene.getLst_scene() != null && _mainList_scene.getLst_scene().size() >= 10) {
+            androidx.appcompat.app.AlertDialog.Builder dialog = new androidx.appcompat.app.AlertDialog.Builder(RoomActivity.this);
+            dialog.setTitle("Scene limit exceeded");
+            dialog.setMessage("You can add only 10 scene, please delete existing scene to add more.");
+            dialog.setPositiveButton("Okay", (dialogInterface, i) -> dialogInterface.dismiss());
+            dialog.show();
+            return;
+        }
+        Intent intent = new Intent(RoomActivity.this, NewSceneTempletActivity.class);
+        intent.putExtra("Devices", "new");
+        intent.putExtra("roomID", room_Id);
+        startActivityForResult(intent, 500);
     }
 
     private void showGroups() {
@@ -865,16 +858,30 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                             JSONArray devices = jsonObject.getJSONArray("Devices");
                             String id = jsonObject.getString("ID");
 
-                            View dli = LayoutInflater.from(this).inflate(R.layout.scene_button, null, false);
-                            LinearLayout dli_parent = dli.findViewById(R.id.dli_parent);
+                            View dli = LayoutInflater.from(this).inflate(R.layout.item_scene, null, false);
+                            LinearLayout dli_parent = dli.findViewById(R.id.ll_main_item);
 
-                            TextView schedules_name = dli.findViewById(R.id.schedules_name);
+                            RadioButton rb = dli.findViewById(R.id.radiobtn);
+                            rb.setVisibility(View.GONE);
+                            TextView schedules_name = dli.findViewById(R.id.tv_device_name);
 
                             schedules_name.setText(jsonobjectSTringJSON(jsonObject, "Name"));
 
                             dli_parent.setOnClickListener(v -> triggerscene(id));
+
+
                             sceneHolder.addView(dli);
                         }
+
+                        View dli = LayoutInflater.from(this).inflate(R.layout.add_scene_item, null, false);
+                        LinearLayout dli_parent = dli.findViewById(R.id.ll_main_item);
+                        dli_parent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                addNewScene();
+                            }
+                        });
+                        sceneHolder.addView(dli);
                         // remo = new JSONArray(InvalidJSON);
                         Log.d(TAG, "onCreate: String using Replace  " + remo);
                     } catch (JSONException e) {
@@ -1233,9 +1240,9 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             Log.e("TAG", "Data at select filtered size " + filteredList.getObjData().size() + " All size " + _all_data.getObjData().size());
 //        Toast.makeText(this, _all_data.getObjData().size() + "", Toast.LENGTH_SHORT).show();
 
-            for (int i = 0; i < filteredList.getObjData().size(); i++) {
+            /*for (int i = 0; i < filteredList.getObjData().size(); i++) {
                 Log.e("TAG", "Filtered List DNO Load  " + filteredList.getObjData().get(i).getDno());
-            }
+            }*/
         } catch (Exception e) {
             Log.e("TAG", "Exception at selectType " + e.getMessage());
         }
@@ -1343,7 +1350,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     void filterEmptyGroup(AllDataResponseModel _all_data) {
         try {
             Log.e("TAG", "filterEmptyGroup size Before " + _lst_device_type.size());
-
             ArrayList<DeviceType> _temp = new ArrayList<>();
             for (int j = 0; j < _lst_device_type.size(); j++) {
                 _temp.add(_lst_device_type.get(j));
@@ -1351,7 +1357,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             for (int i = 0; i < _temp.size(); i++) {
                 boolean isFound = false;
                 for (int j = 0; j < _all_data.getObjData().size(); j++) {
-                    Log.e("TAG", "Both Types temp " + _temp.get(i).getID() + " " + _all_data.getObjData().get(j).getDtype());
+//                    Log.e("TAG", "Both Types temp " + _temp.get(i).getID() + " " + _all_data.getObjData().get(j).getDtype());
                     if (room_Id.equalsIgnoreCase(_all_data.getObjData().get(j).getRoom())) {
                         if (_temp.get(i).getID() == _all_data.getObjData().get(j).getDtype()) {
                             isFound = true;
@@ -1385,7 +1391,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     String getNameFromType(int id) {
         String name = "";
         try {
-
             for (int i = 0; i < _lst_device_type.size(); i++) {
                 if (id == _lst_device_type.get(i).getID()) {
                     name = _lst_device_type.get(i).getName();
@@ -2117,7 +2122,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 }
             }
         } catch (Exception e) {
-            Log.e("TAG", "Exception at logout " + e.getMessage());
+            Log.e("TAG", "Exception at onDestroy " + e.getMessage());
         }
     }
 
@@ -2125,7 +2130,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         Log.wtf("DESCTRUCT_CALL", "SUCCESS");
         RoomActivity.this.finish();
     }
-
 
     public void pushLog(String data) {
         File logFile = new File("/data/data/com.wekex.apps.homeautomation/smarty_log.txt");

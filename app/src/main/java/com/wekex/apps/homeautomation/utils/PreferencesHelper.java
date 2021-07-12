@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 public class PreferencesHelper {
 
     private static final String PREFERENCES_NAME = "HomeAutomationPrefs";
-    private static final String ALL_DEVICES      = "allDevices";
-    private static final String USER_ID          = "userID";
+    private static final String ALL_DEVICES = "allDevices";
+    private static final String USER_ID = "userID";
 
     //Context
     private static SharedPreferences getPreferences(Context context) {
@@ -30,6 +30,17 @@ public class PreferencesHelper {
         SharedPreferences.Editor prefs = PreferencesHelper.getPreferences(context).edit();
         prefs.putString(USER_ID, value);
         prefs.apply();
+    }
+
+
+    public static void setString(Context context, String key, String value) {
+        SharedPreferences.Editor prefs = PreferencesHelper.getPreferences(context).edit();
+        prefs.putString(key, value);
+        prefs.apply();
+    }
+
+    public static String getString(Context context, String key) {
+        return PreferencesHelper.getPreferences(context).getString(key, "");
     }
 
     public static String getUserId(Context context) {

@@ -14,10 +14,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/dp_15"
         android:layout_marginRight="@dimen/dp_15"
         android:gravity="end"
         android:src="@drawable/bluetooth_icon"
-        android:visibility="gone"
-        android:layout_marginEnd="@dimen/dp_15" />
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_save"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="end|center"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:gravity="end|center"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
 
 </androidx.appcompat.widget.Toolbar>

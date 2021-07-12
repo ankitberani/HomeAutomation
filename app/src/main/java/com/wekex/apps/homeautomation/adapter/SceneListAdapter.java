@@ -95,8 +95,6 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
     int brightNess;
     SeekBar seekbar_clr_picker;
 
-
-
     public SceneListAdapter(Activity activity) {
         this.activity = activity;
     }
@@ -147,7 +145,7 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             view.setTag(holder);
 
         } else
-            holder = (ViewHolder)view.getTag();
+            holder = (ViewHolder) view.getTag();
 
         SceneListModel model = users.get(i);
 
@@ -226,7 +224,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             if (b) {
                 position = pos;
                 dialog.show();
-            } if(!b) {
+            }
+            if (!b) {
                 for (int i = 0; i <= items.length(); i++) {
                     try {
                         if (items.getString(i).indexOf(users.get(pos).getId()) > 0) {
@@ -271,7 +270,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
                 });
 
                 dialog.show();
-            } if (!b) {
+            }
+            if (!b) {
                 for (int i = 0; i <= items.length(); i++) {
                     try {
                         if (items.getString(i).indexOf(users.get(pos).getId()) > 0) {
@@ -298,7 +298,7 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
         if (characterText.length() == 0) {
             users.addAll(arrayList);
         } else {
-            for (SceneListModel productt: arrayList) {
+            for (SceneListModel productt : arrayList) {
                 if (productt.getName().toLowerCase(Locale.getDefault()).contains(characterText)) {
                     users.add(productt);
                 }
@@ -314,14 +314,14 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.white);
         dialog.setView(dialogView);
 
-        seekArc     = dialogView.findViewById(R.id.seekArcWhite);
+        seekArc = dialogView.findViewById(R.id.seekArcWhite);
         brigtnessTV = dialogView.findViewById(R.id.brightnessTV);
-        rl_white    = dialogView.findViewById(R.id.rl_whitelayout);
-        rl_rgb      = dialogView.findViewById(R.id.rl_rgblayout);
-        btnRGB      = dialogView.findViewById(R.id.btn_done_rgb_controls);
+        rl_white = dialogView.findViewById(R.id.rl_whitelayout);
+        rl_rgb = dialogView.findViewById(R.id.rl_rgblayout);
+        btnRGB = dialogView.findViewById(R.id.btn_done_rgb_controls);
 
-        seekbar_ww      = dialogView.findViewById(R.id.seekbar_ww);
-        tv_bright_perc  = dialogView.findViewById(R.id.tv_bright_perc);
+        seekbar_ww = dialogView.findViewById(R.id.seekbar_ww);
+        tv_bright_perc = dialogView.findViewById(R.id.tv_bright_perc);
         //seekArc.setProgress(50);
 
         _brightness = dialogView.findViewById(R.id.brightness);
@@ -388,7 +388,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             }
 
             @Override
-            public void onAlphaColorChnaged(boolean alpha) { }
+            public void onAlphaColorChnaged(boolean alpha) {
+            }
         });
 
         _brightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -406,7 +407,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -436,7 +438,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             }
 
             @Override
-            public void onStartTrackingTouch(SeekArc seekArc) { }
+            public void onStartTrackingTouch(SeekArc seekArc) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekArc seekArc) {
@@ -451,7 +454,8 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -474,10 +478,12 @@ public class SceneListAdapter extends BaseAdapter implements CompoundButton.OnCh
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
     }
 

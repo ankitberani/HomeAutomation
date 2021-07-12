@@ -47,6 +47,13 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.wekex.apps.homeautomation.Activity.AddAccessories;
+import com.wekex.apps.homeautomation.Activity.AddNewScene;
+import com.wekex.apps.homeautomation.Activity.CreateScene;
+import com.wekex.apps.homeautomation.Activity.EditScene;
+import com.wekex.apps.homeautomation.Activity.NewSceneTempletActivity;
+import com.wekex.apps.homeautomation.Activity.SceneListForShortcut;
 import com.wekex.apps.homeautomation.Interfaces.HomeScreenOperation;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
 import com.wekex.apps.homeautomation.Retrofit.APIService;
@@ -57,10 +64,12 @@ import com.wekex.apps.homeautomation.helperclass.PahoMqttClient;
 import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.GetAppHomeModel;
 import com.wekex.apps.homeautomation.model.SuccessResponse;
+import com.wekex.apps.homeautomation.secondaryActivity.rgb_controls;
 import com.wekex.apps.homeautomation.utils.ActivityProfile;
 import com.wekex.apps.homeautomation.utils.Constants;
 import com.wekex.apps.homeautomation.utils.DtypeViews;
 import com.wekex.apps.homeautomation.utils.GlobalLogging;
+import com.wekex.apps.homeautomation.utils.PreferencesHelper;
 import com.wekex.apps.homeautomation.utils.ScenesEditor;
 import com.wekex.apps.homeautomation.utils.Utils;
 
@@ -87,6 +96,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -148,7 +158,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
     ImageView iv_refresh;
     Utility _utility;
-
+    Gson _gson = new Gson();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -193,7 +203,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "onCreate: HomeActivity");
         Constants.savetoShared(this).edit().putString(Constants.PASSWORD, "12345").apply();
         Constants.GeneralpahoMqttClient = new PahoMqttClient().getHomeMqttClientAuthenticate(this, Constants.MQTT_BROKER_URL);
         startService(new Intent(this, MqttMessageService.class));
@@ -202,11 +211,11 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         Log.d(TAG, "onCreate: " + user);
         sendOneSignalUserID(user);
 //        getDeviceTypes();
-        JSONArray ssl = getprofiles(this);
-        Log.d(TAG, "onCreate: " + ssl);
-        if (ssl != null)
-            callProfAdapter(ssl);
+//        JSONArray ssl = getprofiles(this);
 
+        Log.d(TAG, "onCreate: ");
+       /* if (ssl != null)
+            callProfAdapter(ssl);*/
 
         /*if (data != null)
             addViews(data);*/
@@ -338,10 +347,12 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         final TextView textView = view1.findViewById(R.id.roomName);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -419,10 +430,12 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
         head.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -433,10 +446,12 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
         subhead.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -477,78 +492,70 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
     }
 
     public void createScene(View View) {
-        Intent intent = new Intent(this, ScenesEditor.class);
+       /* Intent intent = new Intent(this, ScenesEditor.class);
         intent.putExtra("Devices", "new");
-        startActivity(intent);
+        startActivity(intent);*/
+        if (sceneSavedList.length() <= 10)
+            showRoomLists(false, "", "");
+        else {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(HomeActivity.this);
+            dialog.setTitle("Scene limit exceeded");
+            dialog.setMessage("You can add only 10 scene, please delete existing scene to add.");
+            dialog.setPositiveButton("Okay", (dialogInterface, i) -> dialogInterface.dismiss());
+            dialog.show();
+        }
     }
 
-    public void getSceneLists() {
-        showProgressDialog("Loading Scenes ...");
+    public void showRoomLists(boolean isFromEditScene, String roomName, String _json_scenedata) {
         Dialog dialog = new Dialog(this);
         View view = LayoutInflater.from(this).inflate(R.layout.scene_picker, null, false);
         dialog.setContentView(view);
         LinearLayout sceneHolder = view.findViewById(R.id.picker_list);
-
         sceneHolder.removeAllViews();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-        final String url = APIClient.BASE_URL + "/api/Get/getScene?UID=" + user;
-        StringRequest getRequest = new StringRequest(GET, url,
-                response -> {
-                    JSONArray remo;
-                    String InvalidJSON = response.replace("\\\"", "\"").trim();
-                    try {
-                        JSONObject mainJsop = stringToJsonObject(response);
-                        remo = mainJsop.getJSONArray("Scene");
-                        for (int i = 0; i < remo.length(); i++) {
+        View inflate = LayoutInflater.from(this).inflate(R.layout.scene_picker_item, null, false);
+        TextView headings = inflate.findViewById(R.id.schedules_head);
+        if (isFromEditScene)
+            headings.setText(getResources().getString(R.string.edit_scene_room_selection_msg));
+        else
+            headings.setText(getResources().getString(R.string.select_room_msg));
+        headings.setVisibility(View.VISIBLE);
+        headings.setTextSize(16);
+        headings.setTextColor(getResources().getColor(R.color.black));
+        sceneHolder.addView(inflate);
+        for (int i = 0; i < main_object._lst_rooms.size() - 1; i++) {
+            View dli = LayoutInflater.from(this).inflate(R.layout.scene_picker_item, null, false);
+            LinearLayout dli_parent = dli.findViewById(R.id.dli_parent);
 
-                            JSONObject jsonObject = remo.getJSONObject(i);
-                            JSONArray devices = jsonObject.getJSONArray("Devices");
-                            String sceneName = jsonobjectSTringJSON(jsonObject, "Name");
-                            String id = jsonObject.getString("ID");
-
-                            View dli = LayoutInflater.from(this).inflate(R.layout.scene_picker_item, null, false);
-                            LinearLayout dli_parent = dli.findViewById(R.id.dli_parent);
-
-                            TextView schedules_name = dli.findViewById(R.id.schedules_name);
-                            schedules_name.setText(sceneName);
-
-                            dli_parent.setOnClickListener(v -> {
-                                addProfiles(sceneName, id, sceneSavedList.length());
-                                dialog.dismiss();
-                            });
-                            sceneHolder.addView(dli);
-                        }
-                        if (remo.length() > 0)
-                            dialog.show();
-                        // remo = new JSONArray(InvalidJSON);
-                        hideProgressDialog();
-                        Log.d(TAG, "onCreate: String using Replace  " + remo);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        hideProgressDialog();
-                    }
-
-
-                },
-                error -> {
-                    Log.d("Error.Response", "error" + error.getMessage());
-                    Toast.makeText(this, "Unable to loadScenes", Toast.LENGTH_SHORT).show();
-                    hideProgressDialog();
+            TextView schedules_name = dli.findViewById(R.id.schedules_name);
+            schedules_name.setText(main_object.get_lst_rooms().get(i).getName());
+            schedules_name.setTag(main_object.get_lst_rooms().get(i).getID());
+            dli_parent.setOnClickListener(v -> {
+                if (!isFromEditScene) {
+                    Intent intent = new Intent(HomeActivity.this, NewSceneTempletActivity.class);
+                    intent.putExtra("Devices", "new");
+                    intent.putExtra("roomID", (String) schedules_name.getTag());
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(HomeActivity.this, AddNewScene.class);
+                    intent.putExtra("Devices", "update");
+                    intent.putExtra("roomID", (String) schedules_name.getTag());
+                    intent.putExtra("sceneJsonData", _json_scenedata);
+                    intent.putExtra("name", roomName);
+                    startActivity(intent);
                 }
-        );
-
-// add it to the RequestQueue
-        queue.add(getRequest);
-
-
+                dialog.dismiss();
+            });
+            sceneHolder.addView(dli);
+        }
+        dialog.show();
     }
 
     public void triggerscene(String id) {
         if (id.equals("add")) {
-            getSceneLists();
+//            showRoomLists();
+            Intent _intent = new Intent(this, SceneListForShortcut.class);
+            startActivity(_intent);
         } else {
-
             showProgressDialog("Trigering...");
             String url = BASEURL + "Get/triggerScene?ID=" + id;
             Log.d(TAG, "triggerscene: " + url);
@@ -560,22 +567,54 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
                 Log.d(TAG, "triggerscene: " + error.getCause());
                 hideProgressDialog();
             });
-
             queue.add(request);
         }
-
     }
 
     JSONArray jsonArray_global;
+    ProfilesAdapter _adapter_scene;
 
     private void callProfAdapter(JSONArray jsonArray) {
-        sceneSavedList = jsonArray;
+        JSONArray _arr = new JSONArray();
+        try {
+            String _json = PreferencesHelper.getString(HomeActivity.this, Constants.ShortcutList);
+            ArrayList<String> _selectedList = (ArrayList<String>) _gson.fromJson(_json,
+                    new TypeToken<ArrayList<String>>() {
+                    }.getType());
+
+            if (_selectedList != null && _selectedList.size() != 0)
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    for (int j = 0; j < _selectedList.size(); j++) {
+                        try {
+                            JSONObject _object = jsonArray.getJSONObject(i);
+                            if (_object.getString("ID").equalsIgnoreCase("-1") || _object.getString("ID").equalsIgnoreCase(_selectedList.get(j))) {
+                                _arr.put(_object);
+                                break;
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+            else {
+                JSONObject _myObject = new JSONObject();
+                _myObject.put("Name", "add");
+                _myObject.put("ID", "-1");
+                _arr.put(_myObject);
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "Exception at Home " + e.toString());
+        }
+//        sceneSavedList = jsonArray;
+        sceneSavedList = _arr;
         if (sceneSavedList.length() > 1)
             ((LinearLayout) findViewById(R.id.dummyscenes)).removeAllViews();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.profileRecycler);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new ProfilesAdapter(this, jsonArray));
-        jsonArray_global = jsonArray;
+
+        _adapter_scene = new ProfilesAdapter(this, sceneSavedList);
+        recyclerView.setAdapter(_adapter_scene);
+        jsonArray_global = sceneSavedList;
     }
 
     public void Addimages(View view) {
@@ -611,7 +650,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
     }
 
-    Camera camera;
     int CAMERA_REQUEST = 1;
     File photoFile = null;
 
@@ -651,13 +689,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
 
             File myfile = new File(Utils.getPath(fileUri, HomeActivity.this));
-//            File myfile = PathUtil.getFile(this, fileUri);
-//            String filepath = myfile.getAbsolutePath();
-//            Bitmap myBitmap = BitmapFactory.decodeFile(filepath);
-//            dia_ImageView.setImageBitmap(compressedBitmap(HomeActivity.this, filepath));
-
             if (myfile.exists()) {
-//                dia_ImageView.setImageBitmap(myBitmap);
                 dia_ImageView.setTag(myfile.getAbsolutePath());
                 Glide.with(this)
                         .load(myfile) // Uri of the picture
@@ -750,10 +782,12 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -835,6 +869,8 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         String jsonString = Constants.savetoShared(this).getString(Constants.ROOMS, "null");
 //        addViews(jsonString);
         registerReceiver(broadcastReceiver, new IntentFilter(MqttMessageService.BROADCAST_ACTION));
+
+        getAllScenes();
     }
 
     @Override
@@ -962,28 +998,29 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         dialog.setContentView(view);
 
-        String heading, subheading, sceneid;
-
+        String heading, sceneid;
 
         TextView editScene, removeScene, cancel;
         editScene = view.findViewById(R.id.editScene);
         removeScene = view.findViewById(R.id.remoscene);
         cancel = view.findViewById(R.id.cancel);
         cancel.setOnClickListener(v -> dialog.dismiss());
-
         try {
-            heading = sceneObj.getString(HEADING);
-            sceneid = sceneObj.getString(SCENEID);
+            heading = sceneObj.getString("Name");
+            sceneid = sceneObj.getString("ID");
             if (sceneid.equals("add"))
                 dialog.dismiss();
             editScene.setOnClickListener(v -> {
-                addProfiles(heading, sceneid, pos);
+                showRoomLists(true, heading, sceneObj.toString());
                 dialog.dismiss();
             });
 
             removeScene.setOnClickListener(v -> {
-                JSONArray jsonArray = removehomescene(HomeActivity.this, sceneid);
-                callProfAdapter(jsonArray);
+                try {
+                    delScene(sceneid, pos);
+                } catch (Exception e) {
+                    Log.e("TAG", "Exception at delete " + e.toString());
+                }
                 dialog.dismiss();
             });
         } catch (JSONException e) {
@@ -991,6 +1028,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         }
         dialog.show();
     }
+
 
     public void profile(View view) {
         startActivity(new Intent(HomeActivity.this, ActivityProfile.class));
@@ -1056,43 +1094,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
                 .setNeutralButton("cancel", (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                     _position_dialog = 0;
-                    /*final Dialog dialog = new Dialog(HomeActivity.this);
-
-                    View view1 = LayoutInflater.from(HomeActivity.this).inflate(R.layout.dialog_sort_room, null, false);
-                    dialog.setContentView(view1);
-
-                    Spinner _spn_room = (Spinner) view1.findViewById(R.id.spn_room);
-                    Spinner _spn_priority = (Spinner) view1.findViewById(R.id.spn_priority);
-
-                    ArrayList<String> _lst_room = new ArrayList<>();
-                    ArrayList<String> _lst_priority = new ArrayList<>();
-                    for (int j = 0; j < main_object.get_lst_rooms().size(); j++) {
-                        if (!main_object.get_lst_rooms().get(j).getName().equalsIgnoreCase("AddNew")) {
-                            _lst_room.add(main_object.get_lst_rooms().get(j).getName());
-                            int index = j + 1;
-                            _lst_priority.add(index + "");
-                        }
-                    }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(HomeActivity.this,
-                            R.layout.textview_spinner, _lst_room);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    _spn_room.setAdapter(adapter);
-
-                    ArrayAdapter<String> adapter_priority = new ArrayAdapter<String>(HomeActivity.this,
-                            R.layout.textview_spinner, _lst_priority);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    _spn_priority.setAdapter(adapter_priority);
-
-
-                    Button _btn_submit = view1.findViewById(R.id.btn_sort);
-                    _btn_submit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialog.dismiss();
-                        }
-                    });
-                    dialog.show();*/
-
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
@@ -1102,15 +1103,14 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
 
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-//        String url="http://209.58.164.151:88/api/Get/updRoom?UID={UID}&roomID={RoomID}&RoomName={Room_Name}"
-//        String url = "http://209.58.164.151:88/api/Get/updRoom?UID=" + user + "&roomID=" + _id + "&RoomName=" + name;
         String url = APIClient.BASE_URL + "/api/Get/updRoom?UID=" + user + "&roomID=" + _id + "&RoomName=" + name;
         Log.e("TAGG", "URL of the UpdateRoom" + url + " position " + position + " Room size " + main_object.get_lst_rooms().size() + " _drawable_nm " + _drawable_nm);
         Observable<SuccessResponse> observable = apiInterface.updateRoom(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<SuccessResponse>() {
 
             @Override
-            public void onSubscribe(Disposable d) { }
+            public void onSubscribe(Disposable d) {
+            }
 
             @Override
             public void onNext(SuccessResponse successResponse) {
@@ -1208,33 +1208,24 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         }
     }
 
-    int pos = 0;
-
     public void GetAllData(boolean isFromRefresh) {
-//        if (!isFromRefresh) {
-//            showProgressDialog("Fetching Data");
-//        }
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-//        String url = "http://209.58.164.151:88/api/Get/getDevice?UID=" + user;
         String url = APIClient.BASE_URL + "/api/Get/getAppHome?UID=" + user;
-//        String url = "http://139.59.94.29/api/Get/getRoom?UID=" + user;
-
         Log.e("TAG", "GetAllData URL " + url);
 
         Observable<GetAppHomeModel> observable = apiInterface.getAllData(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<GetAppHomeModel>() {
             @Override
-            public void onSubscribe(Disposable d) { }
+            public void onSubscribe(Disposable d) {
+            }
 
             @Override
             public void onNext(GetAppHomeModel _object) {
                 //hideProgressDialog();
                 try {
                     if (_object != null) {
-
                         main_object = _object;
-
                         Gson gson = new Gson();
                         String str = gson.toJson(main_object);
                         GetAppHomeModel.rooms _obj_rooms = new GetAppHomeModel.rooms();
@@ -1281,49 +1272,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
             }
         });
-
-       /* Observable<AllDataResponseModelWithStatus> observable = apiInterface.getAllDataWithStatus(url);
-        observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<AllDataResponseModelWithStatus>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(AllDataResponseModelWithStatus main_object) {
-                hideProgressDialog();
-                try {
-                    if (main_object != null) {
-                        Gson gson = new Gson();
-                        String str = gson.toJson(main_object);
-                        rooms _obj_rooms = new rooms();
-                        _obj_rooms.setName("AddNew");
-                        _obj_rooms.setID("-1");
-
-                        main_object.get_objData().getLst_rooms().add(_obj_rooms);
-                        Constants.savetoShared(HomeActivity.this).edit().putString(Constants.ROOMS, str).apply();
-                        _adapter = new RoomAdapter(main_object, HomeActivity.this, _interface, str);
-                        rv_rooms.setAdapter(_adapter);
-                    }
-                } catch (Exception e) {
-                    Log.e("TAGGG", "Exception at parse" + e.getMessage(), e);
-                }
-                swipe_refresh_room.setRefreshing(false);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                hideProgressDialog();
-                swipe_refresh_room.setRefreshing(false);
-                Log.e("TAGGG", "Exception at update Room " + e.getMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
-*/
     }
 
     protected void onDestroy() {
@@ -1331,4 +1279,85 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         Log.wtf("DESTROY_EVENT", "CALLED");
     }
 
+    void getAllScenes() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
+        final String url = APIClient.BASE_URL + "/api/Get/getScene?UID=" + user;
+        StringRequest getRequest = new StringRequest(GET, url,
+                response -> {
+                    JSONArray remo;
+                    String InvalidJSON = response.replace("\\\"", "\"").trim();
+                    try {
+                        JSONObject mainJsop = stringToJsonObject(response);
+                        Log.e("TAG", "response of getAllScenes " + response);
+                        remo = mainJsop.getJSONArray("Scene");
+                        JSONArray _array = new JSONArray();
+                        JSONObject _myObject = new JSONObject();
+                        _myObject.put("Name", "add");
+                        _myObject.put("ID", "-1");
+                        _array.put(_myObject);
+                        for (int i = 0; i < remo.length(); i++) {
+                            JSONObject jsonObject = remo.getJSONObject(i);
+                            JSONArray devices = jsonObject.getJSONArray("Devices");
+                            String sceneName = jsonobjectSTringJSON(jsonObject, "Name");
+                            String id = jsonObject.getString("ID");
+                            _myObject = new JSONObject();
+                            _myObject.put("Name", sceneName);
+                            _myObject.put("ID", id);
+                            _myObject.put("Devices", devices);
+                            _array.put(_myObject);
+                        }
+                        callProfAdapter(_array);
+                        hideProgressDialog();
+                        Log.e(TAG, "Get All scene size  " + remo.length());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        hideProgressDialog();
+                    }
+                },
+                error -> {
+                    Log.d("Error.Response", "error" + error.getMessage());
+                    Toast.makeText(this, "Unable to loadScenes", Toast.LENGTH_SHORT).show();
+                    hideProgressDialog();
+                }
+        );
+        // add it to the RequestQueue
+        queue.add(getRequest);
+    }
+
+    public void delScene(String id, int pos) {
+        APIService apiInterface = APIClient.getClient_1().create(APIService.class);
+        String url = APIClient.BASE_URL + "/api/Get/delScene?ID=" + id;
+        Log.e("TAG", "Delete Scenes <>" + url);
+        showProgressDialog(getResources().getString(R.string.please_wait));
+        Observable<SuccessResponse> observable = apiInterface.delScene(url);
+        try {
+            observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<SuccessResponse>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(SuccessResponse successResponse) {
+                    Toast.makeText(HomeActivity.this, successResponse.getSuccess() + "", Toast.LENGTH_SHORT).show();
+                    if (successResponse.getSuccess()) {
+                        getAllScenes();
+                    }
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    Log.e("TAGG", "OnError " + e.getMessage(), e);
+                }
+
+                @Override
+                public void onComplete() {
+                    hideProgressDialog();
+                }
+            });
+        } catch (Exception e) {
+            Log.e("TAGGG", "Exception at e " + e.getMessage(), e);
+        }
+    }
 }

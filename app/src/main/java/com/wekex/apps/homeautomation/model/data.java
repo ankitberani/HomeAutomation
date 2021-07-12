@@ -15,7 +15,6 @@ public class data {
     @SerializedName("key")
     public String key = "";
 
-
     @Expose
     @SerializedName("dtype")
     public int dtype = 0;

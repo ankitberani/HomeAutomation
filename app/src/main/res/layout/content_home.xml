@@ -178,7 +178,8 @@
                         android:text="+"
                         android:textAlignment="center"
                         android:textColor="#4da6ff"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="visible" />
 
                 </RelativeLayout>
 

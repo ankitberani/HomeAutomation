@@ -43,7 +43,6 @@ public class DeviceTyp15 extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_typ15);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(getIntent().getStringExtra("dname"));
         setSupportActionBar(toolbar);

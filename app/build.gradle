@@ -20,8 +20,6 @@ android {
         versionName "Smarty_V1_20210311"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-
 //         manifestPlaceholders = [
 //                onesignal_app_id : 'ea84fc65-2dcc-493b-9423-fd4c1a3da63c',
 //                // Project number pulled from dashboard, local value is ignored.

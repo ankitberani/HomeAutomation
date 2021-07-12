@@ -87,6 +87,8 @@ public class PahoMqttClient {
         } catch (MqttException e) {
             Log.d(TAG, "Failure1 " + e.toString());
             e.printStackTrace();
+        } catch (Exception e) {
+            Log.d(TAG, "Failure2 " + e.toString());
         }
         return mqttAndroidClient;
     }

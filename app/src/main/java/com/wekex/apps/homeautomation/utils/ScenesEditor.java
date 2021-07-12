@@ -1,7 +1,6 @@
 package com.wekex.apps.homeautomation.utils;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,31 +16,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.common.net.HttpHeaders;
-import com.google.gson.JsonObject;
 import com.wekex.apps.homeautomation.R;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
-
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 public class ScenesEditor extends AppCompatActivity {
     int GET_DEVICE = 1;
@@ -164,7 +154,7 @@ public class ScenesEditor extends AppCompatActivity {
     }
 
     /* access modifiers changed from: protected */
-    public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == this.GET_DEVICE) {
             if (resultCode == -1) {

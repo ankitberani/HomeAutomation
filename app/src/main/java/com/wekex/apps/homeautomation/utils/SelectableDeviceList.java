@@ -7,33 +7,21 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.wekex.apps.homeautomation.Interfaces.SelectableListener;
 import com.wekex.apps.homeautomation.R;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
 import com.wekex.apps.homeautomation.Retrofit.APIService;
-import com.wekex.apps.homeautomation.RoomActivity;
-import com.wekex.apps.homeautomation.SplashActivity;
-import com.wekex.apps.homeautomation.Utility;
 import com.wekex.apps.homeautomation.adapter.SceneListAdapter;
 import com.wekex.apps.homeautomation.model.SceneListModel;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -41,15 +29,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.wekex.apps.homeautomation.utils.Constants.room_Id;
 
 public class SelectableDeviceList extends AppCompatActivity implements SelectableListener {
     static String lastTab;
@@ -94,27 +78,21 @@ public class SelectableDeviceList extends AppCompatActivity implements Selectabl
         btnProceed = findViewById(R.id.scene_btn_proceed);
 
         btnProceed.setOnClickListener(View -> {
-
             try {
                 hashData = new JSONArray(hashStr);
-
                 JSONObject finalObj = new JSONObject();
-
                 finalObj.put("UID", PreferencesHelper.getUserId(this));
                 finalObj.put("Name", "Test1");
                 finalObj.put("Devices", new JSONArray());
-
                 JSONArray jsonArray = finalObj.getJSONArray("Devices");
                 for (int i = 0; i < hashData.length(); i++) {
                     jsonArray.put(hashData.getString(i));
                 }
-
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("deviceInfo", finalObj.toString());
                 setResult(Activity.RESULT_OK, returnIntent);
                 Log.wtf("FINAL_FORMED_JSON", String.valueOf(finalObj));
                 finish();
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -220,7 +198,7 @@ public class SelectableDeviceList extends AppCompatActivity implements Selectabl
 //        if (PreferencesHelper.getAllDevices(this) != null)
 //            setUpList("");
 //        else
-            getDevices();
+        getDevices();
 
     }
 
@@ -271,10 +249,12 @@ public class SelectableDeviceList extends AppCompatActivity implements Selectabl
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -310,26 +290,11 @@ public class SelectableDeviceList extends AppCompatActivity implements Selectabl
         deviceHolder = findViewById(R.id.deviceHolder);
         //Device Icon and count
         //LinearLayout iconholder = findViewById(R.id.iconholder);
-        data = Constants.jsonObjectreader(Constants.savetoShared(this).getString(Constants.ROOMS, Constants.EMPTY),"data");
+        data = Constants.jsonObjectreader(Constants.savetoShared(this).getString(Constants.ROOMS, Constants.EMPTY), "data");
         String total = HomePage.homePageIconAdder(this, data, deviceHolder, roomId);
     }
 
 
-    public void mTDTV(int dtv) {
-        String str = this.TAG;
-        StringBuilder sb = new StringBuilder();
-        sb.append("myTag j ");
-        sb.append(dtv);
-        Log.d(str, sb.toString());
-        LinearLayout linearLayout = this.deviceTypeHolder;
-        StringBuilder sb2 = new StringBuilder();
-        sb2.append("myTag");
-        sb2.append(dtv);
-        View view = linearLayout.findViewWithTag(sb2.toString());
-        if (view != null) {
-            view.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void getDevices() {
         ProgressDialog progressDialog = new ProgressDialog(this);
@@ -368,5 +333,7 @@ public class SelectableDeviceList extends AppCompatActivity implements Selectabl
 //        setResult(Activity.RESULT_CANCELED, returnIntent);
 //        finish();
 //    }
+
+
 
 }

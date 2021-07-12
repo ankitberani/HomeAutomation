@@ -253,4 +253,13 @@
     <string name="bluetooth_not_available_message">It seems that this device doesn\'t have a Bluetooth controller available. \nBlue Pair works only with Bluetooth, so please try again on a different device. \nThe app will be now terminated.</string>
     <string name="bluetooth_not_available_title">Bluetooth not available</string>
     <string name="fan_speed">Fan Speed</string>
+    <string name="scene_name">Scene name</string>
+    <string name="setup_accesories">Setup Accesories</string>
+    <string name="select_acces_msg">Select the accessories to include in this scene.</string>
+    <string name="required">Required!</string>
+    <string name="add_access_msg">Please add accessories!!</string>
+    <string name="select_room_msg">Select Room for New Scene</string>
+    <string name="edit_scene_room_selection_msg">Select room for edit scene</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="select_scene">Add Scene Shortcut</string>
 </resources>

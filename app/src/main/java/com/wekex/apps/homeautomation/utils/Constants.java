@@ -93,6 +93,8 @@ public class Constants {
     public static double latitude;
     public static double longitude;
 
+    public static String ShortcutList = "ShortcutList";
+
     //
     public static int getScreenWidth() {
         return Resources.getSystem().getDisplayMetrics().widthPixels;

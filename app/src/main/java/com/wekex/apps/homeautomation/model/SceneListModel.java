@@ -10,7 +10,7 @@ public class SceneListModel implements Serializable {
     private int dType;
     private boolean isChecked = false;
     private boolean status = false;
-
+    public int _icon;
     private int r = 0 , g = 0 , b = 0 , w = 0 , ww = 0 , br = 0;
 
     public boolean getStatus() { return status; }
@@ -77,4 +77,11 @@ public class SceneListModel implements Serializable {
     public int getBr() { return br; }
     public void setBr(int br) { this.br = br; }
 
+    public int get_icon() {
+        return _icon;
+    }
+
+    public void set_icon(int _icon) {
+        this._icon = _icon;
+    }
 }

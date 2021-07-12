@@ -38,6 +38,7 @@ import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -87,6 +88,7 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
     ArrayList<scene_model.Scene> baseList;
 
     SeekBar seekbar_clr_picker;
+    String _receivedSceneName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,7 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
                 edt_scene_name.setText(obj.getName());
             else
                 edt_scene_name.setText(obj.getScene_name());
+            _receivedSceneName = edt_scene_name.getText().toString().trim();
             edit_deviceID = obj.getID();
             UID_edit = obj.getUID();
             tv_add.setText("Edit");
@@ -275,7 +278,8 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -354,7 +358,7 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
                 boolean isExist = false;
                 if (!edt_scene_name.getText().toString().trim().equalsIgnoreCase(s_name_edit))
                     for (int i = 0; i < baseList.size(); i++) {
-                        if (edt_scene_name.getText().toString().trim().equalsIgnoreCase(baseList.get(i).getScene_name() != null ? baseList.get(i).getScene_name() : baseList.get(i).getName())) {
+                        if (_receivedSceneName != edt_scene_name.getText().toString() && edt_scene_name.getText().toString().trim().equalsIgnoreCase(baseList.get(i).getScene_name() != null ? baseList.get(i).getScene_name() : baseList.get(i).getName())) {
                             isExist = true;
                             edt_scene_name.setError("Name Exist!");
                             return;
@@ -556,7 +560,8 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<SuccessResponse>() {
 
             @Override
-            public void onSubscribe(Disposable d) { }
+            public void onSubscribe(Disposable d) {
+            }
 
             @Override
             public void onNext(SuccessResponse successResponse) {
@@ -590,7 +595,6 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
             }
         });
     }
-
 
     public JsonObject getJsonObject() {
         String _jsonData = "";
@@ -668,7 +672,6 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
     }
 
     private void editScene(JsonObject jsonObject) {
-
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
         Observable<SuccessResponse> observable = apiInterface.editScene(jsonObject);
         tv_add.setText("Editing...");
@@ -684,7 +687,6 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
                 tv_add.setTextColor(getResources().getColor(android.R.color.white));
                 if (successResponse != null) {
                     if (successResponse.getSuccess()) {
-//                        edt_scene_name.setText("");
                         Intent _intent = new Intent();
                         _intent.putExtra("Id", edit_deviceID);
                         _intent.putExtra("_new_name", edt_scene_name.getText().toString().trim());
@@ -708,14 +710,13 @@ public class CreateScene extends AppCompatActivity implements View.OnClickListen
             }
 
             @Override
-            public void onComplete() { }
+            public void onComplete() {
+            }
         });
     }
 
     void setColorToPicker(int progress) {
-
         int redValue = 0, greenValue = 0, blueValue = 0;
-
         Log.e("TAGGG", "Progress " + progress);
         if (progress <= 18) {
             redValue = 254;

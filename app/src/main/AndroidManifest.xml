@@ -33,10 +33,26 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
         <activity
-            android:name=".Activity.DeviceTyp15"
+            android:name=".Activity.SceneListForShortcut"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
+            android:name=".Activity.UpdateSceneFromHome"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.NewSceneTempletActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.AddAccessories"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.AddNewScene"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.DeviceTyp15"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -157,7 +173,18 @@
         <activity
             android:name=".RoomActivity"
             android:launchMode="singleTop"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="http" />
+                <data android:scheme="https" />
+                <data android:host="website.com" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AboutAndChange" />
         <activity
             android:name=".schedules"
