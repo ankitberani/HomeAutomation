@@ -76,7 +76,7 @@ public class Constants {
     public static final String SUSCRIBE_TOPIC = "u/c14ecd7a-7869-4c5f-bdae-c93f107b5edf/sub";
     public static final String CLIENT_ID = "c14ecd7a-7869-4c5f-bdae-c93f107b5edf";
     //    public static final String BASEURL = "http://209.58.164.151:88/api/";
-    public static final String BASEURL = APIClient.BASE_URL + "/api/";
+    public static final String BASEURL = APIClient.BASE_URL + "api/";
     public static final String clientId = UUID.randomUUID().toString();
     public static MqttAndroidClient GeneralpahoMqttClient;
     public static String mobNo;

@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,7 +46,9 @@ import com.google.gson.JsonPrimitive;
 import com.wekex.apps.homeautomation.Activity.DeviceTyp15;
 import com.wekex.apps.homeautomation.Activity.EditScene;
 import com.wekex.apps.homeautomation.Activity.NewSceneTempletActivity;
+import com.wekex.apps.homeautomation.Activity.RuleListActivity;
 import com.wekex.apps.homeautomation.Activity.ScheduleList;
+import com.wekex.apps.homeautomation.Activity.Type21Activity;
 import com.wekex.apps.homeautomation.Activity.UserRemoteCatList;
 import com.wekex.apps.homeautomation.Activity.ViewLogs;
 import com.wekex.apps.homeautomation.Interfaces.RoomOperation;
@@ -67,7 +68,7 @@ import com.wekex.apps.homeautomation.secondaryActivity.rgb_controls;
 import com.wekex.apps.homeautomation.utils.Constants;
 import com.wekex.apps.homeautomation.utils.DtypeViews;
 import com.wekex.apps.homeautomation.utils.GroupEditor;
-import com.wekex.apps.homeautomation.utils.ScenesEditor;
+import com.wekex.apps.homeautomation.utils.GroupMenu;
 import com.wekex.apps.homeautomation.utils.group_rgb_controls;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -177,8 +178,12 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         tv_scene.setText(getResources().getString(R.string.devices));
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
         btnAddRule = findViewById(R.id.btn_add_new_rule);
-
-//20
+        btnAddRule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(RoomActivity.this, RuleListActivity.class));
+            }
+        });
 
 
 /*.addItem(new BottomNavigationItem(R.drawable.home_icon, "Home").setActiveColorResource(R.color.colorPrimaryDark).setInActiveColor(R.color.gray600))
@@ -202,7 +207,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         refreshBtn.setOnClickListener(v -> getDevices(true));
 
         roomNameTV.setText(Room_Name);
-
         rv_group = findViewById(R.id.rv_group);
         rv_group.setLayoutManager(new LinearLayoutManager(this));
         rv_device_list = findViewById(R.id.rv_device_list);
@@ -227,12 +231,11 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         _list_device_type.add(0, obj_all);
 
         top = findViewById(R.id.top);
-
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position) {
-
-                /*if (position == 0) {
+                /*
+                if (position == 0) {
                     RoomActivity.this.finish();
                 } else if (position == 1) {
                     int pos = (int) bottomNavigationBar.getTag();
@@ -254,6 +257,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     rv_device_list.setVisibility(View.GONE);
                     if (_mainList_scene == null) {
                         getScene();
+                    } else {
+                        no_of_device.setText("Devices (" + _mainList_scene.getLst_scene().size() + ")");
                     }
                     btnAddRule.setVisibility(View.GONE);
 
@@ -264,13 +269,12 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
                     rv_device_type.setVisibility(View.VISIBLE);
                     tv_scene.setText(getResources().getString(R.string.devices));
-//                    grpHolder.setVisibility(View.GONE);
                     rv_group.setVisibility(View.GONE);
                     rv_device_list.setVisibility(View.VISIBLE);
                     if (filteredList == null) {
                         tv_no_scene.setText("No Device Found!");
-//                        tv_no_scene.setVisibility(View.VISIBLE);
                     }
+                    no_of_device.setText("Devices (" + filteredList.getObjData().size() + ")");
                     tv_no_scene.setVisibility(View.GONE);
                     btnAddRule.setVisibility(View.GONE);
                 } else if (position == 3) {
@@ -294,6 +298,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
                     if (_list == null)
                         getGroupsFromServer();
+                    else
+                        no_of_device.setText("Devices (" + _list.size() + ")");
 
                     btnAddRule.setVisibility(View.GONE);
                 }
@@ -308,9 +314,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             public void onTabReselected(int position) {
             }
         });
-
-        String jsonString = Constants.savetoShared(this).getString(Constants.ROOMS, "null");
-
         _lst_device_type = new ArrayList<>();
         for (int i = 0; i < _list_device_type.size(); i++) {
             _list_device_type.get(i).set_icon(getIcon(_list_device_type.get(i).getID()));
@@ -334,14 +337,11 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         });
 
         String _data = _utility.getString(room_Id);
-        Log.e("TAG", "RoomActivity room_Id " + room_Id);
-        Log.e("TAG", "RoomActivity _data " + _data);
         if (_data == null || _data.isEmpty()) {
             getDevices(false);
         } else {
             updateDevices(_data, true);
         }
-//        Log.e("TAG", "URL OF GET ROOM " + APIClient.BASE_URL + "/api/Get/getRoomDevice?UID=" + Constants.savetoShared(this).getString(Constants.USER_ID, "0") + "&room=" + room_Id);
     }
 
     public void Refresh(View view) {
@@ -357,7 +357,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
 
     public void getDevices(boolean isFromSwipe) {
-//        if (Utility.getIsFresh(this) || isFromSwipe) {
         showProgressDialog("Please wait...");
         APIService apiInterface = APIClient.getClientForStringResponse().create(APIService.class);
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
@@ -385,9 +384,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 //hideProgressDialog();
             }
         });
-//        }
     }
-
 
     private void initViews(String data) {
         sceneHolder.setVisibility(View.GONE);
@@ -401,11 +398,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            try {
-                Log.e("TAGGG", "OnREceived called on RoomActivity " + intent.getStringExtra("datafromService"));
-            } catch (Exception e) {
-                Log.e("TAG", "Exception at Received " + e.getMessage());
-            }
             if (filteredList != null && filteredList.getObjData() != null && filteredList.getObjData().size() != 0) {
                 _utility.putString(room_Id, intent.getStringExtra("datafromService"));
                 updateDevices(intent.getStringExtra("datafromService"), false);
@@ -414,7 +406,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 Toast.makeText(context, "Skip Update", Toast.LENGTH_SHORT).show();*/
         }
     };
-
 
     @Override
     public void onResume() {
@@ -502,6 +493,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             Log.e("TAGG", "JsonString From Result " + jsonString);
         } else if (requestCode == 500) {
             getScene();
+        } else if (requestCode == SCENE_INTENT) {
+            getGroupsFromServer();
         }
     }
 
@@ -794,10 +787,15 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
     private void showGroups() {
 //        startActivityForResult(new Intent(RoomActivity.this, GroupMenu.class), ADDGROUP);
-        Intent intent = new Intent(this, GroupEditor.class);
+
+        Intent intent = new Intent(this, GroupMenu.class);
         intent.putExtra("Devices", "new");
         intent.putExtra("room_Id", room_Id);
         startActivityForResult(intent, this.SCENE_INTENT);
+        /*Intent intent = new Intent(this, GroupEditor.class);
+        intent.putExtra("Devices", "new");
+        intent.putExtra("room_Id", room_Id);
+        startActivityForResult(intent, this.SCENE_INTENT);*/
     }
 
     private void setColor() {
@@ -869,7 +867,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
                             dli_parent.setOnClickListener(v -> triggerscene(id));
 
-
                             sceneHolder.addView(dli);
                         }
 
@@ -884,13 +881,13 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                         sceneHolder.addView(dli);
                         // remo = new JSONArray(InvalidJSON);
                         Log.d(TAG, "onCreate: String using Replace  " + remo);
+                        no_of_device.setText("Devices (" + remo.length() + ")");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
                     if (sceneHolder.getChildCount() == 0) {
                         tv_no_scene.setText("No Scene Found!");
-//                        tv_no_scene.setVisibility(View.VISIBLE);
                     }
                     tv_no_scene.setVisibility(View.GONE);
 
@@ -951,65 +948,19 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     _list = scene.getLst_scene();
                     Log.e("TAGGG", "Group Size " + _list.size());
 
-//                 AllDataResponseModel   filteredList = gson.fromJson(Rdata, AllDataResponseModel.class);
                     AllDataResponseModel _all_data = gson.fromJson(Rdata, AllDataResponseModel.class);
                     Log.wtf("GROUP_JSON_DATA", String.valueOf(_all_data));
-                    if (_all_data != null) {
-                        for (int i = 0; i < _all_data.getObjData().size(); i++) {
-                            if (_all_data.getObjData().get(i).getDtype() == 6 || _all_data.getObjData().get(i).getDtype() == 5) {
-                                scene_model.Scene obj = new scene_model.Scene();
-                                ArrayList<String> _arr = new ArrayList<>();
-                                obj.setName(_all_data.getObjData().get(i).getName());
-                                try {
-                                    if (_all_data.getObjData() != null) {
-                                        if (_all_data.getObjData().get(i).getDtype() == 6) {
-                                            obj.setGroupType(6);
-                                            obj.setID(_all_data.getObjData().get(i).getDno());
-                                            if (_all_data.getObjData().get(i).getObjd1() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd1().getName() != null ? _all_data.getObjData().get(i).getObjd1().getName() : "N/A");
-
-                                            if (_all_data.getObjData().get(i).getObjd2() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd2().getName() != null ? _all_data.getObjData().get(i).getObjd2().getName() : "N/A");
-
-                                            if (_all_data.getObjData().get(i).getObjd3() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd3().getName() != null ? _all_data.getObjData().get(i).getObjd3().getName() : "N/A");
-
-                                            if (_all_data.getObjData().get(i).getObjd4() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd4().getName() != null ? _all_data.getObjData().get(i).getObjd4().getName() : "N/A");
-                                        } else if (_all_data.getObjData().get(i).getDtype() == 5) {
-                                            obj.setGroupType(5);
-                                            obj.setID(_all_data.getObjData().get(i).getDno());
-                                            if (_all_data.getObjData().get(i).getObjd1() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd1().getName() != null ? _all_data.getObjData().get(i).getObjd1().getName() : "N/A");
-                                            if (_all_data.getObjData().get(i).getObjd2() != null && _all_data.getObjData().get(i).getObjd2().getName() != null)
-                                                _arr.add(_all_data.getObjData().get(i).getObjd2().getName() != null ? _all_data.getObjData().get(i).getObjd2().getName() : "N/A");
-                                        }
-                                    }
-                                    obj.setDevices(_arr);
-                                    _list.add(obj);
-                                } catch (Exception e) {
-                                    Log.e("TAGGG", "Exception at add " + e.getMessage(), e);
-                                }
-                            }
-                        }
-                    } else {
-                        Log.e("TAGGG", "filteredList null");
-                    }
-
                     try {
                         for (int i = 0; i < _list.size(); i++) {
                             boolean isOnline;
-                            if (_list.get(i).getGroupType() == 6 || _list.get(i).getGroupType() == 5) {
-                                isOnline = isDeviceOnline(_list.get(i).getID());
-                                if (isOnline)
+                            isOnline = isDeviceOnline(_list.get(i).getID());
+                            if (isOnline)
+                                _list.get(i).setOnline(true);
+                            for (int j = 0; j < _list.get(i).getDevices().size(); j++) {
+                                isOnline = isDeviceOnline(_list.get(i).getDevices().get(j));
+                                if (isOnline) {
                                     _list.get(i).setOnline(true);
-                            } else {
-                                for (int j = 0; j < _list.get(i).getDevices().size(); j++) {
-                                    isOnline = isDeviceOnline(_list.get(i).getDevices().get(j));
-                                    if (isOnline) {
-                                        _list.get(i).setOnline(true);
-                                        break;
-                                    }
+                                    break;
                                 }
                             }
                         }
@@ -1020,6 +971,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     rv_group.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     swipe_refresh_group.setRefreshing(false);
+                    no_of_device.setText("Devices (" + _list.size() + ")");
                 } else
                     Toast.makeText(RoomActivity.this, "Group Null", Toast.LENGTH_SHORT).show();
 
@@ -1052,13 +1004,12 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     }
 
     boolean isDeviceOnline(String device) {
-//        Log.e("TAGG", "isDeviceOnline device " + device);
-        for (int k = 0; k < filteredList.getObjData().size(); k++) {
-            if (device.equalsIgnoreCase(filteredList.getObjData().get(k).getDno())) {
+        AllDataResponseModel _all_data = gson.fromJson(Rdata, AllDataResponseModel.class);
+        for (int k = 0; k < _all_data.getObjData().size(); k++) {
+            if (device.equalsIgnoreCase(_all_data.getObjData().get(k).getDno())) {
 //                Log.e("TAGG", "isDeviceOnline device from list " + filteredList.getObjData().get(k).getDno());
-
-                Log.e("TAG", "Device " + device + " isOnline " + filteredList.getObjData().get(k).isOnline());
-                if (filteredList.getObjData().get(k).isOnline()) {
+                Log.e("TAG", "Device Check Status" + device + " isOnline " + _all_data.getObjData().get(k).isOnline());
+                if (_all_data.getObjData().get(k).isOnline()) {
                     return true;
                 }
             }
@@ -1181,7 +1132,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         return "";
     }
 
-
     @Override
     public void MoveTo(String roomID, String dno) {
         try {
@@ -1208,17 +1158,14 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     public void selectType(int type) {
         selectedType = type;
         try {
-
             AllDataResponseModel _all_data = gson.fromJson(Rdata, AllDataResponseModel.class);
-
             if (filteredList != null)
                 filteredList.getObjData().clear();
-
             ArrayList<data> _lst = new ArrayList<>();
             for (int i = 0; i < _all_data.getObjData().size(); i++) {
                 if (selectedType == 0 || _all_data.getObjData().get(i).getRoom().equalsIgnoreCase(room_Id)) {
                     try {
-                        if (selectedType == 0 || _all_data.getObjData().get(i).getDtype() == selectedType) {
+                        if (selectedType == 0 || !isDeviceAdded(_lst, _all_data.getObjData().get(i).getDno()) && _all_data.getObjData().get(i).getDtype() == selectedType) {
                             _all_data.getObjData().get(i).setD_typeName(getNameFromType(_all_data.getObjData().get(i).getDtype()));
                             _all_data.getObjData().get(i).setDrawable(getDrawable(RoomActivity.this, _all_data.getObjData().get(i).getDtype() + ""));
                             _all_data.getObjData().get(i).setSignalDrawable(setSignal(_all_data.getObjData().get(i).getSignal(), RoomActivity.this));
@@ -1236,13 +1183,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             _device_adapter = new RoomDeviceAdapter(filteredList, RoomActivity.this, this);
             rv_device_list.setAdapter(_device_adapter);
             _device_adapter.notifyDataSetChanged();
-
             Log.e("TAG", "Data at select filtered size " + filteredList.getObjData().size() + " All size " + _all_data.getObjData().size());
-//        Toast.makeText(this, _all_data.getObjData().size() + "", Toast.LENGTH_SHORT).show();
-
-            /*for (int i = 0; i < filteredList.getObjData().size(); i++) {
-                Log.e("TAG", "Filtered List DNO Load  " + filteredList.getObjData().get(i).getDno());
-            }*/
         } catch (Exception e) {
             Log.e("TAG", "Exception at selectType " + e.getMessage());
         }
@@ -1318,7 +1259,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                         _all_data.getObjData().get(i).setD_typeName(getNameFromType(_all_data.getObjData().get(i).getDtype()));
                         _all_data.getObjData().get(i).setDrawable(getDrawable(RoomActivity.this, _all_data.getObjData().get(i).getDtype() + ""));
                         _all_data.getObjData().get(i).setSignalDrawable(setSignal(_all_data.getObjData().get(i).getSignal(), RoomActivity.this));
-//                        filteredList.getObjData().add(filteredList.getObjData().get(i));
                         _lst.add(_all_data.getObjData().get(i));
                     }
                 } catch (Exception e) {
@@ -1332,7 +1272,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             rv_device_list.setAdapter(_device_adapter);
             _device_adapter.notifyDataSetChanged();
 
-            //        setup offline update WIP
+            //setup offline update WIP
             if (isFromOffline)
                 getUpdatedData();
             else
@@ -1346,6 +1286,15 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         }
     }
 
+    public boolean isDeviceAdded(ArrayList<data> _lst, String dno) {
+        for (int i = 0; i < _lst.size(); i++) {
+            Log.e("TAG", "isDeviceAdded <> dno " + dno + " List DNO " + _lst.get(i).getDno());
+            if (dno.equalsIgnoreCase(_lst.get(i).getDno())) {
+                return false;
+            }
+        }
+        return false;
+    }
 
     void filterEmptyGroup(AllDataResponseModel _all_data) {
         try {
@@ -1449,6 +1398,10 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             intent.putExtra("br", filteredList.getObjData().get(pos).getObjd1().getBr());// "1" for working remote
             intent.putExtra("key", filteredList.getObjData().get(pos).getKey() + "");// "1" for working remote
             intent.putExtra("state", filteredList.getObjData().get(pos).getObjd1().isState() + "");// "1" for working remote
+            startActivity(intent);
+        } else if (type == 21) {
+            Intent intent = new Intent(RoomActivity.this, Type21Activity.class);
+            intent.putExtra("dno", filteredList.getObjData().get(pos).getDno());
             startActivity(intent);
         }
     }
@@ -1914,7 +1867,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
     @Override
     public void publishSeekbar(int pos, int br) {
-
         JSONObject jsonObjectD1 = new JSONObject();
         JSONObject jsonObjectMain = new JSONObject();
         String _json = "";
@@ -1968,7 +1920,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public void view_logs(int pos, String dno) {

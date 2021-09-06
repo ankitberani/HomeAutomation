@@ -18,10 +18,12 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.wekex.apps.homeautomation.Activity.SelectDeviceForScene;
 import com.wekex.apps.homeautomation.BaseActivity;
 import com.wekex.apps.homeautomation.R;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
 import com.wekex.apps.homeautomation.Retrofit.APIService;
+import com.wekex.apps.homeautomation.Utility;
 import com.wekex.apps.homeautomation.adapter.FillDeviceAdapter;
 import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.SuccessResponse;
@@ -39,6 +41,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -73,6 +76,7 @@ public class GroupEditor extends BaseActivity {
     boolean isFromEdit = false;
 
     String grp_id = "";
+    Utility _utility;
 
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,9 @@ public class GroupEditor extends BaseActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        _utility = new Utility(GroupEditor.this);
+
 
         _toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +117,9 @@ public class GroupEditor extends BaseActivity {
         AllDataResponseModel obj_lst = null;
         FillDeviceAdapter adapter = null;
         try {
-            objAlldata = gson.fromJson(jsonString, AllDataResponseModel.class);
-            Toast.makeText(this, objAlldata.getObjData().size() + " Rooms " + objAlldata.getLst_rooms().size() + " ", Toast.LENGTH_SHORT).show();
+//            objAlldata = gson.fromJson(jsonString, AllDataResponseModel.class);
+            objAlldata = gson.fromJson(_utility.getString(room_Id), AllDataResponseModel.class);
+//            Toast.makeText(this, objAlldata.getObjData().size() + " Rooms " + objAlldata.getLst_rooms().size() + " ", Toast.LENGTH_SHORT).show();
 
             obj_lst = new AllDataResponseModel();
             ArrayList<data> lst_Data = new ArrayList<>();
@@ -129,7 +137,6 @@ public class GroupEditor extends BaseActivity {
         } catch (Exception e) {
             Log.e("TAGG", "Exception at  parse " + e.getMessage(), e);
         }
-
 
         if (getIntent().hasExtra("Devices")) {
             this.f183ID = UUID.randomUUID().toString();
@@ -368,9 +375,10 @@ public class GroupEditor extends BaseActivity {
             public void onNext(SuccessResponse successResponse) {
                 try {
                     Log.e("TAGGGG", "New Group created " + successResponse.getSuccess());
-                    if (successResponse.getSuccess())
+                    if (successResponse.getSuccess()) {
+                        setResult(RESULT_OK);
                         finish();
-                    else
+                    } else
                         Toast.makeText(GroupEditor.this, successResponse.getSuccess() + "", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("TAGGGG", "New Group Exception at create group " + e.getMessage(), e);

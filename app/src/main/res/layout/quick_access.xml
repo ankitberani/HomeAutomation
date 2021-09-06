@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/quickAccessHolder"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
+
+
+    <LinearLayout
+        android:id="@+id/ll_rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/quick_access_bg"
+        android:minWidth="150dp"
+        android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/qa_img4"
+            android:layout_width="34dp"
+            android:layout_height="26dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/security_camera" />
+
+        <TextView
+            android:id="@+id/qa_text4"
+            style="@style/quick_access"
+            android:layout_width="97dp"
+            android:layout_height="29dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center_vertical"
+            android:text="RULES"
+            android:textColor="#4da6ff"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,31 +68,6 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout android:layout_margin="5dp"
-        android:background="@drawable/quick_access_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="150dp"
-        android:padding="5dp">
-        <ImageView
-            android:layout_width="34dp"
-            android:layout_height="26dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/remote_icon" />
-
-        <TextView
-            android:onClick="startRemotehub"
-            style="@style/quick_access"
-            android:layout_width="97dp"
-            android:layout_height="29dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center_vertical"
-            android:text="REMOTE HUB"
-            android:textColor="#4da6ff"
-            android:textStyle="bold" />
-    </LinearLayout>-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,34 +191,5 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/quick_access_bg"
-        android:minWidth="150dp"
-        android:padding="5dp">
-
-        <ImageView
-            android:id="@+id/qa_img4"
-            android:layout_width="34dp"
-            android:layout_height="26dp"
-            android:layout_margin="5dp"
-            android:src="@drawable/security_camera" />
-
-        <TextView
-            android:id="@+id/qa_text4"
-            style="@style/quick_access"
-            android:layout_width="97dp"
-            android:layout_height="29dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="5dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center_vertical"
-            android:text="RULES"
-            android:textColor="#4da6ff"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
 </LinearLayout>

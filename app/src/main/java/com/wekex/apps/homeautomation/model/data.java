@@ -1,5 +1,7 @@
 package com.wekex.apps.homeautomation.model;
 
+import androidx.room.Ignore;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -39,7 +41,7 @@ public class data {
     @SerializedName("isOnline")
     public boolean isOnline = false;
 
-    @Expose
+    @Ignore
     @SerializedName("version")
     public double version = 0;
 
@@ -47,16 +49,10 @@ public class data {
     @SerializedName("ip")
     public String ip = "";
 
-
     @Expose
     @SerializedName("time")
     public String time = "";
 
-    /* @Expose
-     @SerializedName("ir")
-     public ArrayList<String> ir = new ArrayList<>();
-
- */
     boolean isVisible = false;
 
     public boolean isVisible() {

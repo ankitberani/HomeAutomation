@@ -41,7 +41,6 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
         this._list = _list;
         this.context = context;
         this.objInterface = objInterface;
-
     }
 
     @NonNull
@@ -85,13 +84,12 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tv_groupName     = itemView.findViewById(R.id.schedules_name);
+            tv_groupName = itemView.findViewById(R.id.schedules_name);
             tv_device_status = itemView.findViewById(R.id.tv_status);
-            tv_group_detail  = itemView.findViewById(R.id.dli_room);
-            linearLayout     = itemView.findViewById(R.id.dli_parent);
-            iv_info          = itemView.findViewById(R.id.deviceInfo);
-            iv_info          = itemView.findViewById(R.id.deviceInfo);
-            iv_setting       = itemView.findViewById(R.id.showMenu);
+            tv_group_detail = itemView.findViewById(R.id.dli_room);
+            linearLayout = itemView.findViewById(R.id.dli_parent);
+            iv_info = itemView.findViewById(R.id.deviceInfo);
+            iv_setting = itemView.findViewById(R.id.showMenu);
 
             switch1 = itemView.findViewById(R.id.switch1);
 
@@ -167,7 +165,6 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
         popup.show();
     }
 
-
     public void showInfoDialog(ArrayList<String> _all_devices, boolean isAnotherType) {
         Dialog dialog = new Dialog(context);
         View view = LayoutInflater.from(context).inflate(R.layout.group_detail_dialog, null, false);
@@ -178,10 +175,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
         for (int i = 0; i < _all_devices.size(); i++) {
             TextView tv = new TextView(context);
             tv.setLayoutParams(params);
-            if (isAnotherType)
-                tv.setText(_all_devices.get(i));
-            else
-                tv.setText(getBulbName(_all_devices.get(i)));
+            tv.setText(_all_devices.get(i));
+//            if (isAnotherType)
+//            else
+//                tv.setText(getBulbName(_all_devices.get(i)));
             tv.setTextColor(context.getResources().getColor(R.color.colorAccent));
             tv.setTextSize(16);
             ll_container.addView(tv);
@@ -203,5 +200,4 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.ViewHolder
             }
         return _name;
     }
-
 }

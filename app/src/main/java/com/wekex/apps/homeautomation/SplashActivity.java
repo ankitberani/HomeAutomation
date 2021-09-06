@@ -67,10 +67,11 @@ public class SplashActivity extends BaseActivity {
 
     public void check() {
         Utility _utility = new Utility(SplashActivity.this);
-        if (!_utility.getString("selected_domain").isEmpty() && _utility.getString("selected_domain") != null) {
+      /*  if (!_utility.getString("selected_domain").isEmpty() && _utility.getString("selected_domain") != null) {
             APIClient.BASE_URL = _utility.getString("selected_domain");
-        } else
-            APIClient.BASE_URL = "http://209.58.164.151:88/";
+        } else*/
+
+        APIClient.BASE_URL = "http://209.58.164.151:88/";
         if (!isDataAvailable()) {
             this.try_again.setVisibility(View.VISIBLE);
             findViewById(R.id.cti).setVisibility(View.VISIBLE);
@@ -180,7 +181,8 @@ public class SplashActivity extends BaseActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } try {
+        }
+        try {
             BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
             buf.write(data);
             buf.close();

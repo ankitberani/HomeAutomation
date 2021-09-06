@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_130"
         android:layout_margin="@dimen/dp_05"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/ll_type_2"
@@ -768,7 +768,6 @@
 
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view_d4"
         android:layout_width="match_parent"
@@ -947,4 +946,341 @@
 
     </androidx.cardview.widget.CardView>
 
+
+    <LinearLayout
+        android:id="@+id/deviceType_12"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_05"
+        android:elevation="@dimen/margin_10"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_dno_type_12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/margin_10"
+                    android:singleLine="true"
+                    android:text="Device Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
+
+                <LinearLayout
+                    android:id="@+id/ll_setting_d12_luminance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:layout_toRightOf="@+id/tv_h_value_12"
+                    android:background="@drawable/left_bottom_corner"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/deviceInfo_d12_luminance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="5dp"
+                        android:src="@drawable/questionmark_round" />
+
+                    <ImageView
+                        android:id="@+id/showMenu_d12_luminance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_horizontal"
+                        android:onClick="device_menu_list"
+                        android:padding="5dp"
+                        android:src="@drawable/sun" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:layout_margin="@dimen/dp_05"
+                android:elevation="@dimen/margin_10"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:background="@color/cardview_shadow_end_color"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/dp_05"
+                            android:src="@drawable/humidity_icon"></ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:gravity="center"
+                            android:text="@string/humidity"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"></View>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2.2"
+                        android:gravity="center|left">
+
+                        <TextView
+                            android:id="@+id/tv_h_head_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/humidity"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_h_value_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_toRightOf="@+id/tv_h_head_12"
+                            android:text="N/A"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"></TextView>
+
+
+                        <TextView
+                            android:id="@+id/tv_t_head_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_h_head_12"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:text="@string/temprature"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_t_value_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_h_value_12"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_toRightOf="@+id/tv_t_head_12"
+                            android:text="N/A"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_hi_head_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_t_head_12"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:text="Heat Index"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_hi_value_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_t_head_12"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:layout_toRightOf="@+id/tv_t_head_12"
+                            android:text="N/A"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"></TextView>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:layout_margin="@dimen/dp_05"
+                android:elevation="@dimen/margin_10"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:background="@color/cardview_shadow_end_color"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_gravity="center"
+                            android:src="@drawable/lux_icon"
+                            android:tint="@color/default_blue_light"></ImageView>
+
+                        
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:gravity="center"
+                            android:text="Luminance"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"></View>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:padding="@dimen/dp_05">
+
+                        <TextView
+                            android:id="@+id/tv_lux_head_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Luminance"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_lux_value_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_toRightOf="@+id/tv_lux_head_12"
+                            android:text="N/A"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"></TextView>
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100"
+                android:layout_margin="@dimen/dp_05"
+                android:elevation="@dimen/margin_10"
+                android:visibility="visible"
+                app:cardCornerRadius="@dimen/margin_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:background="@color/cardview_shadow_end_color"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="@dimen/dp_50"
+                            android:layout_gravity="center"
+                            android:src="@drawable/motion_icon"
+                            android:tint="@color/default_blue_light"></ImageView>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_10"
+                            android:gravity="center"
+                            android:text="@string/motion"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/colorPrimary"></View>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:layout_weight="2"
+                        android:gravity="center|left"
+                        android:padding="@dimen/dp_05">
+
+                        <TextView
+                            android:id="@+id/tv_motion_head_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/motion"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp"></TextView>
+
+                        <TextView
+                            android:id="@+id/tv_temp_value_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_10"
+                            android:layout_toRightOf="@+id/tv_motion_head_12"
+                            android:text="N/A"
+                            android:textColor="@color/black"
+                            android:textSize="12sp"></TextView>
+                    </RelativeLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

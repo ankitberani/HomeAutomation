@@ -10,6 +10,11 @@
     <item
         android:id="@+id/rename_d"
         android:title="Rename" />
+
+    <item
+        android:id="@+id/add_in_group"
+        android:title="Add Device In Group" />
+
     <item
         android:id="@+id/move_d"
         android:title="Move To" />
@@ -21,8 +26,8 @@
         android:id="@+id/menu_logs"
         android:title="Logs" />
 
-<!--    <item-->
-<!--        android:id="@+id/menu_graph"-->
-<!--        android:title="Power Graph" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/menu_graph"-->
+    <!--        android:title="Power Graph" />-->
 
 </menu>

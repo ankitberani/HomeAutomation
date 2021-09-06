@@ -52,8 +52,6 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.Vi
         } else {
             holder.tv_type.setTextColor(context.getResources().getColor(R.color.gray600));
         }
-
-
     }
 
     @Override

@@ -62,6 +62,29 @@ public class d1 {
     @SerializedName("hi")
     public String value_hi;
 
+    @Expose
+    @SerializedName("lux")
+    public String value_lux;
+
+    @Expose
+    @SerializedName("bat")
+    public String bat;
+
+    public String getValue_lux() {
+        return value_lux;
+    }
+
+    public void setValue_lux(String value_lux) {
+        this.value_lux = value_lux;
+    }
+
+    public String getBat() {
+        return bat;
+    }
+
+    public void setBat(String bat) {
+        this.bat = bat;
+    }
 
     @Expose
     @SerializedName("v")

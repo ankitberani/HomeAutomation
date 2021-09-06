@@ -50,9 +50,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.wekex.apps.homeautomation.Activity.AddAccessories;
 import com.wekex.apps.homeautomation.Activity.AddNewScene;
+import com.wekex.apps.homeautomation.Activity.AddRulesActivity;
 import com.wekex.apps.homeautomation.Activity.CreateScene;
 import com.wekex.apps.homeautomation.Activity.EditScene;
 import com.wekex.apps.homeautomation.Activity.NewSceneTempletActivity;
+import com.wekex.apps.homeautomation.Activity.RuleListActivity;
 import com.wekex.apps.homeautomation.Activity.SceneListForShortcut;
 import com.wekex.apps.homeautomation.Interfaces.HomeScreenOperation;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
@@ -128,7 +130,7 @@ import static com.wekex.apps.homeautomation.utils.Utils.removehomescene;
 import com.onesignal.OSPermissionState;
 import com.onesignal.OneSignal;
 
-public class HomeActivity extends BaseActivity implements HomeScreenOperation {
+public class HomeActivity extends BaseActivity implements HomeScreenOperation, View.OnClickListener {
 
     String TAG = "HomeActivity";
     //    private LinearLayout roomholder;
@@ -147,7 +149,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         public void onReceive(Context context, Intent intent) {
             hideProgressDialog();
             GetAllData(true);
-            Log.e("TAG", "OnReceive Called Home Activity" + intent.getStringExtra("datafromService"));
+//            Log.e("TAG", "OnReceive Called Home Activity" + intent.getStringExtra("datafromService"));
         }
     };
     LinearLayout Lweather;
@@ -159,6 +161,8 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
     ImageView iv_refresh;
     Utility _utility;
     Gson _gson = new Gson();
+
+    LinearLayout ll_rules;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -178,11 +182,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
         _utility = new Utility(HomeActivity.this);
         iv_refresh = findViewById(R.id.iv_refresh);
-        /*swipe_refresh_room = findViewById(R.id.swipe_refresh_room);
-        swipe_refresh_room.setColorSchemeResources(R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark);*/
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -190,11 +189,8 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
 
         rv_rooms = findViewById(R.id.rv_room);
-//        RecyclerView.LayoutManager manager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv_rooms.setLayoutManager(mLayoutManager);
-//        GetAllData(false);
 
         try {
             String[] images = getAssets().list("icons");
@@ -210,18 +206,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
         Log.d(TAG, "onCreate: " + user);
         sendOneSignalUserID(user);
-//        getDeviceTypes();
-//        JSONArray ssl = getprofiles(this);
-
-        Log.d(TAG, "onCreate: ");
-       /* if (ssl != null)
-            callProfAdapter(ssl);*/
-
-        /*if (data != null)
-            addViews(data);*/
         Lweather = findViewById(R.id.weather);
-
-
         getWeather(false);
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -245,6 +230,8 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
             getWeather(false);
         });
 
+        ll_rules = findViewById(R.id.ll_rules);
+        ll_rules.setOnClickListener(this);
     }
 
     public void getWeather(boolean isFromRefresh) {
@@ -304,9 +291,12 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
     private void sendOneSignalUserID(String user) {
         /*OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
         String osid = status.getSubscriptionStatus().getUserId();
+*/
+        String osid = OneSignal.getDeviceState().getUserId();
         String url = BASEURL + "Get/AddMobile?UID=" + user + "&pID=" + osid;
+        Log.e("TAG", "sendOneSignalUserID Received " + url);
         RequestQueue queue = Volley.newRequestQueue(this);
-        Log.d(TAG, "sendOneSignalUserID: " + url);
+        Log.e(TAG, "sendOneSignalUserID: " + url);
         StringRequest stringRequest = new StringRequest(GET, url, response -> {
             Log.d(TAG, "sendOneSignalUserID: " + response);
         },
@@ -314,7 +304,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
                     error.getStackTrace();
                     Log.d(TAG, "sendOneSignalUserID: " + error.getCause());
                 });
-        queue.add(stringRequest);*/
+        queue.add(stringRequest);
     }
 
     private void getDeviceTypes(boolean isFromRefresh) {
@@ -521,6 +511,10 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
         headings.setVisibility(View.VISIBLE);
         headings.setTextSize(16);
         headings.setTextColor(getResources().getColor(R.color.black));
+
+        TextView schedules_name_ = inflate.findViewById(R.id.schedules_name);
+        schedules_name_.setVisibility(View.GONE);
+
         sceneHolder.addView(inflate);
         for (int i = 0; i < main_object._lst_rooms.size() - 1; i++) {
             View dli = LayoutInflater.from(this).inflate(R.layout.scene_picker_item, null, false);
@@ -619,7 +613,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
 
     public void Addimages(View view) {
 
-        androidx.appcompat.widget.PopupMenu popup = new androidx.appcompat.widget.PopupMenu(this, view);
+        PopupMenu popup = new PopupMenu(this, view);
         //Inflating the Popup using xml file
         popup.getMenuInflater()
                 .inflate(R.menu.menu_images, popup.getMenu());
@@ -637,7 +631,6 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
                         photoGalleryIntent();
                     }
                     break;
-
             }
             return true;
         });
@@ -1211,7 +1204,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
     public void GetAllData(boolean isFromRefresh) {
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-        String url = APIClient.BASE_URL + "/api/Get/getAppHome?UID=" + user;
+        String url = APIClient.BASE_URL + "api/Get/getAppHome?UID=" + user;
         Log.e("TAG", "GetAllData URL " + url);
 
         Observable<GetAppHomeModel> observable = apiInterface.getAllData(url);
@@ -1358,6 +1351,15 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation {
             });
         } catch (Exception e) {
             Log.e("TAGGG", "Exception at e " + e.getMessage(), e);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ll_rules:
+                startActivity(new Intent(HomeActivity.this, RuleListActivity.class));
+                break;
         }
     }
 }

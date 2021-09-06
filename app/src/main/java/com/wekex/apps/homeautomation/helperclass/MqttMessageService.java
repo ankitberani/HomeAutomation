@@ -88,7 +88,6 @@ public class MqttMessageService extends Service {
                 // if (!msg.contains("power"))
                 Log.e(TAG, "MQTT Cred user messageArrived " + s);
                 Log.e(TAG, "messageArrived: at MqttMessageService " + msg);
-
                 DisplayLoggingInfo(msg, s.startsWith("d"));
                 Graphview.myListener.listener(msg);
             }
@@ -134,7 +133,6 @@ public class MqttMessageService extends Service {
                 .setContentTitle(topic)
                 .setContentText(msg)
                 // .setLargeIcon(emailObject.getSenderAvatar())
-
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);

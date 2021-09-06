@@ -25,15 +25,18 @@ import com.android.volley.toolbox.Volley;
 import com.github.angads25.toggle.widget.LabeledSwitch;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.wekex.apps.homeautomation.Activity.Type21Activity;
 import com.wekex.apps.homeautomation.Bubble_seekbar.BubbleSeekBar;
 import com.wekex.apps.homeautomation.Graphview;
 import com.wekex.apps.homeautomation.Interfaces.RoomOperation;
 import com.wekex.apps.homeautomation.R;
+import com.wekex.apps.homeautomation.RoomActivity;
 import com.wekex.apps.homeautomation.helperclass.PahoMqttClient;
 import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.RoomModel;
 import com.wekex.apps.homeautomation.model.data;
 import com.wekex.apps.homeautomation.utils.Constants;
+import com.wekex.apps.homeautomation.utils.GroupEditor;
 import com.wekex.apps.homeautomation.utils.PreferencesHelper;
 import com.wekex.apps.homeautomation.utils.SelectableDeviceList;
 
@@ -123,12 +126,11 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setVisibility(View.VISIBLE);
                 holder.tv_next_scheudule_d1.setText(date_next_schedule);
             }
-
             holder.tv_next_scheudule_d2.setVisibility(View.GONE);
             holder.tv_next_scheudule_d3.setVisibility(View.GONE);
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
-
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 8) {
 
            /* holder._seekbar_brightness.setMax(100);
@@ -192,6 +194,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d3.setVisibility(View.GONE);
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 15) {
 
            /* holder._seekbar_brightness.setMax(4);
@@ -272,6 +275,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d3.setVisibility(View.GONE);
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 6) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -382,7 +386,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.switch_d3.setClickable(allData.getObjData().get(position).isOnline());
             holder.switch_d4.setClickable(allData.getObjData().get(position).isOnline());
             holder.ll_type_16.setVisibility(View.GONE);
-
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 20) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -496,7 +500,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.switch_d3.setClickable(allData.getObjData().get(position).isOnline());
             holder.switch_d4.setClickable(allData.getObjData().get(position).isOnline());
             holder.ll_type_16.setVisibility(View.GONE);
-
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 5) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -560,6 +564,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d3.setVisibility(View.GONE);
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 19) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -623,6 +628,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d3.setVisibility(View.GONE);
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 9) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -672,6 +678,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
             holder.switch_d1.setVisibility(View.VISIBLE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 18) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -721,6 +728,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.tv_next_scheudule_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
             holder.switch_d1.setVisibility(View.VISIBLE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 14) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -768,6 +776,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setVisibility(View.VISIBLE);
                 holder.tv_next_scheudule_d1.setText(_next_schedule);
             }
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 1) {
 
             holder.battery_indicator.setVisibility(View.GONE);
@@ -787,13 +796,14 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.device_icon_d1.setImageResource(R.drawable.device_offline_icon);
                 holder.iv_signal_d1.setImageDrawable(context.getResources().getDrawable(R.drawable.signal_zero));
                 holder.switch_d1.setChecked(obj.getObjd1().isState());
+                holder.deviceType_12.setVisibility(View.GONE);
             } else {
                 if (obj.getDno().equals(obj.getdNum())) {
                     Log.wtf("MATCH", "CONDITION_TRUE");
                     Log.wtf("POWER_DATA", obj.getDno() + " = " + obj.getdNum() + " > " + obj.getPowerPuff());
                     holder.tv_power.setVisibility(View.VISIBLE);
                     holder.tv_power.setText(obj.getPowerPuff().equals("") ? "Power: 0.00 W" : "Power: " + obj.getPowerPuff() + "0 W");
-                    holder.tv_power.setTextColor(Color.GREEN);
+                    holder.tv_power.setTextColor(Color.BLACK);
 
                     holder.tv_power.setOnClickListener(v -> {
                         Intent intent = new Intent(context, Graphview.class);
@@ -840,6 +850,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setVisibility(View.VISIBLE);
                 holder.tv_next_scheudule_d1.setText(_next_schedule);
             }
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 10) {
             holder.battery_indicator.setVisibility(View.GONE);
             if (obj.getName() != null) {
@@ -879,6 +890,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.cardView_d3.setVisibility(View.GONE);
             holder.cardView_d4.setVisibility(View.GONE);
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 11) {
 
             if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {
@@ -935,6 +947,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setText(_next_schedule);
             }
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 16) {
 
             holder.ll_type_16.setVisibility(View.VISIBLE);
@@ -1004,7 +1017,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setVisibility(View.VISIBLE);
                 holder.tv_next_scheudule_d1.setText(_next_schedule);
             }
-
+            holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 17) {
 
             if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {
@@ -1032,15 +1045,61 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                     holder.device_icon_d1.setImageResource(R.drawable.door_closed);
                 int color = android.graphics.Color.argb(255, obj.getObjd1().getR(), obj.getObjd1().getG(), obj.getObjd1().getB());
                 holder.device_icon_d1.setColorFilter(color);
-//                if (obj.getObjd1() != null) {
-//                    holder.switch_d1.setChecked(obj.getObjd1().isState());
-//                } else {
-//                    holder.switch_d1.setChecked(false);
-//                }
             }
 
             holder.switch_d1.setVisibility(View.GONE);
+            holder.switch_d1.setClickable(obj.isOnline());
             holder.battery_indicator.setVisibility(View.VISIBLE);
+            holder.ll_switch_1.setClickable(obj.isOnline());
+
+            holder._seekbar_brightness.setVisibility(View.GONE);
+            holder._seekbar_brightness15.setVisibility(View.GONE);
+            holder.tv_brightness.setVisibility(View.GONE);
+
+            holder.cardView_d1.setVisibility(View.VISIBLE);
+            holder.cardView_d2.setVisibility(View.GONE);
+            holder.cardView_d3.setVisibility(View.GONE);
+            holder.cardView_d4.setVisibility(View.GONE);
+
+            String _next_schedule = Constants.savetoShared(context).getString(obj.getDno() + "_1", "");
+            if (_next_schedule.isEmpty()) {
+                holder.tv_next_scheudule_d1.setVisibility(View.GONE);
+            } else {
+                holder.tv_next_scheudule_d1.setVisibility(View.VISIBLE);
+                holder.tv_next_scheudule_d1.setText(_next_schedule);
+            }
+            holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
+        } else if (obj.getDtype() == 21) {
+
+            if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {
+                holder.tv_device_1.setText(obj.getObjd1().getName());
+            } else if (!obj.getName().isEmpty()) {
+                holder.tv_device_1.setText(obj.getName());
+            } else {
+                holder.tv_device_1.setText("");
+            }
+            holder.tv_deviceType_1.setText(obj.getD_typeName());
+
+            if (!obj.isOnline()) {
+                holder.device_icon_d1.setColorFilter(null);
+                holder.device_icon_d1.setImageResource(R.drawable.device_offline_icon);
+                holder.iv_signal_d1.setImageDrawable(context.getResources().getDrawable(R.drawable.signal_zero));
+                holder.switch_d1.setChecked(obj.getObjd1().isState());
+            } else {
+                holder.iv_signal_d1.setImageResource(obj.getSignalDrawable());
+                holder.device_icon_d1.setImageResource(obj.getDrawable());
+                if (obj.getObjd1().getMotion().equals("true"))
+                    holder.device_icon_d1.setImageResource(R.drawable.open_door);
+                else
+                    holder.device_icon_d1.setImageResource(R.drawable.door_closed);
+                int color = android.graphics.Color.argb(255, obj.getObjd1().getR(), obj.getObjd1().getG(), obj.getObjd1().getB());
+                holder.device_icon_d1.setColorFilter(color);
+            }
+
+            holder.switch_d1.setVisibility(View.GONE);
+            holder.switch_d1.setClickable(obj.isOnline());
+            holder.battery_indicator.setVisibility(View.GONE);
             holder.switch_d1.setClickable(obj.isOnline());
             holder.ll_switch_1.setClickable(obj.isOnline());
 
@@ -1061,9 +1120,34 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                 holder.tv_next_scheudule_d1.setText(_next_schedule);
             }
             holder.ll_type_16.setVisibility(View.GONE);
+            holder.deviceType_12.setVisibility(View.GONE);
+        } else if (obj.getDtype() == 12) {
+            Log.e("TAG", "Type 12 Logs h:" + obj.getObjd1().getValue_h() + " T :" + obj.getObjd1().getValue_t() + " hi:" + obj.getObjd1().getValue_hi() + " lux:" + obj.getObjd1().getValue_lux() + " bat:" + obj.getObjd1().getBat());
+
+            if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {
+                holder.tv_dno_type_12.setText(obj.getObjd1().getName());
+            } else if (!obj.getName().isEmpty()) {
+                holder.tv_dno_type_12.setText(obj.getName());
+            } else {
+                holder.tv_dno_type_12.setText("");
+            }
+
+            if (obj.getObjd1().getValue_h() != null)
+                holder.tv_h_value_12.setText(obj.getObjd1().getValue_h());
+            if (obj.getObjd1().getValue_t() != null)
+                holder.tv_t_value_12.setText(obj.getObjd1().getValue_t());
+            if (obj.getObjd1().getValue_hi() != null)
+                holder.tv_hi_value_12.setText(obj.getObjd1().getValue_hi());
+            if (obj.getObjd1().getValue_lux() != null)
+                holder.tv_lux_value_12.setText(obj.getObjd1().getValue_lux());
+
+            holder.cardView_d1.setVisibility(View.GONE);
+            holder.cardView_d2.setVisibility(View.GONE);
+            holder.cardView_d3.setVisibility(View.GONE);
+            holder.cardView_d4.setVisibility(View.GONE);
+
+            holder.deviceType_12.setVisibility(View.VISIBLE);
         }
-
-
         /*holder.ll_parent.setClickable(true);
         if (obj.isOnline()) {
             holder.ll_parent.setClickable(true);
@@ -1087,8 +1171,8 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         //        ImageView iv_tower_icon;
-        LinearLayout ll_parent;
-
+        LinearLayout ll_parent, deviceType_12;
+        TextView tv_dno_type_12;
         CardView cardView_d1, cardView_d2, cardView_d3, cardView_d4;
 
         TextView tv_device_1, tv_device_2, tv_device_3, tv_device_4;
@@ -1114,21 +1198,30 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
 
         TextView tv_value_t, tv_value_h, tv_value_hi, tv_value_v;
 
+        //Device Type 12 controls
+        TextView tv_h_value_12, tv_t_value_12, tv_hi_value_12, tv_lux_value_12, tv_motion_head_12;
+
         public ViewHolder(View itemView) {
             super(itemView);
-
             tv_power = itemView.findViewById(R.id.tv_power);
-
             ll_parent = itemView.findViewById(R.id.parent);
+            deviceType_12 = itemView.findViewById(R.id.deviceType_12);
+            tv_dno_type_12 = itemView.findViewById(R.id.tv_dno_type_12);
             ll_brightness = itemView.findViewById(R.id.ll_brightness);
-
             ll_type_16 = itemView.findViewById(R.id.card_type_16);
-
             tv_brightness = itemView.findViewById(R.id.tv_brightness);
             _seekbar_brightness = itemView.findViewById(R.id.seekbar_type8);
             _seekbar_brightness15 = itemView.findViewById(R.id.seekbar_type15);
             _seekbar_brightness.setProgress(10);
             tv_brightness.setText(context.getResources().getString(R.string.brightness) + " 10%");
+
+
+            tv_h_value_12 = itemView.findViewById(R.id.tv_h_value_12);
+            tv_t_value_12 = itemView.findViewById(R.id.tv_t_value_12);
+            tv_hi_value_12 = itemView.findViewById(R.id.tv_hi_value_12);
+            tv_lux_value_12 = itemView.findViewById(R.id.tv_lux_value_12);
+            tv_motion_head_12 = itemView.findViewById(R.id.tv_motion_head_12);
+
 
             cardView_d1 = itemView.findViewById(R.id.card_view_d1);
             cardView_d2 = itemView.findViewById(R.id.card_view_d2);
@@ -1196,7 +1289,6 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             switch_d3 = itemView.findViewById(R.id.switch1_d3);
             switch_d4 = itemView.findViewById(R.id.switch1_d4);
 
-
             device_icon_d1 = itemView.findViewById(R.id.device_icon_d1);
             device_icon_d2 = itemView.findViewById(R.id.device_icon_d2);
             device_icon_d3 = itemView.findViewById(R.id.device_icon_d3);
@@ -1228,7 +1320,6 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             switch_d2.setEnabled(false);
             switch_d3.setEnabled(false);
             switch_d4.setEnabled(false);*/
-
 
             device_icon_d1.setOnClickListener(this);
 
@@ -1343,6 +1434,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
 //                        intent.putExtra("mode", "0");// "1" for working remote
 //                        context.startActivity(intent);
                         Intent intent = new Intent(context, SelectableDeviceList.class);
+//                        intent.putExtra("RoomId", "e72f54e0-d052-45dc-963d-c75c1ff9f33c");
                         intent.putExtra("RoomId", "e72f54e0-d052-45dc-963d-c75c1ff9f33c");
                         intent.putExtra("DeviceType", "10");
                         context.startActivity(intent);
@@ -1527,6 +1619,12 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                     objInterface.view_logs(pos, allData.getObjData().get(pos).getDno());
                     break;
 
+                case R.id.add_in_group: {
+                    Intent intent = new Intent(context, Type21Activity.class);
+                    intent.putExtra("dno", allData.getObjData().get(pos).getDno());
+                    context.startActivity(intent);
+                }
+                break;
 //                case R.id.menu_graph:
 //                    try {
 //                        Intent intent = new Intent(context, Graphview.class);
@@ -1539,6 +1637,10 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             }
             return true;
         });
+
+        if (allData.getObjData().get(pos).getDtype() != 21) {
+            popup.getMenu().removeItem(R.id.add_in_group);
+        }
         /*if (!isOffline) {
             popup.getMenu().removeItem(R.id.move_d);
             popup.getMenu().removeItem(R.id.rename_d);
@@ -1569,8 +1671,9 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
 
     private void createList(String roomID) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String userID = Constants.savetoShared(context).getString(Constants.USER_ID, "0");
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                "http://209.58.164.151:88/api/Get/getAppHome?UID=" + PreferencesHelper.getUserId(context),
+                "http://209.58.164.151:88/api/Get/getAppHome?UID=" + userID,
                 null, response -> {
             try {
                 JSONObject jsonObject = new JSONObject(String.valueOf(response));
@@ -1578,18 +1681,14 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
 
                 listItems.clear();
                 for (int i = 0; i < jsonArray.length(); i++) {
-
                     JSONObject listItem = jsonArray.getJSONObject(i);
                     RoomModel roomModel = new RoomModel();
-
                     roomModel.setId(listItem.getString("ID"));
                     roomModel.setName(listItem.getString("name"));
-
                     if (!listItem.getString("ID").equals(roomID)) {
                         listItems.add(roomModel);
                     }
                 }
-
                 adapter.setEmployees(listItems);
             } catch (JSONException e) {
                 e.printStackTrace();

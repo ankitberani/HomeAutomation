@@ -256,10 +256,20 @@
     <string name="scene_name">Scene name</string>
     <string name="setup_accesories">Setup Accesories</string>
     <string name="select_acces_msg">Select the accessories to include in this scene.</string>
+    <string name="select_acces_msg_rule">Select the accessories to include in this rule.</string>
     <string name="required">Required!</string>
     <string name="add_access_msg">Please add accessories!!</string>
     <string name="select_room_msg">Select Room for New Scene</string>
+    <string name="select_room_msg_rule">Select Room for New Rule</string>
     <string name="edit_scene_room_selection_msg">Select room for edit scene</string>
     <string name="are_you_sure">Are you sure?</string>
     <string name="select_scene">Add Scene Shortcut</string>
+    <string name="select_groups">Select Groups</string>
+    <string name="rules">Rules</string>
+    <string name="add">Add</string>
+    <string name="new_rules">New Rules</string>
+    <string name="temprature">Temprature</string>
+    <string name="motion">Motion</string>
+    <string name="humidity">Humidity</string>
+
 </resources>

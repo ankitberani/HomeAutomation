@@ -29,7 +29,6 @@ public class APIClient {
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(5, TimeUnit.MINUTES).addInterceptor(interceptor).build();
 
-
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();

@@ -35,12 +35,16 @@ public class GroupMenu extends BaseActivity {
     public int SCENE_INTENT = 1;
     private String TAG = "SceneMenu";
     private LinearLayout deviceHolder;
+    String room_Id = "";
 
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView((int) R.layout.activity_group_menu);
         this.deviceHolder = (LinearLayout) findViewById(R.id.deviceHolder);
+        if (getIntent() != null && getIntent().hasExtra("room_Id")) {
+            room_Id = getIntent().getStringExtra("room_Id");
+        }
         getgroup();
     }
 
@@ -153,6 +157,7 @@ public class GroupMenu extends BaseActivity {
                     GroupMenu.this.delete(currentScene);
                 } else if (itemId == R.id.edit) {
                     Intent intent = new Intent(GroupMenu.this, GroupEditor.class);
+                    intent.putExtra("room_Id", room_Id);
                     intent.putExtra("Devices", currentScene);
                     GroupMenu groupMenu = GroupMenu.this;
                     groupMenu.startActivityForResult(intent, groupMenu.SCENE_INTENT);
@@ -214,6 +219,7 @@ public class GroupMenu extends BaseActivity {
 
     public void addScenes(View view) {
         Intent intent = new Intent(this, GroupEditor.class);
+        intent.putExtra("room_Id", room_Id);
         intent.putExtra("Devices", "new");
         startActivityForResult(intent, this.SCENE_INTENT);
     }

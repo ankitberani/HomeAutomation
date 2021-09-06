@@ -19,6 +19,6 @@
 
     <item
         android:id="@+id/addGroup"
-        android:title="Add Groups" />
+        android:title="New Groups" />
 
 </menu>

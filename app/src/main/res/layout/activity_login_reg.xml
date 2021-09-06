@@ -4,56 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:background="@color/white"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".LoginReg">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:background="@drawable/res_down"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't have an account ?"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:onClick="signupLayout"
-                android:text=" Register Here"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-
-        android:layout_gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/logo"
@@ -61,21 +21,14 @@
             android:layout_height="150dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="84dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/medium_res_icon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.496"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:scaleType="centerInside"
+            android:src="@drawable/medium_res_icon" />
 
         <EditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:padding="10dp" />
@@ -84,8 +37,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:drawablePadding="5dp"
+            android:layout_marginTop="@dimen/margin_10"
             android:hint="Type Password"
             android:padding="10dp" />
 
@@ -94,27 +46,29 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
             android:text="Select Domain"
-            android:textSize="10sp"></TextView>
+            android:textSize="10sp"
+            android:visibility="gone"></TextView>
 
         <Spinner
             android:id="@+id/_spn_domain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:entries="@array/domains"
-            android:padding="10dp"></Spinner>
+            android:padding="10dp"
+            android:visibility="gone"></Spinner>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="@dimen/dp_05"
             android:layout_marginRight="@dimen/dp_05"
-            android:background="@color/gray600"></View>
+            android:background="@color/gray600"
+            android:visibility="gone"></View>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_30"
             android:background="@drawable/reg_buttons"
             android:gravity="center"
             android:onClick="login"
@@ -127,6 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginTop="@dimen/dp_15"
             android:gravity="left"
             android:orientation="horizontal">
 
@@ -156,4 +111,34 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/res_down"
+        android:gravity="center"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Don't have an account ?"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:onClick="signupLayout"
+                android:text=" Register Here"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>

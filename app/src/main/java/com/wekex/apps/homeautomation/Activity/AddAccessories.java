@@ -56,7 +56,8 @@ public class AddAccessories extends AppCompatActivity implements View.OnClickLis
             iv_tick.setImageResource(R.drawable.tick);
             iv_tick.setOnClickListener(this::onClick);
             cb_all = findViewById(R.id.cb_all);
-            this.scenee = getIntent().getStringExtra("Devices");
+            if (getIntent().hasExtra("Devices"))
+                this.scenee = getIntent().getStringExtra("Devices");
             Log.wtf("SCENEE_INTENT_EXTRA", this.scenee);
             roomID = getIntent().getStringExtra("roomID");
             listView = findViewById(R.id.scene_listview);

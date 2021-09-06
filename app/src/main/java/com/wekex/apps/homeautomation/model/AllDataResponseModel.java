@@ -1,5 +1,7 @@
 package com.wekex.apps.homeautomation.model;
 
+import androidx.room.Ignore;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -12,6 +14,7 @@ public class AllDataResponseModel {
     public String power = "";
     public String dnum = "";
 
+    @Ignore
     @Expose
     @SerializedName("data")
     public ArrayList<data> objData = new ArrayList<>();

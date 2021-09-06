@@ -194,11 +194,14 @@ public class SmartConfig extends AppCompatActivity implements OnClickListener {
                         .show();
             }
         } else {
+
             String ssid = info.getSSID();
             if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
                 ssid = ssid.substring(1, ssid.length() - 1);
             }
             mApSsidTV.setText(ssid);
+//            mApSsidTV.setText(getSSID());
+
             mApSsidTV.setTag(ByteUtil.getBytesByString(ssid));
             byte[] ssidOriginalData = EspUtils.getOriginalSsidBytes(info);
             mApSsidTV.setTag(ssidOriginalData);
@@ -216,6 +219,24 @@ public class SmartConfig extends AppCompatActivity implements OnClickListener {
                 }
             }
         }
+    }
+
+    public String setSSID() {
+        try {
+            WifiManager mWifiManager = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            assert mWifiManager != null;
+            WifiInfo info = mWifiManager.getConnectionInfo();
+            Log.e("TAG", "Get SSID At SmartConfig " + info.getSSID());
+            String ssid = info.getSSID();
+            if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
+                ssid = ssid.substring(1, ssid.length() - 1);
+            }
+            mApSsidTV.setText(ssid);
+            return info.getSSID();
+        } catch (Exception e) {
+            Log.e("TAG", "Exception at getSSID");
+        }
+        return "";
     }
 
     private void onLocationChanged() {

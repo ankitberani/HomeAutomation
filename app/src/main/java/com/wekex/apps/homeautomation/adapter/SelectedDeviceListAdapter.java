@@ -667,7 +667,6 @@ public class SelectedDeviceListAdapter extends RecyclerView.Adapter<SelectedDevi
 
             holder.ll_type_16.setVisibility(View.GONE);
         } else if (obj.getDtype() == 16) {
-
             holder.ll_type_16.setVisibility(View.VISIBLE);
             holder.view_rgb_clr.setVisibility(View.GONE);
             if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {

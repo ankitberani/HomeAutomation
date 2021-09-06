@@ -33,8 +33,20 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
         <activity
-            android:name=".Activity.SceneListForShortcut"
+            android:name=".Activity.ConfigueRuleDevices"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.RuleListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.AddRulesActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.Type21Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Activity.SceneListForShortcut"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activity.UpdateSceneFromHome"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

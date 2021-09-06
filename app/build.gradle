@@ -14,7 +14,7 @@ android {
     buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "com.wekex.apps.homeautomation"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "Smarty_V1_20210311"
