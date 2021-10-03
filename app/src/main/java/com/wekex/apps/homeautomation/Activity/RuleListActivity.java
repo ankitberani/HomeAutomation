@@ -29,6 +29,7 @@ public class RuleListActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_rule_list);
         setupToolbar();
         setup();
+
     }
 
     void setupToolbar() {

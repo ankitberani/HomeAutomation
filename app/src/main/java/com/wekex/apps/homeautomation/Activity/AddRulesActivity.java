@@ -41,6 +41,7 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
     String _data = "";
     String _data_then = "";
     TextView tv_device_count;
+
     TextView tv_device_count_then;
 
     @Override
