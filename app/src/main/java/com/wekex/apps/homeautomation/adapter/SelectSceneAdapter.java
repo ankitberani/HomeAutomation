@@ -9,6 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.wekex.apps.homeautomation.R;
 import com.wekex.apps.homeautomation.helperclass.rgb_color_interface;
 import com.wekex.apps.homeautomation.model.scene_model;
@@ -16,23 +20,17 @@ import com.wekex.apps.homeautomation.utils.RoundRectCornerImageView;
 
 import java.util.ArrayList;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.recyclerview.widget.RecyclerView;
-
-public class SceneAdapter extends RecyclerView.Adapter<SceneAdapter.ViewHolder> {
+public class SelectSceneAdapter extends RecyclerView.Adapter<SelectSceneAdapter.ViewHolder> {
 
     ArrayList<scene_model.Scene> _list;
     Context context;
     rgb_color_interface objInterface;
 
-    boolean isFromEditMode;
 
-    public SceneAdapter(ArrayList<scene_model.Scene> _list, Context context, rgb_color_interface objInterface, boolean isFromEditMode) {
+    public SelectSceneAdapter(ArrayList<scene_model.Scene> _list, Context context, rgb_color_interface objInterface) {
         this._list = _list;
         this.context = context;
         this.objInterface = objInterface;
-        this.isFromEditMode = isFromEditMode;
     }
 
     @NonNull
@@ -54,13 +52,9 @@ public class SceneAdapter extends RecyclerView.Adapter<SceneAdapter.ViewHolder> 
             holder.rb_1.setChecked(false);
 
         if (object.isStaticScene()) {
-            holder.iv_delete.setVisibility(View.GONE);
-            holder.iv_edit.setVisibility(View.GONE);
             holder.circular.setVisibility(View.VISIBLE);
         } else {
             holder.circular.setVisibility(View.GONE);
-            holder.iv_delete.setVisibility(View.VISIBLE);
-            holder.iv_edit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -105,31 +99,9 @@ public class SceneAdapter extends RecyclerView.Adapter<SceneAdapter.ViewHolder> 
                 notifyDataSetChanged();
             });
 
-            iv_delete.setOnClickListener(view -> {
-                if (isFromEditMode) {
-                    showDialog(_list.get(getAdapterPosition()).getID(), getAdapterPosition(), _list.get(getAdapterPosition()).getName());
-                } else
-                    showDialog(_list.get(getAdapterPosition()).getID(), getAdapterPosition(), _list.get(getAdapterPosition()).getScene_name());
-            });
-            iv_edit.setOnClickListener(view -> objInterface.editScene(_list.get(getAdapterPosition()).getID(), getAdapterPosition()));
-
-            if (isFromEditMode)
-                rb_1.setVisibility(View.GONE);
-            else
-                rb_1.setVisibility(View.VISIBLE);
+            iv_edit.setVisibility(View.GONE);
+            iv_delete.setVisibility(View.GONE);
         }
     }
 
-    void showDialog(String id, int position, String name) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-        dialog.setTitle("Delete?");
-        dialog.setMessage("Are you sure you want to delete " + name);
-        dialog.setPositiveButton("Yes", (dialogInterface, i) -> {
-            objInterface.delScene(id, position);
-            dialogInterface.dismiss();
-        });
-
-        dialog.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
-        dialog.show();
-    }
 }

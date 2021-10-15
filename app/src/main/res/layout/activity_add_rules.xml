@@ -38,6 +38,7 @@
         </androidx.appcompat.widget.Toolbar>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/card_if"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_10">
@@ -70,19 +71,22 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_15"
                     android:background="@drawable/search_rounded"
-                    android:gravity="center"
                     android:orientation="vertical"
                     android:padding="@dimen/dp_05"
                     android:scrollbars="horizontal"
                     android:visibility="gone">
 
-                    <TextView
+                    <include layout="@layout/item_selected_device_for_rule"
+                        android:id="@+id/ll_selectDevice"
+                        ></include>
+                <!--    <TextView
                         android:id="@+id/tv_device_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:gravity="right"
                         android:text=""
+                        android:visibility="gone"
                         android:textSize="12sp"></TextView>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -91,6 +95,7 @@
                         android:layout_height="100dp"
                         android:orientation="horizontal"
                         tools:listitem="@layout/item_selected_device_for_rule"></androidx.recyclerview.widget.RecyclerView>
+                -->
                 </LinearLayout>
 
                 <LinearLayout
@@ -158,13 +163,13 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_15"
                     android:background="@drawable/search_rounded"
-                    android:gravity="center"
+
                     android:orientation="vertical"
                     android:padding="@dimen/dp_05"
                     android:scrollbars="horizontal"
                     android:visibility="gone">
 
-                    <TextView
+                    <!--<TextView
                         android:id="@+id/tv_device_count_then"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -178,7 +183,79 @@
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
                         android:orientation="horizontal"
-                        tools:listitem="@layout/item_selected_device_for_rule"></androidx.recyclerview.widget.RecyclerView>
+                        tools:listitem="@layout/item_selected_device_for_rule"></androidx.recyclerview.widget.RecyclerView>-->
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card"
+                        android:layout_width="@dimen/dp_100"
+                        android:layout_height="@dimen/dp_100"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:cardBackgroundColor="@android:color/white"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="1dp"
+                        app:cardUseCompatPadding="true"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/iv_device_icon"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:padding="5dp"
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/ip_camera_svg"
+                                    android:tint="@color/colorAccent" />
+
+                                <TextView
+                                    android:id="@+id/tv_scene_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="2"
+                                    android:padding="2dp"
+                                    android:text="Heading"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tv_device_dno"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="2"
+                                    android:padding="2dp"
+                                    android:text="Heading"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimaryDark"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:visibility="gone" />
+                            </LinearLayout>
+                        </FrameLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_delete_device"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_gravity="right"
+                            android:padding="@dimen/dp_05"
+                            android:src="@drawable/ic_close"
+                            android:visibility="gone"></ImageView>
+                    </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
                 <LinearLayout

@@ -45,6 +45,7 @@ public class AddAccessories extends AppCompatActivity implements View.OnClickLis
     AppCompatCheckBox cb_all;
     ImageView iv_tick;
     Gson _gson = new Gson();
+    boolean isFromScene = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,13 @@ public class AddAccessories extends AppCompatActivity implements View.OnClickLis
             iv_tick.setImageResource(R.drawable.tick);
             iv_tick.setOnClickListener(this::onClick);
             cb_all = findViewById(R.id.cb_all);
+            cb_all.setVisibility(View.GONE);
             if (getIntent().hasExtra("Devices"))
                 this.scenee = getIntent().getStringExtra("Devices");
+            if (getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase("FromScene")) {
+                isFromScene = true;
+                cb_all.setVisibility(View.VISIBLE);
+            }
             Log.wtf("SCENEE_INTENT_EXTRA", this.scenee);
             roomID = getIntent().getStringExtra("roomID");
             listView = findViewById(R.id.scene_listview);
@@ -233,8 +239,19 @@ public class AddAccessories extends AppCompatActivity implements View.OnClickLis
                     }
                 }
             }
-            _all_data.getObjData().get(_pos).setChecked(!_all_data.getObjData().get(_pos).isChecked());
-            adapter.notifyItemChanged(_pos);
+            if (!isFromScene) {
+                for (int i = 0; i < _all_data.getObjData().size(); i++) {
+                    if (i == _pos) {
+                        _all_data.getObjData().get(_pos).setChecked(!_all_data.getObjData().get(_pos).isChecked());
+                    } else
+                        _all_data.getObjData().get(i).setChecked(false);
+                }
+
+                adapter.notifyItemRangeChanged(0, _all_data.getObjData().size());
+            } else {
+                _all_data.getObjData().get(_pos).setChecked(!_all_data.getObjData().get(_pos).isChecked());
+                adapter.notifyItemChanged(_pos);
+            }
         }
     };
 

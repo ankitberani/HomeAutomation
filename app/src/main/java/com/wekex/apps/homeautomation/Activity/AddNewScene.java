@@ -162,6 +162,7 @@ public class AddNewScene extends AppCompatActivity implements View.OnClickListen
         switch (view.getId()) {
             case R.id.ll_add_accesories: {
                 Intent intent = new Intent(AddNewScene.this, AddAccessories.class);
+                intent.setAction("FromScene");
                 intent.putExtra("roomID", roomID);
                 if (_all_data != null && _all_data.getObjData() != null && _all_data.getObjData().size() != 0) {
                     String _json = _gson.toJson(_all_data);

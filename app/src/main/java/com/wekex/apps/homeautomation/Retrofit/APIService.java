@@ -43,6 +43,7 @@ public interface APIService {
     String UPDATEGROUP = "api/Get/EditGroup";
     String TRIGERGROUP = "api/Get/EditGroup";
     String LOGINUSER = "api/Login/userLogin";
+    String GETRULELIST = "api/Get/getRule";
 
     String UPDATEDEVICE = "/api/Get/getDevices";
 
@@ -142,6 +143,7 @@ public interface APIService {
     @Headers("Content-Type: application/json; charset=utf-8")
     @POST("api/Get/EditUserRemote")
     Call<String> UpdateRemote(@Query("index") int index, @Query("device") String device, @Query("channel") String channel, @Body remote_model_codes_add_request _ir_remote_data);
+
 
     @Headers("Content-Type: application/json; charset=utf-8")
     @GET

@@ -811,21 +811,23 @@ public class ConfigueRuleDevices extends AppCompatActivity implements View.OnCli
                 JSONObject _objectDevice = new JSONObject();
                 _objectDevice.put("dno", _all_data.getObjData().get(i).getDno());
                 JSONObject obj_d1 = new JSONObject();
-                obj_d1.put("r", _all_data.getObjData().get(i).getObjd1().getR());
-                obj_d1.put("g", _all_data.getObjData().get(i).getObjd1().getG());
-                obj_d1.put("b", _all_data.getObjData().get(i).getObjd1().getB());
-                obj_d1.put("w", _all_data.getObjData().get(i).getObjd1().getW());
-                obj_d1.put("ww", _all_data.getObjData().get(i).getObjd1().getWw());
+                if (_all_data.getObjData() != null && _all_data.getObjData().get(i).getObjd1() != null) {
+                    obj_d1.put("r", _all_data.getObjData().get(i).getObjd1().getR());
+                    obj_d1.put("g", _all_data.getObjData().get(i).getObjd1().getG());
+                    obj_d1.put("b", _all_data.getObjData().get(i).getObjd1().getB());
+                    obj_d1.put("w", _all_data.getObjData().get(i).getObjd1().getW());
+                    obj_d1.put("ww", _all_data.getObjData().get(i).getObjd1().getWw());
 
-                obj_d1.put("state", _all_data.getObjData().get(i).getObjd1().isState());
-                obj_d1.put("br", (double) _all_data.getObjData().get(i).getObjd1().getBr() / 100);
-                if (_all_data.getObjData().get(i).getObjd1().getName() != null)
-                    obj_d1.put("name", _all_data.getObjData().get(i).getObjd1().getName());
-                else
-                    obj_d1.put("name", _all_data.getObjData().get(i).getName());
-                _objectDevice.put("d1", obj_d1);
-                _array_device.put(_objectDevice.toString());
-                _main.put("Devices", _array_device);
+                    obj_d1.put("state", _all_data.getObjData().get(i).getObjd1().isState());
+                    obj_d1.put("br", (double) _all_data.getObjData().get(i).getObjd1().getBr() / 100);
+                    if (_all_data.getObjData().get(i).getObjd1().getName() != null)
+                        obj_d1.put("name", _all_data.getObjData().get(i).getObjd1().getName());
+                    else
+                        obj_d1.put("name", _all_data.getObjData().get(i).getName());
+                    _objectDevice.put("d1", obj_d1);
+                    _array_device.put(_objectDevice.toString());
+                    _main.put("Devices", _array_device);
+                }
             }
             Log.e("TAG", "Size of Device Json After " + _array_device.length());
 

@@ -1123,13 +1123,23 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 12) {
             Log.e("TAG", "Type 12 Logs h:" + obj.getObjd1().getValue_h() + " T :" + obj.getObjd1().getValue_t() + " hi:" + obj.getObjd1().getValue_hi() + " lux:" + obj.getObjd1().getValue_lux() + " bat:" + obj.getObjd1().getBat());
-
             if (obj.getObjd1() != null && obj.getObjd1().getName() != null && !obj.getObjd1().getName().isEmpty()) {
                 holder.tv_dno_type_12.setText(obj.getObjd1().getName());
             } else if (!obj.getName().isEmpty()) {
                 holder.tv_dno_type_12.setText(obj.getName());
             } else {
                 holder.tv_dno_type_12.setText("");
+            }
+
+            if (!obj.isOnline()) {
+                holder.device_icon_d12.setColorFilter(null);
+                holder.device_icon_d12.setImageResource(R.drawable.device_offline_icon);
+                holder.iv_signal_d12.setImageDrawable(context.getResources().getDrawable(R.drawable.signal_zero));
+            } else {
+                holder.iv_signal_d12.setImageResource(obj.getSignalDrawable());
+                holder.device_icon_d12.setImageResource(obj.getDrawable());
+                int color = android.graphics.Color.argb(255, obj.getObjd1().getR(), obj.getObjd1().getG(), obj.getObjd1().getB());
+                holder.device_icon_d12.setColorFilter(color);
             }
 
             if (obj.getObjd1().getValue_h() != null)
@@ -1180,8 +1190,12 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
         Switch switch_d1, switch_d2, switch_d3, switch_d4;
         BatteryMeterView battery_indicator;
 
+        ImageView device_icon_d12;
+        ImageView iv_signal_d12;
+
         ImageView device_icon_d1, device_icon_d2, device_icon_d3, device_icon_d4;
         ImageView iv_showMenu_d1, iv_showMenu_d2, iv_showMenu_d3, iv_showMenu_d4;
+        ImageView showMenu_d12_luminance,deviceInfo_d12_luminance;
 
         ImageView iv_signal_d1, iv_signal_d2, iv_signal_d3, iv_signal_d4;
         ImageView deviceInfo_d1, deviceInfo_d2, deviceInfo_d3, deviceInfo_d4;
@@ -1289,15 +1303,22 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             switch_d3 = itemView.findViewById(R.id.switch1_d3);
             switch_d4 = itemView.findViewById(R.id.switch1_d4);
 
+            device_icon_d12 = itemView.findViewById(R.id.device_icon_d12);
+
             device_icon_d1 = itemView.findViewById(R.id.device_icon_d1);
             device_icon_d2 = itemView.findViewById(R.id.device_icon_d2);
             device_icon_d3 = itemView.findViewById(R.id.device_icon_d3);
             device_icon_d4 = itemView.findViewById(R.id.device_icon_d4);
 
+            iv_signal_d12 = itemView.findViewById(R.id.iv_signal_d12);
+
+
             iv_showMenu_d1 = itemView.findViewById(R.id.showMenu_d1);
             iv_showMenu_d2 = itemView.findViewById(R.id.showMenu_d2);
             iv_showMenu_d3 = itemView.findViewById(R.id.showMenu_d3);
             iv_showMenu_d4 = itemView.findViewById(R.id.showMenu_d4);
+            showMenu_d12_luminance = itemView.findViewById(R.id.showMenu_d12_luminance);
+            deviceInfo_d12_luminance = itemView.findViewById(R.id.deviceInfo_d12_luminance);
 
 
             iv_signal_d1 = itemView.findViewById(R.id.iv_signal_d1);
@@ -1306,10 +1327,15 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             iv_signal_d4 = itemView.findViewById(R.id.iv_signal_d4);
 
 
+            iv_signal_d12.setOnClickListener(this);
+            device_icon_d12.setOnClickListener(this);
+
             iv_showMenu_d1.setOnClickListener(this);
             iv_showMenu_d2.setOnClickListener(this);
             iv_showMenu_d3.setOnClickListener(this);
             iv_showMenu_d4.setOnClickListener(this);
+            showMenu_d12_luminance.setOnClickListener(this);
+            deviceInfo_d12_luminance.setOnClickListener(this);
 
             switch_d1.setOnClickListener(this);
             switch_d2.setOnClickListener(this);
@@ -1486,6 +1512,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                     }
                 }
                 break;
+                case R.id.deviceInfo_d12_luminance:
                 case R.id.deviceInfo_d1:
                 case R.id.deviceInfo_d2:
                 case R.id.deviceInfo_d4:
@@ -1515,6 +1542,11 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
                     showMenu(v, allData.getObjData().get(getAdapterPosition()).isOnline(), getAdapterPosition(), 4);
                 }
                 break;
+                case R.id.showMenu_d12_luminance: {
+                    showMenu(v, allData.getObjData().get(getAdapterPosition()).isOnline(), getAdapterPosition(), 1);
+                }
+                break;
+
             }
         }
     }

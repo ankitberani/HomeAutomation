@@ -581,6 +581,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             popup.getMenu().removeItem(R.id.scheduled_d);
         }
         popup.show();
+
     }
 
     public void remove(final String grpID, int pos) {
@@ -1423,6 +1424,12 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             case "11":
                 resource = R.drawable.open_door;
                 break;
+                case "12":
+                resource = R.drawable.icon_multi_sensor;
+                break;
+            default:
+                resource = R.drawable.rgb_bulb;
+
         }
         return resource;
     }
