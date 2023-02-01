@@ -186,6 +186,12 @@
                 android:visibility="gone" />
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_rules"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fadeScrollbars="false"
+                android:visibility="gone" />
         </LinearLayout>
 
 
@@ -204,17 +210,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/btn_add_new_rule"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50"
-            android:background="@color/colorAccent"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="ADD NEW RULE"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/ivAddRule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/margin_10"
+            android:src="@drawable/ic_add"
+            android:tint="@color/white"
+            android:visibility="gone"></com.google.android.material.floatingactionbutton.FloatingActionButton>
 
         <com.ashokvarma.bottomnavigation.BottomNavigationBar
             android:id="@+id/bottom_navigation_bar"

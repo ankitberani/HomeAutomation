@@ -507,6 +507,12 @@
                             android:textColor="@color/black"
                             android:textStyle="bold" />
 
+                        <com.wekex.apps.homeautomation.adapter.AutofitRecyclerView
+                            android:id="@+id/rv_scenelist"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="visible" />
+
                     </RelativeLayout>
 
                 </RelativeLayout>
@@ -690,12 +696,6 @@
             </LinearLayout>
 
 
-            <com.wekex.apps.homeautomation.adapter.AutofitRecyclerView
-                android:id="@+id/rv_scenelist"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible" />
-
         </LinearLayout>
 
 
@@ -714,26 +714,6 @@
                 android:layout_weight="1" />
 
         </LinearLayout>
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_add"-->
-<!--            android:layout_width="@dimen/dp_150"-->
-<!--            android:layout_height="@dimen/dp_40"-->
-<!--            android:layout_marginRight="@dimen/margin_10"-->
-<!--            android:layout_marginBottom="@dimen/dp_05"-->
-<!--            android:background="@drawable/rounded_white"-->
-<!--            android:drawableLeft="@android:drawable/ic_menu_add"-->
-<!--            android:drawableTint="@color/colorAccent"-->
-<!--            android:gravity="bottom|end"-->
-<!--            android:padding="@dimen/dp_05"-->
-<!--            android:layout_alignParentBottom="true"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:text="New Schedule"-->
-<!--            android:textAllCaps="false"-->
-<!--            android:textColor="@color/colorAccent"-->
-<!--            android:textSize="14sp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:layout_alignParentRight="true" />-->
 
     </RelativeLayout>
 

@@ -75,7 +75,7 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog progressDialog;
     private String selectedScenID = "";
     private String selectedDno = "";
-    ImageView iv_add_item;
+    ImageView iv_add_item, ivDelDevice, iv_delete_scene;
 
     boolean isFromUpdate;
     String ruleID = "";
@@ -95,8 +95,12 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
         ll_then_condition = findViewById(R.id.ll_then_condition);
         ll_then_condition.setOnClickListener(this::onClick);
 
+        iv_delete_scene = findViewById(R.id.iv_delete_scene);
+        ivDelDevice = findViewById(R.id.ivDelDevice);
         iv_add_item = findViewById(R.id.iv_add_item);
         iv_add_item.setOnClickListener(this::onClick);
+        iv_delete_scene.setOnClickListener(this::onClick);
+        ivDelDevice.setOnClickListener(this::onClick);
 
         this.progressDialog = new ProgressDialog(this);
         if (getIntent() != null && getIntent().hasExtra("ruleID")) {
@@ -109,6 +113,9 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
             getSceneFromServer();
             getDeviceNamefromDno();
             ll_add_device.setVisibility(View.GONE);
+            ll_then_condition.setVisibility(View.GONE);
+            ivDelDevice.setVisibility(View.GONE);
+            iv_delete_scene.setVisibility(View.VISIBLE);
         }
         setupToolbar();
     }
@@ -127,7 +134,6 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
             Log.e("TAG", "Exception at setupToolbar " + e.getMessage());
         }
     }
-
 
     void setup() {
         ll_add_device = findViewById(R.id.ll_add_device);
@@ -156,7 +162,9 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
             }
             break;
             case R.id.ll_then_condition: {
-                showBottomSheetDialog();
+//                showBottomSheetDialog();
+                Intent _intent = new Intent(AddRulesActivity.this, SelectSceneActivity.class);
+                startActivityForResult(_intent, 100);
             }
             break;
             case R.id.iv_add_item: {
@@ -170,6 +178,18 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
                 } catch (Exception e) {
                     Log.e("TAG", "Exception at add rule " + e.toString());
                 }
+            }
+            break;
+            case R.id.iv_delete_scene: {
+                selectedScenID = "";
+                ll_devices_then.setVisibility(View.GONE);
+                ll_then_condition.setVisibility(View.VISIBLE);
+            }
+            break;
+            case R.id.ivDelDevice: {
+                selectedDno = "";
+                ll_devices.setVisibility(View.GONE);
+                ll_add_device.setVisibility(View.VISIBLE);
             }
             break;
         }
@@ -337,6 +357,7 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
                         Log.e("TAG", "DNO at bind holder " + d1.getString("name"));
                         tv_device_name.setText(d1.getString("name"));
                         ll_devices.setVisibility(View.VISIBLE);
+                        ll_add_device.setVisibility(View.GONE);
                     }
                 } catch (Exception e) {
                     Log.e("TAG", "Exception at onActivityResult " + e.toString());
@@ -350,6 +371,7 @@ public class AddRulesActivity extends AppCompatActivity implements View.OnClickL
                     JSONObject _main = new JSONObject(scene);
                     selectedScenID = _main.getString("ID");
                     ll_devices_then.setVisibility(View.VISIBLE);
+                    ll_then_condition.setVisibility(View.GONE);
                     tv_scene_name.setText(_main.getString("Name"));
                 } catch (Exception e) {
                     Log.e("TAG", "Exception at onActivityResult " + e.toString());

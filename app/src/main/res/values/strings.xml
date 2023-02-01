@@ -271,5 +271,6 @@
     <string name="temprature">Temprature</string>
     <string name="motion">Motion</string>
     <string name="humidity">Humidity</string>
+<!--    <string name="required">Required!</string>-->
 
 </resources>

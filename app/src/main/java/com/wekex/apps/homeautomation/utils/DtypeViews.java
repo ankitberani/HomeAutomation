@@ -1627,7 +1627,7 @@ public class DtypeViews {
     public static void addRoom(Context context, String name) {
         String user = Constants.savetoShared(context).getString(Constants.USER_ID, "0");
         try {
-            new PahoMqttClient().publishMessage(Constants.GeneralpahoMqttClient, "{ \"method\" : \"addRoom\" , \"data\"  : {\"name\":\"" + name + "\"}}", 1, "u/" + user + "/pub");
+            new PahoMqttClient().publishMessage(Constants.GeneralpahoMqttClient, "{ \"method\" : \"addRoom\" , \"data\" : {\"name\":\"" + name + "\"}}", 1, "u/" + user + "/pub");
         } catch (MqttException | UnsupportedEncodingException e) {
             Log.d(TAG, "getGetDevice" + e.getMessage());
             e.printStackTrace();
@@ -1640,7 +1640,7 @@ public class DtypeViews {
         try {
             new PahoMqttClient().publishMessage(Constants.GeneralpahoMqttClient, "{ " +
                             "\"method\" : \"updRoom\" , " +
-                            "\"data\"  : {" +
+                            "\"data\" : {" +
                             "\"room\":\"" + roomID + "\"," +
                             "\"name\":\"" + name + "\"" +
                             "}}",

@@ -185,7 +185,6 @@ public class PahoMqttClient {
 
     public void subscribe(@NonNull MqttAndroidClient client, @NonNull final String topic, int qos) throws MqttException {
         try {
-
             final String[] ret = new String[1];
             IMqttToken token = client.subscribe(topic, qos);
             if (token == null) {

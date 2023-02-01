@@ -2,34 +2,24 @@ package com.wekex.apps.homeautomation.Retrofit;
 
 
 import com.google.gson.JsonObject;
-import com.wekex.apps.homeautomation.model.AddSceneModel;
-import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.AllDataResponseModelWithStatus;
 import com.wekex.apps.homeautomation.model.GetAppHomeModel;
 import com.wekex.apps.homeautomation.model.LoginRequestModel;
 import com.wekex.apps.homeautomation.model.SuccessResponse;
 import com.wekex.apps.homeautomation.model.data;
-import com.wekex.apps.homeautomation.model.ir_remotes;
 import com.wekex.apps.homeautomation.model.remote_model_codes;
 import com.wekex.apps.homeautomation.model.remote_model_codes_add_request;
 import com.wekex.apps.homeautomation.model.scene_model;
 import com.wekex.apps.homeautomation.model.whethermodel;
-
-import org.json.JSONObject;
-
 
 import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -152,4 +142,14 @@ public interface APIService {
     @Headers("Content-Type: application/json; charset=utf-8")
     @POST(UPDATEDEVICE)
     Call<String> getUpdatedData(@Body JsonObject jsonObject);
+
+    @Headers("Content-Type: application/json; charset=utf-8")
+    @GET
+    Call<String> verifyOTP(@Url String url);
+
+     @Headers("Content-Type: application/json; charset=utf-8")
+    @GET
+    Call<String> resendOTP(@Url String url);
+
+
 }

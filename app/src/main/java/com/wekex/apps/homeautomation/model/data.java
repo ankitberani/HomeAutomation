@@ -41,9 +41,9 @@ public class data {
     @SerializedName("isOnline")
     public boolean isOnline = false;
 
-    @Ignore
-    @SerializedName("version")
-    public double version = 0;
+//    @Ignore
+//    @SerializedName("version")
+//    public double version = 0;
 
     @Expose
     @SerializedName("ip")
@@ -118,6 +118,15 @@ public class data {
     @Expose
     @SerializedName("d4")
     public d4 objd4;
+
+    @Expose
+    @SerializedName("d5")
+    public d4 objd5;
+
+    @Expose
+    @SerializedName("d6")
+    public d4 objd6;
+
 
 
     public int drawable;
@@ -242,12 +251,12 @@ public class data {
     }
 
     public double getVersion() {
-        return version;
+        return 0;
     }
 
-    public void setVersion(double version) {
+    /*public void setVersion(double version) {
         this.version = version;
-    }
+    }*/
 
     public String getTime() {
         return time;

@@ -1094,9 +1094,8 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation, V
 
     void updateRoomName(String _id, String name, int position, Drawable drawable, String _drawable_nm) {
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
-
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-        String url = APIClient.BASE_URL + "/api/Get/updRoom?UID=" + user + "&roomID=" + _id + "&RoomName=" + name;
+        String url = "http://smartyhome.in" +"/api/Get/updRoom?UID=" + user + "&roomID=" + _id + "&RoomName=" + name;
         Log.e("TAGG", "URL of the UpdateRoom" + url + " position " + position + " Room size " + main_object.get_lst_rooms().size() + " _drawable_nm " + _drawable_nm);
         Observable<SuccessResponse> observable = apiInterface.updateRoom(url);
         observable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<SuccessResponse>() {
@@ -1194,7 +1193,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation, V
         String user = Constants.savetoShared(context).getString(Constants.USER_ID, "0");
         Log.d(TAG, user + "removeDeviceFromRoom: " + RoomId);
         try {
-            new PahoMqttClient().publishMessage(Constants.GeneralpahoMqttClient, "{ \"method\" : \"deleteRoom\" , \"data\"  : {\"room\":\"" + RoomId + "\"}}", 1, "u/" + user + "/pub");
+            new PahoMqttClient().publishMessage(Constants.GeneralpahoMqttClient, "{ \"method\" : \"deleteRoom\" , \"data\" : {\"room\":\"" + RoomId + "\"}}", 1, "u/" + user + "/pub");
         } catch (MqttException | UnsupportedEncodingException e) {
             Log.d(TAG, "getGetDevice" + e.getMessage());
             e.printStackTrace();
@@ -1204,7 +1203,7 @@ public class HomeActivity extends BaseActivity implements HomeScreenOperation, V
     public void GetAllData(boolean isFromRefresh) {
         APIService apiInterface = APIClient.getClient_1().create(APIService.class);
         String user = Constants.savetoShared(this).getString(Constants.USER_ID, "0");
-        String url = APIClient.BASE_URL + "api/Get/getAppHome?UID=" + user;
+        String url = APIClient.BASE_URL + "/api/Get/getAppHome?UID=" + user;
         Log.e("TAG", "GetAllData URL " + url);
 
         Observable<GetAppHomeModel> observable = apiInterface.getAllData(url);

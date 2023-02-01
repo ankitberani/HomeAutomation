@@ -36,7 +36,7 @@ import retrofit2.Response;
 
 public class SplashActivity extends BaseActivity {
     String TAG = "SplashActivity";
-    TextView try_again;
+    TextView try_again,tvVersion;
 
     /* access modifiers changed from: protected */
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,11 @@ public class SplashActivity extends BaseActivity {
         } else {
             System.out.println("File already created!");
         }
+        tvVersion=(TextView)findViewById(R.id.tvVersion);
+        tvVersion.setVisibility(View.VISIBLE);
+        String versionName = BuildConfig.VERSION_NAME;
+        tvVersion.setText(versionName);
+        Toast.makeText(this,tvVersion.getText().toString()+ "", Toast.LENGTH_LONG).show();
     }
 
 
@@ -186,7 +191,7 @@ public class SplashActivity extends BaseActivity {
             BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
             buf.write(data);
             buf.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

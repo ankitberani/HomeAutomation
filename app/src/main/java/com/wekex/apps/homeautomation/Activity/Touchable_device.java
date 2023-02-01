@@ -42,6 +42,10 @@ public class Touchable_device extends AppCompatActivity implements View.OnClickL
         rl_9 = findViewById(R.id.view_9);
 
 
+        rl_1.setTag(0);
+        rl_2.setTag(0);
+        rl_3.setTag(0);
+        rl_4.setTag(0);
         rl_5.setTag(0);
         rl_6.setTag(0);
         rl_7.setTag(0);
@@ -64,10 +68,10 @@ public class Touchable_device extends AppCompatActivity implements View.OnClickL
         v3_on_ff = (View) findViewById(R.id.v3_on_ff);
         v4_on_ff = (View) findViewById(R.id.v4_on_ff);
 
-        v1_on_ff.setVisibility(View.GONE);
+       /* v1_on_ff.setVisibility(View.GONE);
         v2_on_ff.setVisibility(View.GONE);
         v3_on_ff.setVisibility(View.GONE);
-        v4_on_ff.setVisibility(View.GONE);
+        v4_on_ff.setVisibility(View.GONE);*/
 
         v5_on_ff = (View) findViewById(R.id.v5_on_ff);
         v6_on_ff = (View) findViewById(R.id.v6_on_ff);
@@ -156,10 +160,10 @@ public class Touchable_device extends AppCompatActivity implements View.OnClickL
 
                 if (object.isOnline()) {
                     rl_7.setTag(1);
-                    tv_view7.setText("ON");
+//                    tv_view7.setText("ON");
                     v7_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_on));
                 } else {
-                    tv_view7.setText("OFF");
+//                    tv_view7.setText("OFF");
                     rl_7.setTag(0);
                     v7_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_off));
                 }
@@ -171,6 +175,51 @@ public class Touchable_device extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.view_1: {
+                int tag = (int) rl_1.getTag();
+                if (tag == 0) {
+                    rl_1.setTag(1);
+                    v1_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_on));
+                } else {
+                    v1_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_off));
+                    rl_1.setTag(0);
+                }
+            }
+            break;
+            case R.id.view_2: {
+                int tag = (int) rl_2.getTag();
+                if (tag == 0) {
+                    rl_2.setTag(1);
+                    v2_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_on));
+                } else {
+                    v2_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_off));
+                    rl_2.setTag(0);
+                }
+            }
+            break;
+            case R.id.view_3: {
+                int tag = (int) rl_3.getTag();
+                if (tag == 0) {
+                    rl_3.setTag(1);
+                    v3_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_on));
+                } else {
+                    v3_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_off));
+                    rl_3.setTag(0);
+                }
+            }
+            break;
+            case R.id.view_4: {
+                int tag = (int) rl_4.getTag();
+                if (tag == 0) {
+                    rl_4.setTag(1);
+                    v4_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_on));
+                } else {
+                    v4_on_ff.setBackground(getResources().getDrawable(R.drawable.circullar_view_off));
+                    rl_4.setTag(0);
+                }
+            }
+            break;
+
             case R.id.view_5: {
                 int tag = (int) rl_5.getTag();
                 if (tag == 0) {

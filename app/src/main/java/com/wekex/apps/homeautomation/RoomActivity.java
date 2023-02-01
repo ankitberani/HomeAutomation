@@ -3,8 +3,10 @@ package com.wekex.apps.homeautomation;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
@@ -26,6 +28,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,29 +41,36 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import com.wekex.apps.homeautomation.Activity.AddRulesActivity;
 import com.wekex.apps.homeautomation.Activity.DeviceTyp15;
 import com.wekex.apps.homeautomation.Activity.EditScene;
 import com.wekex.apps.homeautomation.Activity.NewSceneTempletActivity;
+import com.wekex.apps.homeautomation.Activity.RemoteBrandActivity;
 import com.wekex.apps.homeautomation.Activity.RuleListActivity;
 import com.wekex.apps.homeautomation.Activity.ScheduleList;
+import com.wekex.apps.homeautomation.Activity.Touchable_device;
 import com.wekex.apps.homeautomation.Activity.Type21Activity;
 import com.wekex.apps.homeautomation.Activity.UserRemoteCatList;
 import com.wekex.apps.homeautomation.Activity.ViewLogs;
 import com.wekex.apps.homeautomation.Interfaces.RoomOperation;
+import com.wekex.apps.homeautomation.Interfaces.RuleOperationListener;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
 import com.wekex.apps.homeautomation.Retrofit.APIService;
 import com.wekex.apps.homeautomation.adapter.DeviceTypeAdapter;
 import com.wekex.apps.homeautomation.adapter.GroupsAdapter;
 import com.wekex.apps.homeautomation.adapter.RoomDeviceAdapter;
+import com.wekex.apps.homeautomation.adapter.RuleListAdapter;
 import com.wekex.apps.homeautomation.helperclass.MqttMessageService;
 import com.wekex.apps.homeautomation.helperclass.PahoMqttClient;
 import com.wekex.apps.homeautomation.model.AllDataResponseModel;
 import com.wekex.apps.homeautomation.model.DeviceType;
+import com.wekex.apps.homeautomation.model.RuleListModel;
 import com.wekex.apps.homeautomation.model.SuccessResponse;
 import com.wekex.apps.homeautomation.model.data;
 import com.wekex.apps.homeautomation.model.scene_model;
@@ -83,6 +93,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InvalidClassException;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -110,7 +121,7 @@ import static com.wekex.apps.homeautomation.utils.Constants.savetoShared;
 import static com.wekex.apps.homeautomation.utils.Constants.stringToJsonObject;
 import static com.wekex.apps.homeautomation.utils.DtypeViews.isOnline;
 
-public class RoomActivity extends BaseActivity implements RoomOperation {
+public class RoomActivity extends BaseActivity implements RoomOperation, RuleOperationListener {
 
     private String Room_Name;
     TextView roomNameTV, no_of_device;
@@ -129,10 +140,11 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     //    ScrollView scoll_device_holder;
     TextView tv_scene;
 
-    TextView tv_no_scene, btnAddRule;
+    TextView tv_no_scene;
+    FloatingActionButton ivAddRule;
     ImageView refreshBtn;
 
-    RecyclerView rv_group, rv_device_list, rv_device_type;
+    RecyclerView rv_group, rv_device_list, rv_device_type, rv_rules;
     public static RoomOperation _grp_interface;
 
     Gson gson = new Gson();
@@ -148,6 +160,10 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
     String room_Id = "";
 
+    RuleListAdapter _adapter;
+    RuleOperationListener _listener;
+    ArrayList<RuleListModel.Rules> _lstRules;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -157,7 +173,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         Room_Name = getIntent().getStringExtra("room_name");
         deviceTypeHolder = findViewById(R.id.deviceTypeHolder);
         Constants.showDeviceRype = 0;
-
+        _listener = this;
         Log.e("TAG", "");
 
         _utility = new Utility(RoomActivity.this);
@@ -165,6 +181,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         tv_no_scene = findViewById(R.id.tv_no_scene);
         tv_no_scene.setVisibility(View.GONE);
 
+        ivAddRule = findViewById(R.id.ivAddRule);
         scroll_scene_holder = findViewById(R.id.scroll_scene_holder);
         scroll_scene_holder.setVisibility(View.GONE);
 
@@ -177,11 +194,10 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         tv_scene = findViewById(R.id.tv_scene);
         tv_scene.setText(getResources().getString(R.string.devices));
         bottomNavigationBar = findViewById(R.id.bottom_navigation_bar);
-        btnAddRule = findViewById(R.id.btn_add_new_rule);
-        btnAddRule.setOnClickListener(new View.OnClickListener() {
+        ivAddRule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RoomActivity.this, RuleListActivity.class));
+                startActivityForResult(new Intent(RoomActivity.this, AddRulesActivity.class), 100);
             }
         });
 
@@ -194,7 +210,6 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 .addItem(new BottomNavigationItem(R.drawable.scene_icon_new, getResources().getString(R.string.scene)).setActiveColorResource(R.color.colorPrimaryDark).setInActiveColor(R.color.gray600))
                 .addItem(new BottomNavigationItem(R.drawable.group_icon_new, getResources().getString(R.string.groups)).setActiveColorResource(R.color.colorPrimaryDark).setInActiveColor(R.color.gray600))
                 .addItem(new BottomNavigationItem(R.drawable.document, "Rules").setActiveColorResource(R.color.colorPrimaryDark).setInActiveColor(R.color.gray600))
-
                 .setFirstSelectedPosition(0)
                 .initialise();
         bottomNavigationBar.setTag(0);
@@ -210,6 +225,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         rv_group = findViewById(R.id.rv_group);
         rv_group.setLayoutManager(new LinearLayoutManager(this));
         rv_device_list = findViewById(R.id.rv_device_list);
+        rv_rules = findViewById(R.id.rv_rules);
+        rv_rules.setLayoutManager(new LinearLayoutManager(this));
         rv_device_list.setVisibility(View.VISIBLE);
 
         rv_device_list.setLayoutManager(new LinearLayoutManager(this));
@@ -260,7 +277,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     } else {
                         no_of_device.setText("Devices (" + _mainList_scene.getLst_scene().size() + ")");
                     }
-                    btnAddRule.setVisibility(View.GONE);
+                    ivAddRule.setVisibility(View.GONE);
 
                 } else if (position == 0) {
                     tv_no_scene.setVisibility(View.GONE);
@@ -276,7 +293,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     }
                     no_of_device.setText("Devices (" + filteredList.getObjData().size() + ")");
                     tv_no_scene.setVisibility(View.GONE);
-                    btnAddRule.setVisibility(View.GONE);
+                    ivAddRule.setVisibility(View.GONE);
                 } else if (position == 3) {
                     tv_no_scene.setVisibility(View.GONE);
                     sceneHolder.setVisibility(View.GONE);
@@ -285,7 +302,8 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     rv_group.setVisibility(View.GONE);
                     rv_device_list.setVisibility(View.GONE);
                     tv_no_scene.setVisibility(View.GONE);
-                    btnAddRule.setVisibility(View.VISIBLE);
+                    ivAddRule.setVisibility(View.VISIBLE);
+                    rv_rules.setVisibility(View.VISIBLE);
                 } else {
                     rv_device_list.setVisibility(View.GONE);
                     tv_no_scene.setVisibility(View.GONE);
@@ -301,7 +319,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                     else
                         no_of_device.setText("Devices (" + _list.size() + ")");
 
-                    btnAddRule.setVisibility(View.GONE);
+                    ivAddRule.setVisibility(View.GONE);
                 }
                 bottomNavigationBar.setTag(position);
             }
@@ -342,6 +360,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
         } else {
             updateDevices(_data, true);
         }
+        getAllRule();
     }
 
     public void Refresh(View view) {
@@ -495,6 +514,9 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             getScene();
         } else if (requestCode == SCENE_INTENT) {
             getGroupsFromServer();
+        }
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            getAllRule();
         }
     }
 
@@ -764,14 +786,26 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 case R.id.addGroup:
                     showGroups();
                     break;
+
+                case R.id.AddDeviceManually:
+                    setupManually();
+                    break;
             }
             return true;
         });
         popup.show(); //showing popup menu
     }
 
-    private void addNewScene() {
+    public void setupManually() {
+        final Dialog dialog = new Dialog(RoomActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.add_device_manually_dialog);
+        dialog.show();
 
+    }
+
+    private void addNewScene() {
         if (_mainList_scene != null && _mainList_scene.getLst_scene() != null && _mainList_scene.getLst_scene().size() >= 10) {
             androidx.appcompat.app.AlertDialog.Builder dialog = new androidx.appcompat.app.AlertDialog.Builder(RoomActivity.this);
             dialog.setTitle("Scene limit exceeded");
@@ -1244,7 +1278,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
     boolean isDeviceSubscribed = false;
 
     public void updateDevices(String data, boolean isFromOffline) {
-        try {
+//        try {
             this.Rdata = data;
             AllDataResponseModel _all_data = gson.fromJson(Rdata, AllDataResponseModel.class);
             if (filteredList != null)
@@ -1280,11 +1314,11 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
                 hideProgressDialog();
 
             filterEmptyGroup(_all_data);
-        } catch (Exception e) {
-            hideProgressDialog();
-            Toast.makeText(this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
-            Log.e("TAG", "Exception at update " + e.getMessage());
-        }
+//        } catch (InvalidClassException e) {
+//            hideProgressDialog();
+//            Toast.makeText(this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
+//            Log.e("TAG", "Exception at update " + e.getMessage());
+//        }
     }
 
     public boolean isDeviceAdded(ArrayList<data> _lst, String dno) {
@@ -1380,7 +1414,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 //            ArrayList<String> _lst_remote = filteredList.getObjData().get(pos).getIr();
 //            String remote_data = String.valueOf(_lst_remote);
 //            intent.putStringArrayListExtra("remotes_data", _lst_remote);
-//                        intent.putExtra("r_type", "rf");
+//            intent.putExtra("r_type", "rf");
             intent.putExtra("remotes", "rf");
             intent.putExtra("mode", "0");// "1" for working remote
             startActivity(intent);
@@ -1404,6 +1438,10 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             Intent intent = new Intent(RoomActivity.this, Type21Activity.class);
             intent.putExtra("dno", filteredList.getObjData().get(pos).getDno());
             startActivity(intent);
+        }else if (type == 14) {
+            Intent intent = new Intent(RoomActivity.this, Touchable_device.class);
+            intent.putExtra("dno", filteredList.getObjData().get(pos).getDno());
+            startActivity(intent);
         }
     }
 
@@ -1424,7 +1462,7 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
             case "11":
                 resource = R.drawable.open_door;
                 break;
-                case "12":
+            case "12":
                 resource = R.drawable.icon_multi_sensor;
                 break;
             default:
@@ -2150,4 +2188,113 @@ public class RoomActivity extends BaseActivity implements RoomOperation {
 
         return data;
     }
+
+    public void getAllRule() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        //PreferencesHelper.setAllDevices(SelectableDeviceList.this, null);
+        APIService apiInterface = APIClient.getClientForStringResponse().create(APIService.class);
+        String url = APIClient.BASE_URL + "/api/Get/getRule?dno=&UID=" + Constants.savetoShared(this).getString(Constants.USER_ID, "NA");
+        Call<String> _call = apiInterface.getRoomDevice(url);
+        _call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Log.wtf("RESPONSE_OF_DEVICES_AS_PER_ROOM", response.body());
+                    Gson _gson = new Gson();
+
+                    RuleListModel _model = _gson.fromJson(response.body(), RuleListModel.class);
+                    _lstRules = _model.getRuleList();
+                    _adapter = new RuleListAdapter(RoomActivity.this, _lstRules, _listener);
+                    rv_rules.setAdapter(_adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                Log.e("TAG", "OnFailure Called " + t.toString());
+                progressDialog.dismiss();
+            }
+        });
+    }
+
+    @Override
+    public void editRules(int pos) {
+        Intent _intent = new Intent(RoomActivity.this, AddRulesActivity.class);
+        _intent.putExtra("ruleID", _lstRules.get(pos).getID());
+        _intent.putExtra("dno", _lstRules.get(pos).getDno());
+        _intent.putExtra("sid", _lstRules.get(pos).getTriggerScene());
+        _intent.putExtra("ftime", _lstRules.get(pos).getF_Time());
+        _intent.putExtra("ttime", _lstRules.get(pos).getT_time());
+        startActivityForResult(_intent, 100);
+    }
+
+    @Override
+    public void delRules(int pos) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.delete)
+                .setMessage("Do you really want to delete?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        delRule(_lstRules.get(pos).getID(), pos);
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).show();
+    }
+
+    public void delRule(String ruleID, int position) {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        //PreferencesHelper.setAllDevices(SelectableDeviceList.this, null);
+        APIService apiInterface = APIClient.getClientForStringResponse().create(APIService.class);
+        String url = APIClient.BASE_URL + "/api/Get/delRule?ID=" + ruleID;
+        Log.e("TAG", "Delete Rules URL :: " + url);
+        Call<String> _call = apiInterface.getRoomDevice(url);
+        _call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NotNull Call<String> call, @NotNull Response<String> response) {
+                if (response.isSuccessful()) {
+                    progressDialog.dismiss();
+                    Log.wtf("RESPONSE_OF_DEVICES_AS_PER_ROOM", response.body());
+                    try {
+                        JSONObject json = new JSONObject(String.valueOf(response.body()));
+                        Log.e(" responseee ", json.toString());
+
+                        if (json.has("success") && json.getBoolean("success")) {
+                            progressDialog.dismiss();
+                            Toast.makeText(RoomActivity.this, "Rule Deleted Successfully", Toast.LENGTH_SHORT).show();
+                            _lstRules.remove(position);
+                            _adapter.notifyItemRemoved(position);
+                            _adapter.notifyDataSetChanged();
+                            if (_lstRules.size() == 0) {
+                                rv_rules.setVisibility(View.GONE);
+                            }
+                        } else {
+                            progressDialog.dismiss();
+                            Toast.makeText(RoomActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        progressDialog.dismiss();
+                    }
+                } else {
+                    Toast.makeText(RoomActivity.this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<String> call, @NotNull Throwable t) {
+                Log.e("TAG", "OnFailure Called " + t.toString());
+                progressDialog.dismiss();
+            }
+        });
+    }
+
 }

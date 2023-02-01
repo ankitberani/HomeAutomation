@@ -76,26 +76,26 @@
                     android:scrollbars="horizontal"
                     android:visibility="gone">
 
-                    <include layout="@layout/item_selected_device_for_rule"
+                    <include
                         android:id="@+id/ll_selectDevice"
-                        ></include>
-                <!--    <TextView
-                        android:id="@+id/tv_device_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:gravity="right"
-                        android:text=""
-                        android:visibility="gone"
-                        android:textSize="12sp"></TextView>
+                        layout="@layout/item_selected_device_for_rule"></include>
+                    <!--    <TextView
+                            android:id="@+id/tv_device_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:gravity="right"
+                            android:text=""
+                            android:visibility="gone"
+                            android:textSize="12sp"></TextView>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_selected_devices"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:orientation="horizontal"
-                        tools:listitem="@layout/item_selected_device_for_rule"></androidx.recyclerview.widget.RecyclerView>
-                -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_selected_devices"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:orientation="horizontal"
+                            tools:listitem="@layout/item_selected_device_for_rule"></androidx.recyclerview.widget.RecyclerView>
+                    -->
                 </LinearLayout>
 
                 <LinearLayout
@@ -163,7 +163,6 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_15"
                     android:background="@drawable/search_rounded"
-
                     android:orientation="vertical"
                     android:padding="@dimen/dp_05"
                     android:scrollbars="horizontal"
@@ -247,13 +246,12 @@
                         </FrameLayout>
 
                         <ImageView
-                            android:id="@+id/iv_delete_device"
-                            android:layout_width="@dimen/dp_20"
-                            android:layout_height="@dimen/dp_20"
-                            android:layout_gravity="right"
-                            android:padding="@dimen/dp_05"
+                            android:id="@+id/iv_delete_scene"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
                             android:src="@drawable/ic_close"
-                            android:visibility="gone"></ImageView>
+                            android:tint="@color/red"></ImageView>
                     </androidx.cardview.widget.CardView>
 
                 </LinearLayout>

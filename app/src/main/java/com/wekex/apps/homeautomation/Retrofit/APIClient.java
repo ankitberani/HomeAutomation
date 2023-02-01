@@ -19,7 +19,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class APIClient {
 
-    public static String BASE_URL = "http://209.58.164.151:88";
+//    public static String BASE_URL = "http://209.58.164.151:88";
+    public static String BASE_URL = "http://smartyhome.in/api/";
 
     private static Retrofit retrofit = null;
 

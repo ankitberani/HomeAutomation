@@ -33,8 +33,11 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
         <activity
-            android:name=".Activity.SelectSceneActivity"
+            android:name=".Activity.OtpVerifyActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".Activity.SelectSceneActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activity.ConfigueRuleDevices"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

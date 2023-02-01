@@ -197,7 +197,7 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             holder.deviceType_12.setVisibility(View.GONE);
         } else if (obj.getDtype() == 15) {
 
-           /* holder._seekbar_brightness.setMax(4);
+            /* holder._seekbar_brightness.setMax(4);
             holder._seekbar_brightness.setMin(1);*/
             holder.battery_indicator.setVisibility(View.GONE);
             Log.e("TAG", "RoomDeviceAdapter Type 15 Br " + obj.getObjd1().getBr() + " Name " + obj.getObjd1().getName());
@@ -1282,10 +1282,10 @@ public class RoomDeviceAdapter extends RecyclerView.Adapter<RoomDeviceAdapter.Vi
             tv_next_scheudule_d4.setVisibility(View.GONE);
 
             ll_parent.setOnClickListener(v -> {
-                if (allData.getObjData().get(getAdapterPosition()).isOnline())
-                    objInterface.click_device(getAdapterPosition(), allData.getObjData().get(getAdapterPosition()).getDtype());
-                else
-                    Toast.makeText(context, "Device offline", Toast.LENGTH_SHORT).show();
+                objInterface.click_device(getAdapterPosition(), allData.getObjData().get(getAdapterPosition()).getDtype());
+//                if (allData.getObjData().get(getAdapterPosition()).isOnline())
+//                else
+//                    Toast.makeText(context, "Device offline", Toast.LENGTH_SHORT).show();
             });
 
             tv_device_1 = itemView.findViewById(R.id.devicename_d1);

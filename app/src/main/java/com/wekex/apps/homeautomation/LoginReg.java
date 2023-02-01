@@ -2,11 +2,13 @@ package com.wekex.apps.homeautomation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.appcompat.app.AppCompatActivity;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -19,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +35,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
+import com.wekex.apps.homeautomation.Activity.OtpVerifyActivity;
 import com.wekex.apps.homeautomation.Activity.RemoteBrandActivity;
 import com.wekex.apps.homeautomation.Retrofit.APIClient;
 import com.wekex.apps.homeautomation.Retrofit.APIService;
@@ -121,7 +125,6 @@ public class LoginReg extends AppCompatActivity {
 //            postData("http://209.58.164.151:88/api/Login/userLogin", data);
             postData(APIClient.BASE_URL + "/api/Login/userLogin", data);
         }
-        // if (_email,va)
     }
 
     public void login(View view) {
@@ -169,12 +172,10 @@ public class LoginReg extends AppCompatActivity {
 
 
         if (awesomeValidation.validate()) {
-            Log.d(TAG, "signup: Successful");
             JSONObject data = getJSONdataSignUP(_fist_name, _last_name, _phone, _email, _password, _dob);
-
             Log.e(TAG, "signup: " + data.toString());
 //            postData("http://209.58.164.151:88/api/UserRegistration/newUserRegistration", data);
-            postData(APIClient.BASE_URL + "/api/UserRegistration/newUserRegistration", data);
+            postData(APIClient.BASE_URL + "/UserRegistration/newUserRegistration", data);
         }
 
     }
@@ -240,8 +241,14 @@ public class LoginReg extends AppCompatActivity {
                         try {
                             if (response.getString("success").equals("true")) {
                                 //  getRequest("http://209.58.164.151:88/api/UserRegistration/SendOTPMobile?mobile="+Constants.mobNo);
-                                loginLayout(findViewById(R.id.last_name));
+//                                loginLayout(findViewById(R.id.last_name));
                                 // Toast.makeText(LoginReg.this, "OTP Sent", Toast.LENGTH_SHORT).show();
+
+                                Intent _intent = new Intent(this, OtpVerifyActivity.class);
+                                _intent.putExtra("phone", phone.getText().toString().trim());
+                                _intent.putExtra("pass", password.getText().toString().trim());
+                                startActivity(_intent);
+                                finish();
                             } else {
                                 Toast.makeText(LoginReg.this, response.getString("error"), Toast.LENGTH_SHORT).show();
                             }
@@ -253,6 +260,7 @@ public class LoginReg extends AppCompatActivity {
                 error -> {
                     //Toast.makeText(LoginReg.this, "", Toast.LENGTH_SHORT).show();
                     // loginLayout(findViewById(R.id.last_name));
+                    findViewById(R.id.progressBar).setVisibility(View.GONE);
                     Toast.makeText(LoginReg.this, "Error User Exists" + error.getCause(), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onResponse: Error  " + error.getMessage());
                 }
@@ -278,8 +286,10 @@ public class LoginReg extends AppCompatActivity {
 
     }
 
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
     public void showDatePickerDialog(View v) {
-        WheelView date, month, year;
+       /* WheelView date, month, year;
 
 
         View view = LayoutInflater.from(this).inflate(R.layout.date_picker, null, false);
@@ -322,12 +332,29 @@ public class LoginReg extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-        dialog.show();
-
-
+        dialog.show();*/
         /*
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");*/
+
+        // Get Current Date
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        dob.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
+
     }
 
     public static class DatePickerFragment extends DialogFragment
@@ -404,7 +431,7 @@ public class LoginReg extends AppCompatActivity {
                     LoginRequestModel _model = new LoginRequestModel(data.getString("user"), data.getString("Password"));
                     Call<String> _call = _apiService.loginUser(_model);
 
-
+//                    {"error":"Unauthorized","success":false}
                     _call.enqueue(new Callback<String>() {
                         @Override
                         public void onResponse(Call<String> call, retrofit2.Response<String> response) {

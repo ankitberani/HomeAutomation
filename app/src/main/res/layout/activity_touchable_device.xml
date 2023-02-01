@@ -51,9 +51,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D1"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -90,9 +90,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D2"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
 
 
@@ -130,7 +130,7 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D3"
                     android:textColor="@color/white"
                     android:textSize="12sp"></TextView>
             </RelativeLayout>
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view_3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_10">
+                android:layout_margin="@dimen/margin_10">
 
                 <FrameLayout
                     android:id="@+id/v4"
@@ -170,9 +170,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D4"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
         </RelativeLayout>
 
@@ -184,6 +184,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
+            android:padding="@dimen/dp_20"
             android:layout_height="wrap_content">
 
             <RelativeLayout
@@ -219,9 +220,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D5"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -258,9 +259,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D6"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
@@ -268,7 +269,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view_5"
-                android:layout_centerHorizontal="true">
+                android:layout_margin="@dimen/margin_10"
+                >
 
                 <FrameLayout
                     android:id="@+id/v7"
@@ -296,25 +298,28 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D7"
+                    android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/view_8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view_7">
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/margin_10"
+                android:layout_below="@+id/view_6">
 
                 <FrameLayout
                     android:id="@+id/v8"
                     android:layout_width="@dimen/dp_80"
                     android:layout_height="@dimen/dp_80"
-                    android:layout_marginLeft="@dimen/margin_10">
+                    >
 
                     <View
-                        android:layout_width="@dimen/dp_80"
+                        android:layout_width="75dp"
                         android:layout_height="@dimen/dp_80"
                         android:background="@drawable/circullar_view"></View>
 
@@ -335,9 +340,9 @@
                     android:layout_centerHorizontal="true"
                     android:maxLength="10"
                     android:singleLine="true"
-                    android:text=""
+                    android:text="D8"
                     android:textColor="@color/white"
-                    android:textSize="12sp"></TextView>
+                    android:textSize="18sp"></TextView>
 
             </RelativeLayout>
 
@@ -346,6 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/view_7"
+                android:visibility="gone"
                 android:layout_alignParentRight="true">
 
 

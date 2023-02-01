@@ -6,6 +6,10 @@
         android:title="Add Devices" />
 
     <item
+        android:id="@+id/AddDeviceManually"
+        android:title="Add Devices Manually" />
+
+    <item
         android:id="@+id/AddProfiles"
         android:title="@string/add_scene" />
 
